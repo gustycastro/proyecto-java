@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<?import tpintegrador.proyecto.App?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero">
+    <Text text="Seleccione una fecha para agendar el turno:" />
+    <DatePicker fx:id="datePicker" />
+    <Button text="Agendar Turno" onAction="#agendarTurno"/>
+</VBox>
