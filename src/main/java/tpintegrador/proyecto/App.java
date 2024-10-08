@@ -2,20 +2,16 @@ package tpintegrador.proyecto;
 
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.sql.*;
 
 public class App extends Application {
-
+    
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("turnero.fxml"));
-        primaryStage.setTitle("Agendar Turno");
-        primaryStage.setScene(new Scene(root, 300, 200));
-        primaryStage.show();
+    public void start(Stage primaryStage)throws Exception{
+        Turnero turnero = new Turnero();
+        turnero.interfazGrafica(primaryStage);
+
     }
 
     public static void main(String[] args) {
