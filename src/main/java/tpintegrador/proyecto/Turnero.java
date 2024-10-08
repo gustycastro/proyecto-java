@@ -8,9 +8,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert;
 import java.time.LocalDate;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class Turnero {
-
+    
+    public void interfazGrafica(Stage primaryStage)throws Exception{
+      Parent root = FXMLLoader.load(getClass().getResource("turnero.fxml"));
+      primaryStage.setScene(new Scene(root, 300, 200));
+      primaryStage.show();
+    }
+    
     @FXML
     private DatePicker datePicker;
     

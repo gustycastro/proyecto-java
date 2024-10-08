@@ -19,8 +19,8 @@ public class Paciente extends Persona { //Herencia de persona
         this.dni=dni;
         this.edad=edad;
     }
-    ///Metodos del paciente
     
+    ///Metodos del paciente
     public void cacelarTurno(){
         
     }
