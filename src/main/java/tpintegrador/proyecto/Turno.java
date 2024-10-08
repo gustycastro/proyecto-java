@@ -19,11 +19,11 @@ public class Turno {
     public int edad;
     public ArrayList<Medico> tiposMedicos;
     ///Constructor 1
-    public Turno(String nombre, String apellido, int dni, int edad){
-        this.nombre=nombre;
-        this.apellido=apellido;
-        this.DNI=dni;
-        this.edad=edad;
+    public Turno(Paciente paciente){
+        this.nombre=paciente.nombre;
+        this.apellido=paciente.apellido;
+        this.DNI=paciente.dni;
+        this.edad=paciente.edad;
     }
     ///Constructor 2
     public Turno(int fecha, int hora, ArrayList<Medico> tiposMedicos){

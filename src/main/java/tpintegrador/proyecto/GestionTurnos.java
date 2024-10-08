@@ -11,8 +11,8 @@ package tpintegrador.proyecto;
 public class GestionTurnos {
     
     
-    public void agregarTurno(String nombre, String apellido, int dni, int edad){
-        Turno turno = new Turno(nombre, apellido, dni, edad);
+    public void agregarTurno(Paciente paciente){
+        Turno turno = new Turno(paciente);
         
         ///Agregar turno a SQL
     } 
@@ -20,5 +20,7 @@ public class GestionTurnos {
     public void eliminarTurno(){
         
     }
+
+    
 
 }
