@@ -14,6 +14,6 @@ public class ObraSocial {
     
     //Metodos
     public void aplicarDescuento(){
-        
+        System.out.println("testeo");
     }
 }
