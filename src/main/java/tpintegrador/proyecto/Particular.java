@@ -13,4 +13,7 @@ public class Particular {
     public float montoAbonar;
     
     //Metodos
+    public void aplicarDescuento() {
+        System.out.println("testeo");
+    }
 }
