@@ -13,7 +13,6 @@ public class Especialidades {
     
     public ArrayList tipoEspecialidades;
     
-    
     //Metodos
     public void mostrarEspecialidades(){
     }

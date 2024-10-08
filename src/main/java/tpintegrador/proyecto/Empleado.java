@@ -11,9 +11,9 @@ package tpintegrador.proyecto;
 public class Empleado {
     //Atributos
     public String horarioAtencion;
-    /// fernaflor
+    
+    //Metodos
     public void asistirTrabajo(){
         System.out.println("Asiste al trabajo");
     }
-    //Metodos
 }
