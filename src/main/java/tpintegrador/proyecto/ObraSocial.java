@@ -10,10 +10,23 @@ package tpintegrador.proyecto;
  */
 public class ObraSocial {
     //Atributos
-    public int descuentoAfiliado;
+    private int descuentoAfiliado;
     
+    //Constructor
+    public ObraSocial(int descuentoAfiliado){    
+        this.descuentoAfiliado = descuentoAfiliado;
+    }
+
+    //Metodos gets y sets
+    public int getDescuentoAfiliado() {
+        return descuentoAfiliado;
+    }
+    public void setDescuentoAfiliado(int descuentoAfiliado) {    
+        this.descuentoAfiliado = descuentoAfiliado;
+    }
+
     //Metodos
-    public void aplicarDescuento(){
+    public void aplicarDescuento() {
         System.out.println("testeo");
     }
 }
