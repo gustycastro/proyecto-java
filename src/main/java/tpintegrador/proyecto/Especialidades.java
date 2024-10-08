@@ -9,8 +9,8 @@ import java.util.ArrayList;
  * @author vale
  */
 public class Especialidades {
-    //Atributos
     
+    //Atributos
     public ArrayList tipoEspecialidades;
     
     //Metodos

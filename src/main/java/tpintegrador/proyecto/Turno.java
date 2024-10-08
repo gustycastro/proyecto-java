@@ -4,32 +4,36 @@
  */
 package tpintegrador.proyecto;
 
-import java.util.ArrayList;
 
 /**
  *
  * @author laure
  */
-public class Turno {
-    public int fecha;
-    public int hora;
-    public String nombre;
-    public String apellido;
-    public int DNI;
-    public int edad;
-    public ArrayList<Medico> tiposMedicos;
+public class Turno extends Paciente {
+    private int fecha;
+    private int hora;
     
-    ///Constructor 1
-    public Turno(Paciente paciente){
-        this.nombre=paciente.nombre;
-        this.apellido=paciente.apellido;
-        this.DNI=paciente.dni;
-        this.edad=paciente.edad;
+    
+    ///Constructor 
+    public Turno(int fecha, int hora,String nombre, String apellido, int dni, int edad, String historialMedico, boolean coberturaMedica) {
+        super(nombre, apellido, dni, edad, historialMedico, coberturaMedica);
+        this.fecha = fecha;
+        this.hora = hora;
     }
-    ///Constructor 2
-    public Turno(int fecha, int hora, ArrayList<Medico> tiposMedicos){
-        this.fecha=fecha;
-        this.hora=hora;
-        this.tiposMedicos=tiposMedicos;
+    
+    //Metodos gets y sets
+    public int getFecha() {
+        return fecha;
     }
+    public void setFecha(int fecha) {
+        this.fecha = fecha;
+    }
+    public int getHora() {
+        return hora;
+    }
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+    
+    
 }

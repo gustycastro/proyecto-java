@@ -9,6 +9,7 @@ package tpintegrador.proyecto;
  * @author vale
  */
 public class Empleado {
+    
     //Atributos
     public String horarioAtencion;
     

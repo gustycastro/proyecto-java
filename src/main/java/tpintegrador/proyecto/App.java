@@ -18,7 +18,6 @@ public class App extends Application {
         
         Connection conn = null;
         try {
-            //cargar el driver
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:test01.sqlite");
 
@@ -27,7 +26,7 @@ public class App extends Application {
             else
                 System.out.println("Conexión a base de datos: problemas!");
 
-           conn.close();        //cerrar la BD
+           conn.close();
 
         }
         catch (SQLException a) {

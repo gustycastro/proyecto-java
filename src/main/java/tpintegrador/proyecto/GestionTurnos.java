@@ -10,12 +10,10 @@ package tpintegrador.proyecto;
  */
 public class GestionTurnos {
     
-    
+    //Posible base de datos
     public void agregarTurno(Paciente paciente){
-        Turno turno = new Turno(paciente);
-        ///Agregar turno a SQL
+        
     } 
-    
     public void eliminarTurno(){
         
     }

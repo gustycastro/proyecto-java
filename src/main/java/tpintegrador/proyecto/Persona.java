@@ -15,8 +15,16 @@ public abstract class Persona {
     private int dni;
     private int edad;
     
-    //Metodos
+    //Constructor
 
+    public Persona(String nombre, String apellido, int dni, int edad) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.edad = edad;
+    }
+
+    //Metodos
     public String getNombre() {
         return nombre;
     }
