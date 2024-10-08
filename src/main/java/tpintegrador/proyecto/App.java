@@ -18,5 +18,9 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        
+        GestionTurnos gestor = new GestionTurnos();
+        Paciente Laureano = new Paciente("Laureano", "Petri" ,44904736,21);
+        gestor.agregarTurno("Laureano", "Petri", 44904736, 21);
     }
 }

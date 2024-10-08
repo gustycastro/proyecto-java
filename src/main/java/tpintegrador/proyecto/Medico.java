@@ -6,15 +6,8 @@ package tpintegrador.proyecto;
 
 /**
  *
- * @author HP
+ * @author laure
  */
-public abstract class Persona {
-    //Atributos 
-    public String nombre;
-    public String apellido;
-    public int dni;
-    public int edad;
-    
-    //Metodos
+public class Medico {
     
 }
