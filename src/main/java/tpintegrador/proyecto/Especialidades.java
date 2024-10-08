@@ -17,6 +17,8 @@ public class Especialidades {
     //Metodos
     public void mostrarEspecialidades(){
         System.out.println("testeo2");
+        System.out.println("lo ves o no");
+        System.out.println("laure se la come");
     }
 }
 
