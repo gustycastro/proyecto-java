@@ -15,6 +15,6 @@ public class CentroDeSalud {
     
     //Metodos
     public void recibirPersonas(){//Agregar este metodo a el UML
-        
+       
     }
 }

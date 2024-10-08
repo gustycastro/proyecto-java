@@ -13,7 +13,6 @@ public class GestionTurnos {
     
     public void agregarTurno(Paciente paciente){
         Turno turno = new Turno(paciente);
-        
         ///Agregar turno a SQL
     } 
     
