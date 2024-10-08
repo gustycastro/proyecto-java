@@ -16,6 +16,7 @@ public class Especialidades {
     
     //Metodos
     public void mostrarEspecialidades(){
-        
+        System.out.println("testeo");
     }
 }
+
