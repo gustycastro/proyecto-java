@@ -10,15 +10,19 @@ import java.util.ArrayList;
  */
 public class Especialidades {
     
-    //Atributos
-    public ArrayList tipoEspecialidades;
+    private String nombre;
     
-    //Metodos
-    public void mostrarEspecialidades(){
+    //Constructor
+    public Especialidades(String nombre) {
+        this.nombre = nombre;
     }
     
-    private void crearEspecialidades(){
-        
+    //Metodos gets y sets
+    @Override
+    public String toString() {
+        return nombre; // Esto permitirá que el ComboBox muestre el nombre de la especialidad
     }
+    
+    
 }
 

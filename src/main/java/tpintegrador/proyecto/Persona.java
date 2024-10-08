@@ -10,10 +10,10 @@ package tpintegrador.proyecto;
  */
 public abstract class Persona {
     //Atributos 
-    private String nombre;
-    private String apellido;
-    private int dni;
-    private int edad;
+    protected String nombre;
+    protected String apellido;
+    protected int dni;
+    protected int edad;
     
     //Constructor
 

@@ -1,3 +1,14 @@
-tpintegrador\proyecto\Medico.class
-module-info.class
+tpintegrador\proyecto\Turnero.class
+tpintegrador\proyecto\Turno.class
+tpintegrador\proyecto\Especialidades.class
+tpintegrador\proyecto\Paciente.class
 tpintegrador\proyecto\GestionTurnos.class
+tpintegrador\proyecto\Medico.class
+tpintegrador\proyecto\App.class
+tpintegrador\proyecto\CentroDeSalud.class
+tpintegrador\proyecto\Empleado.class
+tpintegrador\proyecto\Persona.class
+module-info.class
+tpintegrador\proyecto\Particular.class
+tpintegrador\proyecto\ListasMedEsp.class
+tpintegrador\proyecto\ObraSocial.class
