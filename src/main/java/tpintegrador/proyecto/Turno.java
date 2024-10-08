@@ -18,6 +18,7 @@ public class Turno {
     public int DNI;
     public int edad;
     public ArrayList<Medico> tiposMedicos;
+    
     ///Constructor 1
     public Turno(Paciente paciente){
         this.nombre=paciente.nombre;
