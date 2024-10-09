@@ -9,6 +9,7 @@ package tpintegrador.proyecto;
  */
 public class Especialidades {
     
+    //Atributos
     private String nombre;
     
     //Constructor

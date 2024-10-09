@@ -8,9 +8,9 @@ import java.sql.*;
 public class App extends Application {
     
     @Override
-    public void start(Stage primaryStage)throws Exception{
+    public void start(Stage interfaz)throws Exception{
         Turnero turnero = new Turnero();
-        turnero.interfazGrafica(primaryStage);
+        turnero.interfazGrafica(interfaz);
 
     }
 

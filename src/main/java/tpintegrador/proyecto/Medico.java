@@ -10,6 +10,7 @@ package tpintegrador.proyecto;
  */
 public class Medico extends Empleado {
     
+    //Atributos
     private Especialidades especialidad;
     private String matricula;
     

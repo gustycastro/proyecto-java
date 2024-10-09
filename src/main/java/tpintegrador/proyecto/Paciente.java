@@ -9,6 +9,7 @@ package tpintegrador.proyecto;
  * @author vale
  */
 public class Paciente extends Persona{ //Herencia de persona
+    
     //Atributos
     private String historialMedico;
     private boolean coberturaMedica;

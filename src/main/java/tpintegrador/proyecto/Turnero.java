@@ -21,10 +21,9 @@ import java.util.ArrayList;
  */
 public class Turnero {
 
-    // Listas para médicos y especialidades
+    //Atributos
     private ArrayList<Medico> listaMedicos;
     private ArrayList<Especialidades> listaEspecialidades;
-
     @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
     @FXML
@@ -40,24 +39,34 @@ public class Turnero {
         listaMedicos = new ArrayList<>();
         listaEspecialidades = new ArrayList<>();
 
-        // Llenar listas de médicos y especialidades
-        llenarDatosDeEjemplo();
+        //Llenar listas de médicos y especialidades
+        cargarListas();
     }
 
-    // Método para llenar listas con datos de ejemplo
-    private void llenarDatosDeEjemplo() {
+    // Método para llenar listas 
+    private void cargarListas() {
         Especialidades cardiologia = new Especialidades("Cardiología");
+        Especialidades traumatologia = new Especialidades("Traumatologia");
         Especialidades pediatria = new Especialidades("Pediatría");
 
         listaEspecialidades.add(cardiologia);
         listaEspecialidades.add(pediatria);
+        listaEspecialidades.add(traumatologia);
 
         listaMedicos.add(new Medico(cardiologia, "12345", "9:00-17:00", "Dr. Juan Pérez", "Pérez", 12345678, 40));
-        listaMedicos.add(new Medico(pediatria, "67890", "9:00-17:00", "Dra. Ana Gómez", "Gómez", 87654321, 35));
+        listaMedicos.add(new Medico(cardiologia, "12345", "9:00-17:00", "Dr. Fernando Torres", "Pérez", 12345678, 43));
+        listaMedicos.add(new Medico(cardiologia, "12345", "9:00-17:00", "Dr. Carlos Arias", "Pérez", 12345678, 32));
+        listaMedicos.add(new Medico(traumatologia, "67890", "9:00-17:00", "Dra. Alejandro Gonzalez", "Gómez", 87654321, 30));
+        listaMedicos.add(new Medico(traumatologia, "67890", "9:00-17:00", "Dra. Lautaro Sanchez", "Sanchez", 87654321, 35));
+        listaMedicos.add(new Medico(traumatologia, "67890", "9:00-17:00", "Dra. Matias Costela", "Costela", 87654321, 33));
+        listaMedicos.add(new Medico(pediatria, "67890", "9:00-17:00", "Dra. Federica Gómez", "Gómez", 87654321, 35));
+        listaMedicos.add(new Medico(pediatria, "67890", "9:00-17:00", "Dra. Maria Gutierrez", "Gómez", 87654321, 39));
+        listaMedicos.add(new Medico(pediatria, "67890", "9:00-17:00", "Dra. Monica Marquez", "Gómez", 87654321, 31));
+
     }
 
     // Método para cargar y mostrar la interfaz gráfica
-    public void interfazGrafica(Stage primaryStage) throws Exception {
+    public void interfazGrafica(Stage interfaz) throws Exception {
         // Cargar el archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("turnero.fxml"));
         Parent root = loader.load();
@@ -66,9 +75,9 @@ public class Turnero {
         Turnero turneroController = loader.getController();
 
         // Configurar la escena
-        primaryStage.setScene(new Scene(root, 600, 400));
-        primaryStage.setTitle("Sistema de Turnero");
-        primaryStage.show();
+        interfaz.setScene(new Scene(root, 600, 400));
+        interfaz.setTitle("Sistema de Turnero");
+        interfaz.show();
 
         // Llenar el ComboBox de especialidades
         turneroController.comboEspecialidades.getItems().addAll(turneroController.listaEspecialidades);

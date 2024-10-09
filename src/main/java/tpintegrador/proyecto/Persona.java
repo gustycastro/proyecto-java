@@ -9,6 +9,7 @@ package tpintegrador.proyecto;
  * @author HP
  */
 public abstract class Persona {
+    
     //Atributos 
     protected String nombre;
     protected String apellido;

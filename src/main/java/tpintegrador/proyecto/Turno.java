@@ -10,12 +10,11 @@ package tpintegrador.proyecto;
  * @author laure
  */
 public class Turno extends Paciente {
+    
+    //Atributos
     private int fecha;
     private int hora;
      
-    
-    
-    
     ///Constructor 
     public Turno(int fecha, int hora,String nombre, String apellido, int dni, int edad, String historialMedico, boolean coberturaMedica) {
         super(nombre, apellido, dni, edad, historialMedico, coberturaMedica);

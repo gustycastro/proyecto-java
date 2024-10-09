@@ -9,6 +9,7 @@ package tpintegrador.proyecto;
  * @author vale
  */
 public class Particular {
+    
     //Atributos
     public float montoAbonar;
     
