@@ -16,12 +16,11 @@ import javafx.scene.control.*;
 import java.util.ArrayList;
 
 public class Turnero {
-    
-    
+
     // Listas para médicos y especialidades
     private ArrayList<Medico> listaMedicos;
     private ArrayList<Especialidades> listaEspecialidades;
-    
+
     @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
     @FXML
@@ -36,7 +35,7 @@ public class Turnero {
     public Turnero() {
         listaMedicos = new ArrayList<>();
         listaEspecialidades = new ArrayList<>();
-        
+
         // Llenar listas de médicos y especialidades
         llenarDatosDeEjemplo();
     }
@@ -45,7 +44,7 @@ public class Turnero {
     private void llenarDatosDeEjemplo() {
         Especialidades cardiologia = new Especialidades("Cardiología");
         Especialidades pediatria = new Especialidades("Pediatría");
-        
+
         listaEspecialidades.add(cardiologia);
         listaEspecialidades.add(pediatria);
 
@@ -58,7 +57,7 @@ public class Turnero {
         // Cargar el archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("turnero.fxml"));
         Parent root = loader.load();
-    
+
         // Obtener el controlador
         Turnero turneroController = loader.getController();
 
@@ -66,16 +65,16 @@ public class Turnero {
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.setTitle("Sistema de Turnero");
         primaryStage.show();
-    
+
         // Llenar el ComboBox de especialidades
         turneroController.comboEspecialidades.getItems().addAll(turneroController.listaEspecialidades);
-    
+
         // Manejar el evento de selección de especialidad
         turneroController.btnMostrarMedicos.setOnAction(event -> turneroController.mostrarMedicos());
-    
+
         // Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
-        
+
     }
 
     // Método para mostrar médicos de la especialidad seleccionada
