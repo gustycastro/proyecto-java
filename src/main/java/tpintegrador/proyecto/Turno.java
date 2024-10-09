@@ -12,6 +12,8 @@ package tpintegrador.proyecto;
 public class Turno extends Paciente {
     private int fecha;
     private int hora;
+    public int prueba; //eliminar 
+    
     
     
     ///Constructor 
