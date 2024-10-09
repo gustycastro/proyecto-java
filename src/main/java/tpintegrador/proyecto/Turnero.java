@@ -15,6 +15,10 @@ import javafx.stage.Stage;
 import javafx.scene.control.*;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author HP
+ */
 public class Turnero {
 
     // Listas para médicos y especialidades
