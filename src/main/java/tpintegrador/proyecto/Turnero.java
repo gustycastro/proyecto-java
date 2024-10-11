@@ -23,6 +23,16 @@ public class Turnero {
 
     //Atributos
     @FXML
+    private TextField nombreId; // Campo para el nombre del paciente
+    @FXML
+    private TextField apellidoId; // Campo para el apellido del paciente
+    @FXML
+    private TextField dniId; // Campo para el DNI del paciente
+    @FXML
+    private TextField edadId; // Campo para la edad del paciente
+    @FXML
+    private TextField historiaClinicaId; // Campo para la historia clínica del paciente
+    @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
     @FXML
     private ComboBox<ObraSocial> comboObrasSociales; // ComboBox para seleccionar especialidad
@@ -34,6 +44,7 @@ public class Turnero {
     private Button btnMostrarMedicos; // Botón para mostrar médicos
     @FXML
     private Button btnAgendarTurno; // Botón para agendar el turno
+    
     
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
@@ -81,29 +92,54 @@ public class Turnero {
         }
     } else {
         showAlert("Error", "Por favor, seleccione una especialidad.");
-    }
-        
-   }
+    }   
+  }
     // Método para agendar un turno
     @FXML
     private void agendarTurno() {
-        
+        // Obtener los valores de los campos
+        String nombre = nombreId.getText();
+        String apellido = apellidoId.getText();
+        String dniStr = dniId.getText();
+        String edadStr = edadId.getText();
+        String historiaClinica = historiaClinicaId.getText();
         LocalDate selectedDate = datePicker.getValue();
-        if (selectedDate != null) {
+        Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
+
+        // Validación de los campos
+        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || historiaClinica.isEmpty() || selectedDate == null || medicoSeleccionado == null) {
+            showAlert("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+        // Validar que el DNI y la edad sean números
+        try {
+            int dni = Integer.parseInt(dniStr);
+            int edad = Integer.parseInt(edadStr);
+
+            // Agendar el turno si todo es válido
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Turno Agendado");
             alert.setHeaderText(null);
-            alert.setContentText("Turno agendado para el: " + selectedDate);
+            alert.setContentText("Turno agendado para " + nombre + " " + apellido + " el " + selectedDate + " con " + medicoSeleccionado.getNombre());
             alert.showAndWait();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Fecha no seleccionada");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor, seleccione una fecha para agendar el turno.");
-            alert.showAndWait();
-        }
+            limpiarCampos();
+    } catch (NumberFormatException e) {
+        showAlert("Error", "Por favor, ingrese un número válido para el DNI y la edad.");
     }
-
+  }
+    // Método para limpiar los campos
+    private void limpiarCampos() {
+        // Limpia todos los campos de entrada
+        nombreId.clear();
+        apellidoId.clear();
+        dniId.clear();
+        edadId.clear();
+        historiaClinicaId.clear();
+        comboObrasSociales.getSelectionModel().clearSelection();
+        comboEspecialidades.getSelectionModel().clearSelection();
+        listViewMedicos.getItems().clear();
+        datePicker.setValue(null);
+   }
     // Método para mostrar alertas
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
