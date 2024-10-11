@@ -7,17 +7,54 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero">
     <children>
-        <Text text="Seleccione una especialidad:" layoutX="14.0" layoutY="14.0"/>
-        <ComboBox fx:id="comboEspecialidades" layoutX="14.0" layoutY="40.0" promptText="Seleccionar Especialidad" />
+        <VBox layoutX="14.0" layoutY="14.0" spacing="20.0">
+            <!-- Datos del Paciente -->
+            <GridPane hgap="10" vgap="10">
+                <Text text="Datos del Paciente:" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
+
+                <Text text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="nombreId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Text text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="apellidoId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Text text="DNI:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <TextField fx:id="dniId" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                <Text text="Edad:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <TextField fx:id="edadId" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                <Text text="Historia Clínica:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <TextField fx:id="historiaClinicaId" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                <Text text="Obra Social:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+                <ComboBox fx:id="comboObrasSociales" GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Seleccionar Obra Social" />
+            </GridPane>
+
+            <!-- Selección de Especialidad -->
+            <VBox spacing="10.0">
+                <Text text="Seleccione una especialidad:" />
+                <ComboBox fx:id="comboEspecialidades" promptText="Seleccionar Especialidad" />
+            </VBox>
+
+            <!-- Botón Mostrar Médicos -->
+            <Button fx:id="btnMostrarMedicos" text="Mostrar Médicos" onAction="#mostrarMedicos" />
+
+            <!-- Médicos Disponibles -->
+            <VBox spacing="10.0">
+                <Text text="Médicos Disponibles:" />
+                <ListView fx:id="listViewMedicos" prefHeight="150.0" prefWidth="300.0" />
+            </VBox>
+
+            <!-- Selección de Fecha -->
+            <VBox spacing="10.0">
+                <Text text="Seleccione una fecha para agendar el turno:" />
+                <DatePicker fx:id="datePicker" />
+            </VBox>
+
+            <!-- Botón Agendar Turno -->
+            <Button fx:id="btnAgendarTurno" text="Agendar Turno" onAction="#agendarTurno" />
         
-        <Button fx:id="btnMostrarMedicos" text="Mostrar Médicos" layoutX="14.0" layoutY="80.0" onAction="#mostrarMedicos"/>
-        
-        <Text text="Médicos Disponibles:" layoutX="14.0" layoutY="120.0" />
-        <ListView fx:id="listViewMedicos" layoutX="14.0" layoutY="140.0" prefHeight="200.0" prefWidth="300.0"/>
-        
-        <Text text="Seleccione una fecha para agendar el turno:" layoutX="350.0" layoutY="14.0"/>
-        <DatePicker fx:id="datePicker" layoutX="350.0" layoutY="40.0"/>
-        
-        <Button fx:id="btnAgendarTurno" text="Agendar Turno" layoutX="350.0" layoutY="80.0" onAction="#agendarTurno"/>
+        </VBox>
     </children>
 </AnchorPane>

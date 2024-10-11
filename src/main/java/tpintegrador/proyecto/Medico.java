@@ -21,7 +21,7 @@ public class Medico extends Empleado {
         this.matricula = matricula;
     }
 
-    
+    //Metodos gets y sets
     public Especialidades getEspecialidad() {
         return especialidad;
     }
@@ -37,7 +37,7 @@ public class Medico extends Empleado {
 
     @Override
     public String toString() {
-        return nombre;
+        return nombre; // Esto permitirá que el ComboBox muestre el nombre de los medicos
     }
     
     

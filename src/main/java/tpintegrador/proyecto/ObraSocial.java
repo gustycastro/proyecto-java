@@ -11,21 +11,26 @@ package tpintegrador.proyecto;
 public class ObraSocial {
     
     //Atributos
-    private int descuentoAfiliado;
+    private String nombre;
     
     //Constructor
-    public ObraSocial(int descuentoAfiliado){    
-        this.descuentoAfiliado = descuentoAfiliado;
+    public ObraSocial(String nombre) {
+        this.nombre = nombre;
     }
-
+    
     //Metodos gets y sets
-    public int getDescuentoAfiliado() {
-        return descuentoAfiliado;
+    public String getNombre() {
+        return nombre;
     }
-    public void setDescuentoAfiliado(int descuentoAfiliado) {    
-        this.descuentoAfiliado = descuentoAfiliado;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
-
+    
+    @Override
+    public String toString() {
+        return nombre; // Esto permitirá que el ComboBox muestre el nombre de las obras sociales
+    }
+    
     //Metodos
     public void aplicarDescuento() {
         System.out.println("testeo");

@@ -36,5 +36,4 @@ public class Turno extends Paciente {
         this.hora = hora;
     }
     
-    
 }

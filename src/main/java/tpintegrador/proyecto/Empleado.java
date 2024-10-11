@@ -26,6 +26,7 @@ public class Empleado extends Persona {
     public void setHorarioAtencion(String horarioAtencion) {
         this.horarioAtencion = horarioAtencion;
     }
+    
     @Override
     public String getNombre() {
         return nombre;

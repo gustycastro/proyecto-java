@@ -18,6 +18,13 @@ public class Especialidades {
     }
     
     //Metodos gets y sets
+    public String getNombre() {
+        return nombre; 
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     @Override
     public String toString() {
         return nombre; // Esto permitirá que el ComboBox muestre el nombre de la especialidad

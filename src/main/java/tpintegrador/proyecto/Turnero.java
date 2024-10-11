@@ -25,6 +25,8 @@ public class Turnero {
     @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
     @FXML
+    private ComboBox<ObraSocial> comboObrasSociales; // ComboBox para seleccionar especialidad
+    @FXML
     private ListView<Medico> listViewMedicos; // ListView para mostrar médicos
     @FXML
     private DatePicker datePicker; // Para seleccionar la fecha del turno
@@ -45,12 +47,15 @@ public class Turnero {
         Turnero turneroController = loader.getController();
 
         // Configurar la escena
-        interfaz.setScene(new Scene(root, 600, 400));
+        interfaz.setScene(new Scene(root, 1000, 800));
         interfaz.setTitle("Sistema de Turnero");
         interfaz.show();
 
         // Llenar el ComboBox de especialidades
         turneroController.comboEspecialidades.getItems().addAll(cs.getListaEspecialidades());
+        
+        // Llenar el ComboBox de obra sociales
+        turneroController.comboObrasSociales.getItems().addAll(cs.getListaObraSocial());
 
         // Manejar el evento de selección de especialidad
         turneroController.btnMostrarMedicos.setOnAction(event -> turneroController.mostrarMedicos());
@@ -82,6 +87,7 @@ public class Turnero {
     // Método para agendar un turno
     @FXML
     private void agendarTurno() {
+        
         LocalDate selectedDate = datePicker.getValue();
         if (selectedDate != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
