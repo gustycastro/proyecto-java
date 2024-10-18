@@ -12,10 +12,10 @@ public class Medico extends Empleado {
     
     //Atributos
     private Especialidades especialidad;
-    private String matricula;
+    private int matricula;// Fer: cambie String de matricula por int
     
     //Constructor
-    public Medico(Especialidades especialidad, String matricula, String horarioAtencion, String nombre, String apellido, int dni, int edad) {
+    public Medico(Especialidades especialidad, int matricula, String horarioAtencion, String nombre, String apellido, long dni, int edad) { // Fer: cambie int de dni por long y String de matricula por int
         super(horarioAtencion, nombre, apellido, dni, edad);
         this.especialidad = especialidad;
         this.matricula = matricula;
@@ -28,10 +28,12 @@ public class Medico extends Empleado {
     public void setEspecialidad(Especialidades especialidad) {
         this.especialidad = especialidad;
     }
-    public String getMatricula() {
+    // Fer: cambie String de matricula por int
+    public int getMatricula() {
         return matricula;
     }
-    public void setMatricula(String matricula) {
+    // Fer: cambie String de matricula por int
+    public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
 
