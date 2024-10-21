@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 <?import tpintegrador.proyecto.Turnero?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero" stylesheets="styles.css">
     <children>
         <VBox layoutX="14.0" layoutY="14.0" spacing="20.0">
             <!-- Datos del Paciente -->

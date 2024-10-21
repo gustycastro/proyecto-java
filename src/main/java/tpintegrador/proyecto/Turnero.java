@@ -51,14 +51,17 @@ public class Turnero {
         CentroDeSalud cs = new CentroDeSalud("sadasd", 0);
         cs.cargarListas();
         // Cargar el archivo FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("turnero.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/turnero.fxml"));
         Parent root = loader.load();
 
         // Obtener el controlador
         Turnero turneroController = loader.getController();
-
+        
+        Scene scene = new Scene(root, 1000, 800);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+        
         // Configurar la escena
-        interfaz.setScene(new Scene(root, 1000, 800));
+        interfaz.setScene(scene);
         interfaz.setTitle("Sistema de Turnero");
         interfaz.show();
 

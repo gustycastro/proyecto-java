@@ -1,9 +1,9 @@
 package tpintegrador.proyecto;
 
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import java.sql.*;
+
 
 public class App extends Application {
     
