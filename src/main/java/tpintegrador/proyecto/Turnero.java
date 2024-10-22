@@ -129,22 +129,31 @@ public class Turnero {
             showAlert("Error", "Por favor, complete todos los campos.");
             return;
         }
+
         // Validar que el DNI y la edad sean números
         try {
             int dni = Integer.parseInt(dniStr);
             int edad = Integer.parseInt(edadStr);
 
+            // Convertir la fecha a un formato adecuado (por ejemplo, yyyy-MM-dd)
+            String fecha = selectedDate.toString();
+
             // Agendar el turno si todo es válido
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            GestionTurnos dbTurnos = new GestionTurnos();
             alert.setTitle("Turno Agendado");
             alert.setHeaderText(null);
-            alert.setContentText("Turno agendado para " + nombre + " " + apellido + " el " + selectedDate + " con " + medicoSeleccionado.getNombre());
+            alert.setContentText("Turno agendado para " + nombre + " " + apellido + " el " + fecha + " con " + medicoSeleccionado.getNombre());
             alert.showAndWait();
+
+            // Llamar al método para insertar en la base de datos
+            dbTurnos.insertarPacientes(1, nombre, edad, fecha, dni);
+
             limpiarCampos();
-    } catch (NumberFormatException e) {
-        showAlert("Error", "Por favor, ingrese un número válido para el DNI y la edad.");
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Por favor, ingrese un número válido para el DNI y la edad.");
+        }
     }
-  }
     // Método para limpiar los campos
     private void limpiarCampos() {
         // Limpia todos los campos de entrada
