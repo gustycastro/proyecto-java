@@ -11,7 +11,7 @@ import java.sql.*;
 public class GestionTurnos {
     
     public void conexion() {
-    Connection conn = null;
+        Connection conn = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
@@ -61,35 +61,49 @@ public class GestionTurnos {
         System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
+    
     public void insertarPacientes(int ID, String nombre, int edad, String fecha, int DNI) {
-        Connection c = null;
-        PreparedStatement pstmt = null;
+    Connection c = null;
+    PreparedStatement pstmt = null;
 
-        try {
-            Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
-            c.setAutoCommit(false);
-            System.out.println("Base de datos abierta exitosamente");
+    try {
+        // Cargar el driver JDBC de SQLite
+        Class.forName("org.sqlite.JDBC");
+        
+        // Conectar a la base de datos
+        c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
+        c.setAutoCommit(false);
+        System.out.println("Base de datos abierta exitosamente");
 
-            String sql = "INSERT INTO TablaPacientes (ID, nombre, edad, fecha, DNI) VALUES (?, ?, ?, ?, ?);";
-            pstmt = c.prepareStatement(sql);
-            pstmt.setInt(1, ID);
-            pstmt.setString(2, nombre);
-            pstmt.setInt(3, edad);
-            pstmt.setString(4, fecha);
-            pstmt.setInt(5, DNI);
+        // Preparar la consulta de inserción
+        String sql = "INSERT INTO TablaPacientes (ID, nombre, edad, fecha, DNI) VALUES (?, ?, ?, ?, ?);";
+        pstmt = c.prepareStatement(sql);
+        pstmt.setInt(1, ID);
+        pstmt.setString(2, nombre);
+        pstmt.setInt(3, edad);
+        pstmt.setString(4, fecha);
+        pstmt.setInt(5, DNI);
 
-            pstmt.executeUpdate();
-            pstmt.close();
-            c.commit();
-            c.close();
-
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
+        // Ejecutar la actualización
+        pstmt.executeUpdate();
+        
+        // Confirmar la transacción
+        c.commit();
         System.out.println("Registro creado con éxito");
+    } catch (Exception e) {
+        System.err.println("Error al insertar paciente");
+        System.err.println(e.getClass().getName() + ": " + e.getMessage());
+    } finally {
+        // Cerrar los recursos
+        try {
+            if (pstmt != null) pstmt.close();
+            if (c != null) c.close();
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión o el PreparedStatement");
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
     }
+}
     
     public void mostrarRegistros() {
     Connection c = null;
@@ -131,6 +145,7 @@ public class GestionTurnos {
     }
     System.out.println("Operación realizada con éxito");
     }
+    
     public int obtenerUltimoId() {
         Connection c = null;
         Statement stmt = null;
@@ -155,11 +170,54 @@ public class GestionTurnos {
         }
         return ultimoId;
     }
+    
+    public void eliminarTurno(int idPaciente) {
+        Connection c = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
+            c.setAutoCommit(false);
+            System.out.println("Base de datos abierta exitosamente");
+
+            // Consulta de eliminación con parámetro
+            String sql = "DELETE FROM TablaPacientes WHERE ID = ?;";
+            pstmt = c.prepareStatement(sql);
+            pstmt.setInt(1, idPaciente);
+            pstmt.executeUpdate();
+            c.commit();
+
+            System.out.println("Turno eliminado con éxito para el paciente con ID: " + idPaciente);
+
+            // Mostrar los registros restantes después de eliminar el turno
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM TablaPacientes;");
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                String nombre = rs.getString("nombre");
+                int edad = rs.getInt("edad");
+                String fecha = rs.getString("fecha");
+                int dni = rs.getInt("DNI");
+
+                System.out.println("ID = " + id);
+                System.out.println("Nombre = " + nombre);
+                System.out.println("Edad = " + edad);
+                System.out.println("Fecha = " + fecha);
+                System.out.println("DNI = " + dni);
+                System.out.println();
+            }
+            rs.close();
+            stmt.close();
+            pstmt.close();
+            c.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo eliminar el turno");
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
     public void agregarTurno(Paciente paciente){
         
     } 
-    public void eliminarTurno(){
-        
-    }
 
 }
