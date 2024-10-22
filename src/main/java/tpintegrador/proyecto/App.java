@@ -17,6 +17,8 @@ public class App extends Application {
     public static void main(String[] args) {
          GestionTurnos dbTurnos = new GestionTurnos();
          dbTurnos.conexion();
-        launch(args);
+         launch(args);
+         
+         dbTurnos.mostrarRegistros();
     }
   }

@@ -16,7 +16,13 @@ import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -48,9 +54,10 @@ public class Turnero {
     @FXML
     private Button btnAgendarTurno; // Botón para agendar el turno
     @FXML
+    private Button btnCancelarTurno; // Botón para cancelar el turno
+    @FXML
     private ImageView logoImage;
-    
-    
+
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
         CentroDeSalud cs = new CentroDeSalud("sadasd", 0);
@@ -61,10 +68,10 @@ public class Turnero {
 
         // Obtener el controlador
         Turnero turneroController = loader.getController();
-        
+
         Scene scene = new Scene(root, 1000, 800);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
-        
+
         // Configurar la escena
         interfaz.setScene(scene);
         interfaz.setTitle("Sistema de Turnero");
@@ -72,7 +79,7 @@ public class Turnero {
 
         // Llenar el ComboBox de especialidades
         turneroController.comboEspecialidades.getItems().addAll(cs.getListaEspecialidades());
-        
+
         // Llenar el ComboBox de obra sociales
         turneroController.comboObrasSociales.getItems().addAll(cs.getListaObraSocial());
 
@@ -81,7 +88,7 @@ public class Turnero {
 
         // Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
-        
+
         // Cargar el logo
         try {
             Image logo = new Image(getClass().getResourceAsStream("/ico/calendario.svg"));
@@ -101,17 +108,18 @@ public class Turnero {
         Especialidades especialidadSeleccionada = comboEspecialidades.getValue();
         listViewMedicos.getItems().clear(); // Limpiar la lista antes de mostrar
         if (especialidadSeleccionada != null) {
-        Iterator<Medico> it = cs.getListaMedicos().iterator();
-        while (it.hasNext()) {
-            Medico medico = it.next();
-            if (medico.getEspecialidad().equals(especialidadSeleccionada)) {
-                listViewMedicos.getItems().add(medico); // Agregar médicos a la ListView
+            Iterator<Medico> it = cs.getListaMedicos().iterator();
+            while (it.hasNext()) {
+                Medico medico = it.next();
+                if (medico.getEspecialidad().equals(especialidadSeleccionada)) {
+                    listViewMedicos.getItems().add(medico); // Agregar médicos a la ListView
+                }
             }
+        } else {
+            showAlert("Error", "Por favor, seleccione una especialidad.");
         }
-    } else {
-        showAlert("Error", "Por favor, seleccione una especialidad.");
-    }   
-  }
+    }
+
     // Método para agendar un turno
     @FXML
     private void agendarTurno() {
@@ -155,6 +163,7 @@ public class Turnero {
             showAlert("Error", "Por favor, ingrese un número válido para el DNI y la edad.");
         }
     }
+
     // Método para limpiar los campos
     private void limpiarCampos() {
         // Limpia todos los campos de entrada
@@ -167,7 +176,46 @@ public class Turnero {
         comboEspecialidades.getSelectionModel().clearSelection();
         listViewMedicos.getItems().clear();
         datePicker.setValue(null);
-   }
+    }
+
+    @FXML
+    private void cancelarTurno() {
+        Stage cancelarStage = new Stage();
+        cancelarStage.initStyle(StageStyle.UTILITY);
+        cancelarStage.initModality(Modality.APPLICATION_MODAL);
+        GestionTurnos gestion = new GestionTurnos();
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().add(new Text("Ingrese el DNI para cancelar el turno:"));
+
+        TextField dniField = new TextField();
+        dniField.setPromptText("Ingrese DNI del paciente");
+        vbox.getChildren().add(dniField);
+
+        Button confirmButton = new Button("Eliminar");
+        confirmButton.setOnAction(e -> {
+            try {
+                // Obtener el texto del campo y convertirlo a int
+                String dniString = dniField.getText();
+                int dni = Integer.parseInt(dniString);
+
+                // Lógica para cancelar el turno
+                gestion.eliminarTurno(dni); // Pasar el DNI al método eliminarTurno
+                cancelarStage.close();
+            } catch (NumberFormatException ex) {
+                // Manejar el caso donde el DNI no es válido
+                System.out.println("El DNI ingresado no es válido.");
+            }
+        });
+
+        vbox.getChildren().add(confirmButton);
+
+        Scene scene = new Scene(vbox, 300, 200);
+        cancelarStage.setScene(scene);
+        cancelarStage.setTitle("Cancelar Turno");
+        cancelarStage.show();
+    }
+
     // Método para mostrar alertas
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -72,6 +72,8 @@
 
                     <!-- Botón Agendar Turno -->
                     <Button fx:id="btnAgendarTurno" text="Agendar Turno" onAction="#agendarTurno" />
+                    
+                    <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno" />
                 </VBox>
             </children>
         </AnchorPane>

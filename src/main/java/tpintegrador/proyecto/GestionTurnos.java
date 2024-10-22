@@ -171,7 +171,7 @@ public class GestionTurnos {
         return ultimoId;
     }
     
-    public void eliminarTurno(int idPaciente) {
+    public void eliminarTurno(int dniPaciente) {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -182,13 +182,13 @@ public class GestionTurnos {
             System.out.println("Base de datos abierta exitosamente");
 
             // Consulta de eliminación con parámetro
-            String sql = "DELETE FROM TablaPacientes WHERE ID = ?;";
+            String sql = "DELETE FROM TablaPacientes WHERE DNI = ?;";
             pstmt = c.prepareStatement(sql);
-            pstmt.setInt(1, idPaciente);
+            pstmt.setInt(1, dniPaciente);
             pstmt.executeUpdate();
             c.commit();
 
-            System.out.println("Turno eliminado con éxito para el paciente con ID: " + idPaciente);
+            System.out.println("Turno eliminado con éxito para el paciente con DNI: " + dniPaciente);
 
             // Mostrar los registros restantes después de eliminar el turno
             Statement stmt = c.createStatement();
@@ -220,4 +220,5 @@ public class GestionTurnos {
         
     } 
 
+    
 }
