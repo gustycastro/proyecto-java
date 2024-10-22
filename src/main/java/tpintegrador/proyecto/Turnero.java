@@ -129,13 +129,12 @@ public class Turnero {
             showAlert("Error", "Por favor, complete todos los campos.");
             return;
         }
-
-        // Validar que el DNI y la edad sean números
         try {
+            // Validar que el DNI y la edad sean números
             int dni = Integer.parseInt(dniStr);
             int edad = Integer.parseInt(edadStr);
 
-            // Convertir la fecha a un formato adecuado (por ejemplo, yyyy-MM-dd)
+            // Convertir la fecha a un formato adecuado
             String fecha = selectedDate.toString();
 
             // Agendar el turno si todo es válido
@@ -147,7 +146,9 @@ public class Turnero {
             alert.showAndWait();
 
             // Llamar al método para insertar en la base de datos
-            dbTurnos.insertarPacientes(1, nombre, edad, fecha, dni);
+            int nuevoId = dbTurnos.obtenerUltimoId() + 1;
+            dbTurnos.insertarPacientes(nuevoId, nombre, edad, fecha, dni);
+            dbTurnos.mostrarRegistros();
 
             limpiarCampos();
         } catch (NumberFormatException e) {

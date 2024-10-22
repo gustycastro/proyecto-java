@@ -91,42 +91,70 @@ public class GestionTurnos {
         System.out.println("Registro creado con éxito");
     }
     
-    public void mostrarRegistros(){
+    public void mostrarRegistros() {
+    Connection c = null;
+    Statement stmt = null;
+    try {
+        // Corregir la cadena de conexión
+        Class.forName("org.sqlite.JDBC");
+        c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
+        c.setAutoCommit(false);
+        System.out.println("Base de datos abierta exitosamente");
+
+        // Crear la consulta SQL
+        stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM TablaPacientes;");
+
+        // Recorrer los resultados
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String nombre = rs.getString("nombre");
+            int edad = rs.getInt("edad");
+            String fecha = rs.getString("fecha");
+            int dni = rs.getInt("DNI"); // Cambiado a int
+
+            System.out.println("ID = " + id);
+            System.out.println("Nombre = " + nombre);
+            System.out.println("Edad = " + edad);
+            System.out.println("Fecha = " + fecha);
+            System.out.println("DNI = " + dni);
+            System.out.println();
+        }
+        // Cerrar ResultSet y Statement
+        rs.close();
+        stmt.close();
+        c.close();
+    } catch (Exception e) {
+        System.out.println("Error al mostrar los datos ");
+        System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        System.exit(0);
+    }
+    System.out.println("Operación realizada con éxito");
+    }
+    public int obtenerUltimoId() {
         Connection c = null;
         Statement stmt = null;
+        int ultimoId = 0;
+
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:tjdbc:sqlite:turnos.sqlite");
-            c.setAutoCommit(false);
-            System.out.println("Base de datos abierta exitosamente");
-
+            c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
             stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM TablaPacientes;" );
-      
-            while ( rs.next() ) {
-                int id = rs.getInt("id");
-                String  nombre = rs.getString("nombre");
-                int edad  = rs.getInt("edad");
-                String  fecha = rs.getString("fecha");
-                float DNI = rs.getFloat("DNI");
-         
-                System.out.println( "ID = " + id );
-                System.out.println( "nombre = " + nombre );
-                System.out.println( "edad = " + edad );
-                System.out.println( "fecha = " + fecha );
-                System.out.println( "DNI = " + DNI );
-                System.out.println();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(ID) FROM TablaPacientes;");
+
+            if (rs.next()) {
+                ultimoId = rs.getInt(1);  // Obtiene el valor más alto de la columna ID
             }
+
             rs.close();
             stmt.close();
             c.close();
-        } catch ( Exception e ) {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Operacion realizada con exito");
+        return ultimoId;
     }
-    //Posible base de datos
     public void agregarTurno(Paciente paciente){
         
     } 
