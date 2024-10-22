@@ -14,6 +14,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 
 /**
  *
@@ -44,6 +47,8 @@ public class Turnero {
     private Button btnMostrarMedicos; // Botón para mostrar médicos
     @FXML
     private Button btnAgendarTurno; // Botón para agendar el turno
+    @FXML
+    private ImageView logoImage;
     
     
     // Método para cargar y mostrar la interfaz gráfica
@@ -76,6 +81,16 @@ public class Turnero {
 
         // Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
+        
+        // Cargar el logo
+        try {
+            Image logo = new Image(getClass().getResourceAsStream("/ico/calendario.svg"));
+            logoImage.setImage(logo);
+            logoImage.getStyleClass().add("logo-svg"); // Agrega la clase CSS al ImageView
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     // Método para mostrar médicos de la especialidad seleccionada

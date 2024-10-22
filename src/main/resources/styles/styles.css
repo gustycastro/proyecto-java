@@ -1,6 +1,51 @@
-/* styles.css */
+.logo-svg {
+    -fx-fill: #FFFFFF; 
+}
+
+.fondo-abajo {
+    -fx-background-image: url('imagenes/imagen2.jpg');
+    -fx-background-size: cover;
+}
+
 .button {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
+    -fx-background-color: #000000; /* Color de fondo negro */
+    -fx-text-fill: white; /* Color de texto blanco */
     -fx-font-size: 16px;
 }
+/* Efecto hover para los botones */
+.button:hover {
+    -fx-text-fill: blue; /* Cambia el color del texto a azul al pasar el mouse */
+    -fx-cursor: hand; /* Cambia el cursor a una manito */
+}
+
+.obrasSociales, .especialidades {
+    -fx-background-color: #000000; /* Fondo negro */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 16px;
+    -fx-prompt-text-fill: white; /* Cambia el color del texto del prompt a azul */
+}
+
+.obrasSociales:hover, .especialidades:hover {
+    -fx-background-color: #000000; 
+    -fx-text-fill: blue; /* Cambia el color del texto a azul al pasar el mouse */
+    -fx-cursor: hand; /* Cambia el cursor a una manito */
+}
+
+/* Cambiar el color del texto cuando el ComboBox está abierto */
+.obrasSociales .list-view .list-cell, .especialidades .list-view .list-cell {
+    -fx-background-color: #000000; 
+    -fx-text-fill: white; /* Cambia el color del texto a azul */
+    -fx-cursor: hand; /* Cambia el cursor a una manito */
+}
+.obrasSociales .list-view .list-cell:hover, .especialidades .list-view .list-cell:hover{
+    -fx-background-color: #000000; 
+    -fx-text-fill: blue; /* Cambia el color del texto a azul */
+    -fx-cursor: hand; /* Cambia el cursor a una manito */
+}
+
+/* Cambiar el color del texto cuando el ComboBox está seleccionado */
+.obrasSociales .list-view .list-cell:selected, .especialidades .list-view .list-cell:selected {
+    -fx-background-color: #333333; /* Color de fondo seleccionado */
+    -fx-text-fill: white; /* Color del texto seleccionado */
+}
+
