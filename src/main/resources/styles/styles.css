@@ -1,51 +1,117 @@
-.logo-svg {
-    -fx-fill: #FFFFFF; 
+/* Estilo general */
+* {
+    -fx-font-family: "Helvetica", "Arial", sans-serif; /* Fuente Helvetica, Arial o sans-serif */
+    -fx-font-weight: 400; /* Grosor de la letra */
+    -fx-text-fill: #333333; /* Color gris oscuro */
 }
 
+/* Estilos del logo */
+.logo-svg {
+    -fx-fill: #FFFFFF; /* Color blanco */
+}
+
+/* Fondo */
 .fondo-abajo {
     -fx-background-image: url('imagenes/imagen2.jpg');
     -fx-background-size: cover;
 }
 
+/* Estilos de los botones */
 .button {
-    -fx-background-color: #000000; /* Color de fondo negro */
-    -fx-text-fill: white; /* Color de texto blanco */
-    -fx-font-size: 16px;
-}
-/* Efecto hover para los botones */
-.button:hover {
-    -fx-text-fill: blue; /* Cambia el color del texto a azul al pasar el mouse */
-    -fx-cursor: hand; /* Cambia el cursor a una manito */
-}
-
-.obrasSociales, .especialidades {
     -fx-background-color: #000000; /* Fondo negro */
     -fx-text-fill: white; /* Texto blanco */
     -fx-font-size: 16px;
-    -fx-prompt-text-fill: white; /* Cambia el color del texto del prompt a azul */
 }
 
-.obrasSociales:hover, .especialidades:hover {
-    -fx-background-color: #000000; 
-    -fx-text-fill: blue; /* Cambia el color del texto a azul al pasar el mouse */
-    -fx-cursor: hand; /* Cambia el cursor a una manito */
+.button:hover {
+    -fx-text-fill: blue; /* Texto azul al pasar el mouse */
+    -fx-cursor: hand; /* Cursor de manito */
 }
 
-/* Cambiar el color del texto cuando el ComboBox está abierto */
-.obrasSociales .list-view .list-cell, .especialidades .list-view .list-cell {
-    -fx-background-color: #000000; 
-    -fx-text-fill: white; /* Cambia el color del texto a azul */
-    -fx-cursor: hand; /* Cambia el cursor a una manito */
-}
-.obrasSociales .list-view .list-cell:hover, .especialidades .list-view .list-cell:hover{
-    -fx-background-color: #000000; 
-    -fx-text-fill: blue; /* Cambia el color del texto a azul */
-    -fx-cursor: hand; /* Cambia el cursor a una manito */
+/* Botones específicos */
+#btnAgendarTurno {
+    -fx-background-color: green; /* Fondo verde */
 }
 
-/* Cambiar el color del texto cuando el ComboBox está seleccionado */
-.obrasSociales .list-view .list-cell:selected, .especialidades .list-view .list-cell:selected {
-    -fx-background-color: #333333; /* Color de fondo seleccionado */
-    -fx-text-fill: white; /* Color del texto seleccionado */
+#btnCancelarTurno {
+    -fx-background-color: #cd5c5c; /* Fondo rojo */
+}
+#btnAgendarTurno:hover, #btnCancelarTurno:hover {
+    -fx-text-fill: white; /* Texto azul al pasar el mouse */
+    -fx-cursor: hand; /* Cursor de manito */
+}
+#btnAgendarTurno:hover {
+    -fx-background-color: #32cd32; /* Fondo verde */
 }
 
+#btnCancelarTurno:hover {
+    -fx-background-color: red; /* Fondo rojo */
+}
+#btnAgendarTurno:pressed {
+    -fx-background-color: darkgreen; /* Fondo verde */
+}
+
+#btnCancelarTurno:pressed {
+    -fx-background-color: #8b0000; /* Fondo rojo */
+}
+
+
+#eliminarButton {
+    -fx-background-color: #000000; /* Fondo negro */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px; /* Relleno interno */
+}
+
+#eliminarButton:hover {
+    -fx-text-fill: blue; /* Texto azul al pasar el mouse */
+    -fx-cursor: hand;
+}
+
+/* Estilo de los ComboBox */
+.combo-box {
+    -fx-background-color: #000000; /* Fondo negro */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 16px;
+    -fx-prompt-text-fill: white; /* Texto del prompt blanco */
+}
+.combo-box:hover {
+    -fx-cursor: hand;
+}
+.combo-box .text {
+    -fx-fill: white; /* Texto azul al pasar el mouse */
+}
+.combo-box:hover .text {
+    -fx-fill: blue; /* Texto azul al pasar el mouse */
+    -fx-cursor: hand;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-background-color: #000000; /* Fondo negro */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-cursor: hand;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-text-fill: blue; /* Texto azul al pasar el mouse */
+}
+
+.combo-box .list-view .list-cell:selected {
+    -fx-background-color: #333333; /* Fondo seleccionado gris oscuro */
+    -fx-text-fill: white; /* Texto blanco */
+}
+
+/* Estilos del formulario */
+#dniTextField {
+    -fx-background-color: #ffffff; /* Fondo blanco */
+    -fx-border-color: #000000; /* Borde negro */
+    -fx-border-width: 2px;
+    -fx-padding: 5px; /* Relleno interno */
+    -fx-font-size: 14px;
+}
+
+#cancelarTurnoVBox {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 20px; /* Relleno alrededor del contenido */
+    -fx-spacing: 10px; /* Espaciado entre elementos */
+}

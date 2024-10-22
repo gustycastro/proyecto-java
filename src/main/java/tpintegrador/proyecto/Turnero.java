@@ -91,7 +91,7 @@ public class Turnero {
 
         // Cargar el logo
         try {
-            Image logo = new Image(getClass().getResourceAsStream("/ico/calendario.svg"));
+            Image logo = new Image(getClass().getResourceAsStream("/calendario.svg"));
             logoImage.setImage(logo);
             logoImage.getStyleClass().add("logo-svg"); // Agrega la clase CSS al ImageView
         } catch (Exception e) {
@@ -186,13 +186,16 @@ public class Turnero {
         GestionTurnos gestion = new GestionTurnos();
 
         VBox vbox = new VBox(10);
+        vbox.setId("cancelarTurnoVBox"); // Añadir ID al VBox
         vbox.getChildren().add(new Text("Ingrese el DNI para cancelar el turno:"));
 
         TextField dniField = new TextField();
+        dniField.setId("dniTextField"); // Añadir ID al TextField
         dniField.setPromptText("Ingrese DNI del paciente");
         vbox.getChildren().add(dniField);
 
         Button confirmButton = new Button("Eliminar");
+        confirmButton.setId("eliminarButton"); // Añadir ID al botón
         confirmButton.setOnAction(e -> {
             try {
                 // Obtener el texto del campo y convertirlo a int
@@ -211,6 +214,7 @@ public class Turnero {
         vbox.getChildren().add(confirmButton);
 
         Scene scene = new Scene(vbox, 300, 200);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm()); // Añadir la hoja de estilos
         cancelarStage.setScene(scene);
         cancelarStage.setTitle("Cancelar Turno");
         cancelarStage.show();

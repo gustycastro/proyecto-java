@@ -10,20 +10,22 @@
     <!-- Fondo general de la interfaz (mitad superior negro, mitad inferior con imagen) -->
     <children>
         <VBox>
+            <VBox styleClass="fondo-abajo" prefHeight="400">
+                <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
+            </VBox>
             <!-- Mitad superior con fondo negro -->
             <VBox style="-fx-background-color: black;" prefHeight="400">
-                <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
+                
             </VBox>
             
             <!-- Mitad inferior con imagen de fondo -->
-            <VBox styleClass="fondo-abajo" prefHeight="400">
-                
-            </VBox>
+            
         </VBox>
 
         <!-- Formulario centrado con fondo blanco y bordes -->
-        <AnchorPane maxWidth="600" maxHeight="700" style="-fx-background-color: white; -fx-padding: 20px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+        <AnchorPane maxWidth="550" maxHeight="400" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
             <children>
+                <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
                 <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
                     
                     <!-- Datos del Paciente -->
@@ -47,33 +49,31 @@
 
                         <Text text="Obra Social:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                         <ComboBox styleClass="obrasSociales" fx:id="comboObrasSociales" GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Seleccionar Obra Social" />
+                        
+                        <!-- Selección de Especialidad -->
+                        <Text text="Seleccione una especialidad:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                        <ComboBox styleClass="especialidades" fx:id="comboEspecialidades" promptText="Seleccionar Especialidad"  GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                        
+                        <!-- Botón Mostrar Médicos -->
+                        <Button fx:id="btnMostrarMedicos" text="Médicos Disponibles" onAction="#mostrarMedicos" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+                        
+                        <!-- Médicos Disponibles -->
+                        <ListView fx:id="listViewMedicos" prefHeight="50.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        
+                        <!-- Selección de Fecha -->
+                        <Text text="Seleccione una fecha para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
+                        <DatePicker fx:id="datePicker"  GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                        
+                        
+                        
+                        <!-- Botón Agendar Turno -->
+                        <Button fx:id="btnAgendarTurno" text="Agendar Turno" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
+
+                        <!-- Botón Cancelar Turno -->
+                        <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
+                        
+                        
                     </GridPane>
-
-                    <!-- Selección de Especialidad -->
-                    <VBox spacing="10.0">
-                        <Text text="Seleccione una especialidad:" />
-                        <ComboBox styleClass="especialidades" fx:id="comboEspecialidades" promptText="Seleccionar Especialidad" />
-                    </VBox>
-
-                    <!-- Botón Mostrar Médicos -->
-                    <Button fx:id="btnMostrarMedicos" text="Mostrar Médicos" onAction="#mostrarMedicos" />
-
-                    <!-- Médicos Disponibles -->
-                    <VBox spacing="10.0">
-                        <Text text="Médicos Disponibles:" />
-                        <ListView fx:id="listViewMedicos" prefHeight="150.0" prefWidth="300.0" />
-                    </VBox>
-
-                    <!-- Selección de Fecha -->
-                    <VBox spacing="10.0">
-                        <Text text="Seleccione una fecha para agendar el turno:" />
-                        <DatePicker fx:id="datePicker" />
-                    </VBox>
-
-                    <!-- Botón Agendar Turno -->
-                    <Button fx:id="btnAgendarTurno" text="Agendar Turno" onAction="#agendarTurno" />
-                    
-                    <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno" />
                 </VBox>
             </children>
         </AnchorPane>
