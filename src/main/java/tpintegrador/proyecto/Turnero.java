@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -95,16 +94,6 @@ public class Turnero {
 
         // Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
-
-        // Cargar el logo
-        try {
-            Image logo = new Image(getClass().getResourceAsStream("/calendario.svg"));
-            logoImage = new ImageView();
-            logoImage.setImage(logo);
-            logoImage.getStyleClass().add("logo-svg"); // Agrega la clase CSS al ImageView
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
     }
     
