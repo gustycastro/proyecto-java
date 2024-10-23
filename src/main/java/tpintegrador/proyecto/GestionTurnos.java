@@ -50,12 +50,12 @@ public class GestionTurnos {
             String sql = "CREATE TABLE IF NOT EXISTS TablaPacientes " +
                      "(ID INT PRIMARY KEY NOT NULL, " +
                      "nombre   TEXT NOT NULL, " +
-                     "apellido  TEXT NOT NULL, " +
-                     "edad     INT NOT NULL, " +
+                     "apellido TEXT NOT NULL, " +
+                     "edad     INTEGER NOT NULL, " +
                      "fecha    TEXT NOT NULL, " +
-                     "DNI      INT NOT NULL), " +
-                     "doctor     TEXT NOT NULL";
-                      
+                     "DNI      INTEGER NOT NULL, " +
+                     "doctor   TEXT NOT NULL " +
+                     ");";
             stmt.executeUpdate(sql);
             stmt.close();
             System.out.println("Tabla creada correctamente");

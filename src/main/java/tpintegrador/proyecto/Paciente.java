@@ -11,26 +11,16 @@ package tpintegrador.proyecto;
 public class Paciente extends Persona{ //Herencia de persona
     
     //Atributos
-    private String historialMedico;
     private boolean coberturaMedica;
     
     ///Constructor
 
-    public Paciente(String nombre, String apellido, long dni,int edad, String historialMedico, boolean coberturaMedica) { // Fer: cambie int de dni por long
+    public Paciente(String nombre, String apellido, long dni,int edad,boolean coberturaMedica) { // Fer: cambie int de dni por long
         super(nombre,apellido,dni,edad);
-        this.historialMedico = historialMedico;
         this.coberturaMedica = coberturaMedica;
     }
     
     //Metodos gets y sets
-
-    public String getHistorialMedico() {
-        return historialMedico;
-    }
-
-    public void setHistorialMedico(String historialMedico) {
-        this.historialMedico = historialMedico;
-    }
 
     public boolean isCoberturaMedica() {
         return coberturaMedica;
@@ -39,10 +29,5 @@ public class Paciente extends Persona{ //Herencia de persona
     public void setCoberturaMedica(boolean coberturaMedica) {
         this.coberturaMedica = coberturaMedica;
     }
-    
-
-    ///Metodos del paciente
-    public void cacelarTurno() {
-    }
-    
+     
 }

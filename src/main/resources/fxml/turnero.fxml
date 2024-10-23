@@ -16,23 +16,43 @@
             <VBox style="-fx-background-color: black;" prefHeight="400">
 
             </VBox>
-
             <!-- Mitad inferior con imagen de fondo -->
-
         </VBox>
     </children>
     <!-- Página Principal -->
-    <AnchorPane fx:id="paginaPrincipal" style="-fx-background-color: white; -fx-padding: 20px;">
+    <AnchorPane fx:id="paginaPrincipal" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
         <children>
+            <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
             <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
                 <Text text="Sistema de Turnos" styleClass="titulo-principal"/>
                 <Button fx:id="btnAgregarTurno" text="Agregar Turno" onAction="#irAgregarTurno"/>
                 <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#irModificarTurno"/>
+                <Button fx:id="btnMostrarTurno" text="Mostrar Turno" onAction="#irMostrarTurno"/>
                 <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno"/>
             </VBox>
         </children>
     </AnchorPane>
-
+    
+    <!-- Página Mostrar Turnos -->
+    <AnchorPane fx:id="paginaMostrarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+        <children>
+            <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
+            <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+               <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
+            </VBox>
+        </children>
+    </AnchorPane>
+    
+    <!-- Página Modificar Turnos -->
+    <AnchorPane fx:id="paginaModificarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+        <children>
+            <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
+            <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+               <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
+            </VBox>
+        </children>
+    </AnchorPane>
+    
     <!-- Formulario de Turno (Página de Agregar Turno) -->
     <AnchorPane fx:id="paginaAgregarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
             <children>
@@ -55,9 +75,6 @@
                         <Text text="Edad:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                         <TextField fx:id="edadId" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-                        <Text text="Historia Clínica:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                        <TextField fx:id="historiaClinicaId" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-
                         <Text text="Obra Social:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                         <ComboBox styleClass="obrasSociales" fx:id="comboObrasSociales" GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Seleccionar Obra Social" />
                         
@@ -74,8 +91,6 @@
                         <!-- Selección de Fecha -->
                         <Text text="Seleccione una fecha para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
                         <DatePicker fx:id="datePicker"  GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                        
-                        
                         
                         <!-- Botón Agendar Turno -->
                         <Button fx:id="btnAgendarTurno" text="Confirmar" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>

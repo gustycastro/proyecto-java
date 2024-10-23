@@ -17,7 +17,7 @@ public class Turno extends Paciente {
      
     ///Constructor 
     public Turno(int fecha, int hora,String nombre, String apellido, int dni, int edad, String historialMedico, boolean coberturaMedica) {
-        super(nombre, apellido, dni, edad, historialMedico, coberturaMedica);
+        super(nombre, apellido, dni, edad, coberturaMedica);
         this.fecha = fecha;
         this.hora = hora;
     }

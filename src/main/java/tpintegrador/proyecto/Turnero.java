@@ -41,8 +41,6 @@ public class Turnero {
     @FXML
     private TextField edadId; // Campo para la edad del paciente
     @FXML
-    private TextField historiaClinicaId; // Campo para la historia clínica del paciente
-    @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
     @FXML
     private ComboBox<ObraSocial> comboObrasSociales; // ComboBox para seleccionar especialidad
@@ -58,29 +56,15 @@ public class Turnero {
     private Button btnCancelarTurno; // Botón para cancelar el turno
     @FXML
     private ImageView logoImage;
-
     @FXML
     private AnchorPane paginaPrincipal;
     @FXML
     private AnchorPane paginaAgregarTurno;
+    @FXML
+    private AnchorPane paginaMostrarTurno;
+    @FXML
+    private AnchorPane paginaModificarTurno;
 
-    // Ir a la página de Agregar Turno
-    @FXML
-    private void irAgregarTurno() {
-        paginaPrincipal.setVisible(false);
-        paginaAgregarTurno.setVisible(true);
-    }
-    @FXML
-    private void irModificarTurno() {
-        paginaPrincipal.setVisible(false);
-        paginaAgregarTurno.setVisible(true);
-    }
-    // Volver a la página principal
-    @FXML
-    private void volverPaginaPrincipal() {
-        paginaAgregarTurno.setVisible(false);
-        paginaPrincipal.setVisible(true);
-    }
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
         CentroDeSalud cs = new CentroDeSalud("sadasd", 0);
@@ -122,6 +106,33 @@ public class Turnero {
         }
 
     }
+    
+    //Ir a la página de Agregar Turno
+    @FXML
+    private void irAgregarTurno() {
+        paginaPrincipal.setVisible(false);
+        paginaAgregarTurno.setVisible(true);
+    }
+    //Ir a la página de Modificar Turno
+    @FXML
+    private void irModificarTurno() {
+        paginaPrincipal.setVisible(false);
+        paginaModificarTurno.setVisible(true);
+    }
+    //Ir a la página de Mostrar Turno
+    @FXML
+    private void irMostrarTurno() {
+        paginaPrincipal.setVisible(false);
+        paginaMostrarTurno.setVisible(true);
+    }
+    //Volver a la página principal
+    @FXML
+    private void volverPaginaPrincipal() {
+        paginaAgregarTurno.setVisible(false);
+        paginaMostrarTurno.setVisible(false);
+        paginaModificarTurno.setVisible(false);
+        paginaPrincipal.setVisible(true);
+    }
 
     // Método para mostrar médicos de la especialidad seleccionada
     @FXML
@@ -151,12 +162,11 @@ public class Turnero {
         String apellido = apellidoId.getText();
         String dniStr = dniId.getText();
         String edadStr = edadId.getText();
-        String historiaClinica = historiaClinicaId.getText();
         LocalDate selectedDate = datePicker.getValue();
         Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
 
         // Validación de los campos
-        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || historiaClinica.isEmpty() || selectedDate == null || medicoSeleccionado == null) {
+        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null) {
             showAlert("Error", "Por favor, complete todos los campos.");
             return;
         }
@@ -194,13 +204,13 @@ public class Turnero {
         apellidoId.clear();
         dniId.clear();
         edadId.clear();
-        historiaClinicaId.clear();
         comboObrasSociales.getSelectionModel().clearSelection();
         comboEspecialidades.getSelectionModel().clearSelection();
         listViewMedicos.getItems().clear();
         datePicker.setValue(null);
     }
-
+    
+    //Metodo para cancelar turno
     @FXML
     private void cancelarTurno() {
         Stage cancelarStage = new Stage();
