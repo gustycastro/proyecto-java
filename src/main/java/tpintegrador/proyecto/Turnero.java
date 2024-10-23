@@ -155,7 +155,7 @@ public class Turnero {
 
             // Llamar al método para insertar en la base de datos
             int nuevoId = dbTurnos.obtenerUltimoId() + 1;
-            dbTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni);
+            dbTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni, medicoSeleccionado.getNombre());
             dbTurnos.mostrarRegistros();
 
             limpiarCampos();

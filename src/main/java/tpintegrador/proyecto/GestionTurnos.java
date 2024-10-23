@@ -53,7 +53,9 @@ public class GestionTurnos {
                      "apellido  TEXT NOT NULL, " +
                      "edad     INT NOT NULL, " +
                      "fecha    TEXT NOT NULL, " +
-                     "DNI      INT NOT NULL)";
+                     "DNI      INT NOT NULL), " +
+                     "doctor     TEXT NOT NULL";
+                      
             stmt.executeUpdate(sql);
             stmt.close();
             System.out.println("Tabla creada correctamente");
@@ -63,7 +65,7 @@ public class GestionTurnos {
         }
     }
     
-    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI) {
+    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI, String doctor) {
     Connection c = null;
     PreparedStatement pstmt = null;
 
@@ -77,7 +79,7 @@ public class GestionTurnos {
         System.out.println("Base de datos abierta exitosamente");
 
         // Preparar la consulta de inserción
-        String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI) VALUES (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI, doctor) VALUES (?, ?, ?, ?, ?, ?, ?);";
         pstmt = c.prepareStatement(sql);
         pstmt.setInt(1, ID);
         pstmt.setString(2, nombre);
@@ -85,7 +87,7 @@ public class GestionTurnos {
         pstmt.setInt(4, edad);
         pstmt.setString(5, fecha);
         pstmt.setInt(6, DNI);
-
+        pstmt.setString(7, doctor);
         // Ejecutar la actualización
         pstmt.executeUpdate();
         
@@ -129,6 +131,7 @@ public class GestionTurnos {
             int edad = rs.getInt("edad");
             String fecha = rs.getString("fecha");
             int dni = rs.getInt("DNI"); // Cambiado a int
+            String doctor = rs.getString("doctor");
 
             System.out.println("ID = " + id);
             System.out.println("Nombre = " + nombre);
@@ -136,6 +139,7 @@ public class GestionTurnos {
             System.out.println("Edad = " + edad);
             System.out.println("Fecha = " + fecha);
             System.out.println("DNI = " + dni);
+            System.out.println("Doctor/ra = " + doctor);
             System.out.println();
         }
         // Cerrar ResultSet y Statement
