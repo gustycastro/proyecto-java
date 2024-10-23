@@ -6,7 +6,6 @@
 <?import tpintegrador.proyecto.Turnero?>
 
 <StackPane xmlns:fx="http://javafx.com/javafx" xmlns="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero" stylesheets="styles.css">
-
     <!-- Fondo general de la interfaz (mitad superior negro, mitad inferior con imagen) -->
     <children>
         <VBox>
@@ -15,15 +14,27 @@
             </VBox>
             <!-- Mitad superior con fondo negro -->
             <VBox style="-fx-background-color: black;" prefHeight="400">
-                
-            </VBox>
-            
-            <!-- Mitad inferior con imagen de fondo -->
-            
-        </VBox>
 
-        <!-- Formulario centrado con fondo blanco y bordes -->
-        <AnchorPane maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+            </VBox>
+
+            <!-- Mitad inferior con imagen de fondo -->
+
+        </VBox>
+    </children>
+    <!-- Página Principal -->
+    <AnchorPane fx:id="paginaPrincipal" style="-fx-background-color: white; -fx-padding: 20px;">
+        <children>
+            <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+                <Text text="Sistema de Turnos" styleClass="titulo-principal"/>
+                <Button fx:id="btnAgregarTurno" text="Agregar Turno" onAction="#irAgregarTurno"/>
+                <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#irModificarTurno"/>
+                <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno"/>
+            </VBox>
+        </children>
+    </AnchorPane>
+
+    <!-- Formulario de Turno (Página de Agregar Turno) -->
+    <AnchorPane fx:id="paginaAgregarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
             <children>
                 <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
                 <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
@@ -67,15 +78,11 @@
                         
                         
                         <!-- Botón Agendar Turno -->
-                        <Button fx:id="btnAgendarTurno" text="Agendar Turno" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
-
-                        <!-- Botón Cancelar Turno -->
-                        <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
-                        
-                        
-                    </GridPane>
-                </VBox>
-            </children>
-        </AnchorPane>
-    </children>
+                        <Button fx:id="btnAgendarTurno" text="Confirmar" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
+                        <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
+                </GridPane>
+            </VBox>
+        </children>
+    </AnchorPane>
 </StackPane>
+

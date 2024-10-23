@@ -199,24 +199,7 @@ public class GestionTurnos {
             System.out.println("Turno eliminado con éxito para el paciente con DNI: " + dniPaciente);
 
             // Mostrar los registros restantes después de eliminar el turno
-            Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * FROM TablaPacientes;");
-            while (rs.next()) {
-                int id = rs.getInt("ID");
-                String nombre = rs.getString("nombre");
-                int edad = rs.getInt("edad");
-                String fecha = rs.getString("fecha");
-                int dni = rs.getInt("DNI");
-
-                System.out.println("ID = " + id);
-                System.out.println("Nombre = " + nombre);
-                System.out.println("Edad = " + edad);
-                System.out.println("Fecha = " + fecha);
-                System.out.println("DNI = " + dni);
-                System.out.println();
-            }
-            rs.close();
-            stmt.close();
+            mostrarRegistros();
             pstmt.close();
             c.close();
         } catch (Exception e) {

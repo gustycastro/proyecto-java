@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -58,6 +59,28 @@ public class Turnero {
     @FXML
     private ImageView logoImage;
 
+    @FXML
+    private AnchorPane paginaPrincipal;
+    @FXML
+    private AnchorPane paginaAgregarTurno;
+
+    // Ir a la página de Agregar Turno
+    @FXML
+    private void irAgregarTurno() {
+        paginaPrincipal.setVisible(false);
+        paginaAgregarTurno.setVisible(true);
+    }
+    @FXML
+    private void irModificarTurno() {
+        paginaPrincipal.setVisible(false);
+        paginaAgregarTurno.setVisible(true);
+    }
+    // Volver a la página principal
+    @FXML
+    private void volverPaginaPrincipal() {
+        paginaAgregarTurno.setVisible(false);
+        paginaPrincipal.setVisible(true);
+    }
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
         CentroDeSalud cs = new CentroDeSalud("sadasd", 0);
