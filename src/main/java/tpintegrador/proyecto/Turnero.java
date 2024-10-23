@@ -99,6 +99,7 @@ public class Turnero {
         // Cargar el logo
         try {
             Image logo = new Image(getClass().getResourceAsStream("/calendario.svg"));
+            logoImage = new ImageView();
             logoImage.setImage(logo);
             logoImage.getStyleClass().add("logo-svg"); // Agrega la clase CSS al ImageView
         } catch (Exception e) {

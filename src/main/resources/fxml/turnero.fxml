@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 <?import tpintegrador.proyecto.Turnero?>
 
-<StackPane xmlns:fx="http://javafx.com/javafx" xmlns="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero" stylesheets="styles.css">
+<StackPane xmlns:fx="http://javafx.com/javafx" xmlns="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero" stylesheets="@styles.css">
     <!-- Fondo general de la interfaz (mitad superior negro, mitad inferior con imagen) -->
     <children>
         <VBox>
