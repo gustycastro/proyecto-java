@@ -23,13 +23,13 @@
         </VBox>
 
         <!-- Formulario centrado con fondo blanco y bordes -->
-        <AnchorPane maxWidth="550" maxHeight="400" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+        <AnchorPane maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
             <children>
                 <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
                 <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
                     
                     <!-- Datos del Paciente -->
-                    <GridPane hgap="10" vgap="10">
+                    <GridPane hgap="14" vgap="14">
                         <Text text="Datos del Paciente:" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
 
                         <Text text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -58,7 +58,7 @@
                         <Button fx:id="btnMostrarMedicos" text="Médicos Disponibles" onAction="#mostrarMedicos" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
                         
                         <!-- Médicos Disponibles -->
-                        <ListView fx:id="listViewMedicos" prefHeight="50.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                        <ListView fx:id="listViewMedicos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                         
                         <!-- Selección de Fecha -->
                         <Text text="Seleccione una fecha para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>

@@ -48,8 +48,9 @@ public class GestionTurnos {
         try {
             stmt = conn.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS TablaPacientes " +
-                     "(ID_paciente INT PRIMARY KEY NOT NULL, " +
+                     "(ID INT PRIMARY KEY NOT NULL, " +
                      "nombre   TEXT NOT NULL, " +
+                     "apellido  TEXT NOT NULL, " +
                      "edad     INT NOT NULL, " +
                      "fecha    TEXT NOT NULL, " +
                      "DNI      INT NOT NULL)";
@@ -62,7 +63,7 @@ public class GestionTurnos {
         }
     }
     
-    public void insertarPacientes(int ID, String nombre, int edad, String fecha, int DNI) {
+    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI) {
     Connection c = null;
     PreparedStatement pstmt = null;
 
@@ -76,13 +77,14 @@ public class GestionTurnos {
         System.out.println("Base de datos abierta exitosamente");
 
         // Preparar la consulta de inserción
-        String sql = "INSERT INTO TablaPacientes (ID, nombre, edad, fecha, DNI) VALUES (?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI) VALUES (?, ?, ?, ?, ?, ?);";
         pstmt = c.prepareStatement(sql);
         pstmt.setInt(1, ID);
         pstmt.setString(2, nombre);
-        pstmt.setInt(3, edad);
-        pstmt.setString(4, fecha);
-        pstmt.setInt(5, DNI);
+        pstmt.setString(3, apellido);
+        pstmt.setInt(4, edad);
+        pstmt.setString(5, fecha);
+        pstmt.setInt(6, DNI);
 
         // Ejecutar la actualización
         pstmt.executeUpdate();
@@ -123,12 +125,14 @@ public class GestionTurnos {
         while (rs.next()) {
             int id = rs.getInt("id");
             String nombre = rs.getString("nombre");
+            String apellido = rs.getString("apellido");
             int edad = rs.getInt("edad");
             String fecha = rs.getString("fecha");
             int dni = rs.getInt("DNI"); // Cambiado a int
 
             System.out.println("ID = " + id);
             System.out.println("Nombre = " + nombre);
+            System.out.println("Apellido = " + apellido);
             System.out.println("Edad = " + edad);
             System.out.println("Fecha = " + fecha);
             System.out.println("DNI = " + dni);
@@ -219,6 +223,4 @@ public class GestionTurnos {
     public void agregarTurno(Paciente paciente){
         
     } 
-
-    
 }

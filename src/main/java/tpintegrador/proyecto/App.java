@@ -18,7 +18,6 @@ public class App extends Application {
          GestionTurnos dbTurnos = new GestionTurnos();
          dbTurnos.conexion();
          launch(args);
-         
          dbTurnos.mostrarRegistros();
     }
   }

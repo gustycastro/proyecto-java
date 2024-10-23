@@ -24,7 +24,7 @@
 }
 
 .button:hover {
-    -fx-text-fill: blue; /* Texto azul al pasar el mouse */
+    -fx-text-fill: grey; /* Texto azul al pasar el mouse */
     -fx-cursor: hand; /* Cursor de manito */
 }
 
@@ -64,7 +64,7 @@
 }
 
 #eliminarButton:hover {
-    -fx-text-fill: blue; /* Texto azul al pasar el mouse */
+    -fx-text-fill: grey; /* Texto azul al pasar el mouse */
     -fx-cursor: hand;
 }
 
@@ -82,7 +82,7 @@
     -fx-fill: white; /* Texto azul al pasar el mouse */
 }
 .combo-box:hover .text {
-    -fx-fill: blue; /* Texto azul al pasar el mouse */
+    -fx-fill: grey; /* Texto azul al pasar el mouse */
     -fx-cursor: hand;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .combo-box .list-view .list-cell:hover {
-    -fx-text-fill: blue; /* Texto azul al pasar el mouse */
+    -fx-text-fill: grey; /* Texto azul al pasar el mouse */
 }
 
 .combo-box .list-view .list-cell:selected {
