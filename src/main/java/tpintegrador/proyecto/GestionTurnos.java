@@ -185,7 +185,7 @@ public class GestionTurnos {
         }
         return ultimoId;
     }
-    
+
     public void eliminarTurno(int dniPaciente) {
         Connection c = null;
         PreparedStatement pstmt = null;
@@ -214,8 +214,63 @@ public class GestionTurnos {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
-    
-    public void modificarFechaTurno(int dniPaciente, LocalDate nuevaFecha) {
+
+    // Método para buscar un turno por DNI
+    public String buscarTurnoPorDni(int dni) {
+        String sql = "SELECT id, nombre, apellido, edad, fecha, dni, doctor FROM TablaPacientes WHERE dni = ?";
+        StringBuilder resultado = new StringBuilder();
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite")) {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, dni); // Setear el parámetro dni
+
+            ResultSet rs = pstmt.executeQuery();
+
+            // Si encuentra un resultado
+            if (rs.next()) {
+                resultado.append("Nombre: ").append(rs.getString("nombre")).append("\n")
+                        .append("Apellido: ").append(rs.getString("apellido")).append("\n")
+                        .append("Edad: ").append(rs.getInt("edad")).append("\n")
+                        .append("Fecha: ").append(rs.getString("fecha")).append("\n")
+                        .append("DNI: ").append(rs.getInt("dni")).append("\n")
+                        .append("Doctor: ").append(rs.getString("doctor")).append("\n");
+            } else {
+                resultado.append("No se encontró un registro con el DNI especificado.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            resultado.append("Error al realizar la consulta.");
+        }
+        return resultado.toString();
+    }
+
+    // Método para modificar la fecha de un paciente por DNI
+    public boolean modificarFechaTurno(int dni, String nuevaFecha) {
+        String sql = "UPDATE TablaPacientes SET fecha = ? WHERE dni = ?";
+        boolean exito = false;
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); // Conectar a la base de datos
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, nuevaFecha);  // Setear nueva fecha
+            pstmt.setInt(2, dni);            // Setear dni
+
+            int filasActualizadas = pstmt.executeUpdate();
+            if (filasActualizadas > 0) {
+                exito = true;
+                System.out.println("Fecha actualizada correctamente.");
+            } else {
+                System.out.println("No se encontró el registro con el DNI especificado.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return exito;
+    }
+    /*public void modificarFechaTurno(int dniPaciente, LocalDate nuevaFecha) {
         Connection c = null;
         PreparedStatement pstmt = null;
         try {
@@ -266,5 +321,5 @@ public class GestionTurnos {
                 }
             }
         }
-     }
+    }*/
 }

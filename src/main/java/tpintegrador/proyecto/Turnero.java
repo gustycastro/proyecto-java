@@ -38,7 +38,11 @@ public class Turnero {
     @FXML
     private TextField dniId; // Campo para el DNI del paciente
     @FXML
+    private TextField dniIdModificar;
+    @FXML
     private TextField edadId; // Campo para la edad del paciente
+    @FXML
+    private TextField fechaId;
     @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
     @FXML
@@ -65,6 +69,10 @@ public class Turnero {
     private AnchorPane paginaMostrarTurno;
     @FXML
     private AnchorPane paginaModificarTurno;
+    @FXML
+    private TextArea datosArea;
+    @FXML
+    private Button btnBuscarPaciente;
 
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
@@ -97,6 +105,7 @@ public class Turnero {
         // Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
 
+        turneroController.btnModificarTurno.setOnAction(event -> turneroController.modificarTurno());
     }
 
     //Ir a la página de Agregar Turno
@@ -248,35 +257,81 @@ public class Turnero {
     }
 
     @FXML
-    private void modificarTurno() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null); // Eliminar encabezado por defecto
-        // Obtener el texto de los campos
-        String dniStr = dniId.getText();
-        LocalDate selectedDate = datePicker.getValue();
-        if (dniStr.isEmpty() || selectedDate == null) {
+    private void handleBuscarPaciente() {
+        String dniStr = dniIdModificar.getText().trim(); // Obtener el DNI del campo de texto
+
+        
+        // Verificar si el campo está vacío
+        if (dniStr == null || dniStr.isEmpty()) {
+            showAlert("Error", "Debe ingresar un DNI válido.");
+            return;
+        }
+
+        try {
+            // Intentar convertir el DNI a un número entero
+            int dni = Integer.parseInt(dniStr);
+
+            // Llamar al método que busca el turno del paciente por DNI
+            String datosPaciente = bdTurnos.buscarTurnoPorDni(dni);
+
+            if (datosPaciente.contains("No se encontró un registro")) {
+                showAlert("Error", "No se encontró un paciente con el DNI especificado.");
+            } else {
+                // Mostrar los datos del paciente en el área de texto
+                datosArea.setText(datosPaciente);
+            }
+
+        } catch (NumberFormatException ex) {
+            // Si el DNI no es un número válido, mostrar un mensaje de error
+            showAlert("Error", "El DNI debe ser un número entero válido.");
+        }
+    }
+
+    // Método que maneja la lógica para buscar y modificar el turno de un paciente
+    @FXML
+    public void modificarTurno() {
+        String dniStr = dniIdModificar.getText();
+        LocalDate nuevaFecha = datePicker.getValue();
+        if (dniStr.isEmpty() || nuevaFecha == null) {
             showAlert("Error", "Por favor, complete todos los campos.");
             return;
         }
+
         try {
-            System.out.println("DNI ingresado: " + dniStr);
-            System.out.println("Fecha seleccionada: " + selectedDate);
-            // Convertir el DNI a int
+            // Convertir el DNI a entero
             int dni = Integer.parseInt(dniStr);
-            // Lógica para modificar la fecha
-            GestionTurnos gestion = new GestionTurnos();
-            gestion.modificarFechaTurno(dni, selectedDate); // Método que actualiza la fecha
-            alert.setTitle("Éxito");
-            alert.setContentText("Fecha modificada exitosamente.");
-            alert.showAndWait();
+
+            // 1. Buscar el turno del paciente por DNI
+            String datosPaciente = bdTurnos.buscarTurnoPorDni(dni);
+
+            if (datosPaciente.contains("No se encontró un registro")) {
+                // No se encontró un paciente con ese DNI
+                showAlert("Error", "No se encontró un paciente con el DNI especificado.");
+            } else {
+                // Mostrar los datos actuales del paciente en consola (opcional)
+                System.out.println("Datos actuales del paciente:\n" + datosPaciente);
+
+                // 2. Modificar la fecha del turno del paciente
+                boolean exito = bdTurnos.modificarFechaTurno(dni, nuevaFecha.toString());
+
+                // Verificar si la actualización fue exitosa
+                if (exito) {
+                    // Mostrar mensaje de éxito en consola (opcional)
+                    System.out.println("Turno modificado correctamente.");
+
+                    // Volver a buscar para verificar los datos actualizados (opcional)
+                    String datosActualizados = bdTurnos.buscarTurnoPorDni(dni);
+                    System.out.println("Datos actualizados del paciente:\n" + datosActualizados);
+                } else {
+                    // No se pudo modificar la fecha
+                    showAlert("Error", "No se pudo modificar el turno.");
+                }
+            }
+
         } catch (NumberFormatException ex) {
-            alert.setTitle("Error");
-            alert.setContentText("El DNI ingresado no es válido.");
-            alert.showAndWait();
-        } catch (Exception e) {
-            alert.setTitle("Error");
-            alert.setContentText("Error al modificar la fecha: " + e.getMessage());
-            alert.showAndWait();
+            showAlert("Error", "El DNI debe ser un número entero válido.");
+        } catch (Exception ex) {
+            showAlert("Error", "Ocurrió un error al intentar modificar el turno.");
         }
     }
 

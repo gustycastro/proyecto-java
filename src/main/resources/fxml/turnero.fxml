@@ -47,13 +47,37 @@
 <AnchorPane fx:id="paginaModificarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
     <children>
         <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
-        <VBox alignment="CENTER" spacing="5" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
-            <Text text="Ingrese el DNI del paciente:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <TextField fx:id="dniId" promptText="Ingrese DNI" />
-                <Button fx:id="btnVolver" text="Cargar Datos" onAction="#volverPaginaPrincipal" />
-                <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                <Button fx:id="btnModificarTurno" text="Modificar" onAction="#modificarTurno"/>
-                <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" />
+        
+        <!-- VBox para alinear los elementos verticalmente -->
+        <VBox alignment="CENTER" spacing="10" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            
+            <!-- Etiqueta para el DNI -->
+            <Text text="Ingrese el DNI del paciente:" />
+            
+            <!-- Campo de texto para el DNI -->
+            <TextField fx:id="dniIdModificar"/>
+            
+            <!-- Botón para buscar el paciente -->
+            <Button fx:id="btnBuscarPaciente" text="Buscar Paciente" onAction="#handleBuscarPaciente"/>
+            
+            <!-- Etiqueta para mostrar los datos del paciente -->
+            <Text text="Datos del Paciente:" />
+            
+            <!-- Área de texto no editable para mostrar los datos del paciente -->
+            <TextArea fx:id="datosArea" prefHeight="100" prefWidth="200" editable="false"/>
+            
+            <!-- Etiqueta para la nueva fecha -->
+            <Text text="Nueva Fecha:" />
+            
+            <!-- Selector de fecha -->
+            <DatePicker fx:id="datePicker"/>
+            
+            <!-- Botón para modificar el turno -->
+            <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#modificarTurno"/>
+            
+            <!-- Botón para volver a la página principal -->
+            <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal"/>
+            
         </VBox>
     </children>
 </AnchorPane>
