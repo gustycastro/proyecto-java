@@ -70,7 +70,7 @@
             <Text text="Nueva Fecha:" />
             
             <!-- Selector de fecha -->
-            <DatePicker fx:id="datePicker"/>
+            <DatePicker fx:id="fechaId"/>
             
             <!-- Botón para modificar el turno -->
             <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#modificarTurno"/>

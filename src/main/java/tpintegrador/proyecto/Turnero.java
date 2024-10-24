@@ -42,7 +42,7 @@ public class Turnero {
     @FXML
     private TextField edadId; // Campo para la edad del paciente
     @FXML
-    private TextField fechaId;
+    private DatePicker fechaId;
     @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
     @FXML
@@ -260,7 +260,6 @@ public class Turnero {
     private void handleBuscarPaciente() {
         String dniStr = dniIdModificar.getText().trim(); // Obtener el DNI del campo de texto
 
-        
         // Verificar si el campo está vacío
         if (dniStr == null || dniStr.isEmpty()) {
             showAlert("Error", "Debe ingresar un DNI válido.");
@@ -291,7 +290,8 @@ public class Turnero {
     @FXML
     public void modificarTurno() {
         String dniStr = dniIdModificar.getText();
-        LocalDate nuevaFecha = datePicker.getValue();
+        LocalDate nuevaFecha = fechaId.getValue();
+
         if (dniStr.isEmpty() || nuevaFecha == null) {
             showAlert("Error", "Por favor, complete todos los campos.");
             return;
@@ -308,20 +308,23 @@ public class Turnero {
                 // No se encontró un paciente con ese DNI
                 showAlert("Error", "No se encontró un paciente con el DNI especificado.");
             } else {
-                // Mostrar los datos actuales del paciente en consola (opcional)
-                System.out.println("Datos actuales del paciente:\n" + datosPaciente);
 
+                // Mostrar los datos actuales del paciente en consola (opcional)
                 // 2. Modificar la fecha del turno del paciente
                 boolean exito = bdTurnos.modificarFechaTurno(dni, nuevaFecha.toString());
 
                 // Verificar si la actualización fue exitosa
                 if (exito) {
                     // Mostrar mensaje de éxito en consola (opcional)
-                    System.out.println("Turno modificado correctamente.");
-
+                    
                     // Volver a buscar para verificar los datos actualizados (opcional)
                     String datosActualizados = bdTurnos.buscarTurnoPorDni(dni);
-                    System.out.println("Datos actualizados del paciente:\n" + datosActualizados);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Turno modificado correctamente.");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Datos actualizados del paciente:\n" + datosActualizados);
+                    alert.showAndWait();
+                    
                 } else {
                     // No se pudo modificar la fecha
                     showAlert("Error", "No se pudo modificar el turno.");
