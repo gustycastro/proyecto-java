@@ -27,13 +27,13 @@ public class CentroDeSalud {
     }
 
     public void cargarListas() {
-
+        
         // Inicializar Especialidades usando un array y un bucle
         String[] nombresEspecialidades = {"Cardiología", "Pediatría", "Dermatología", "Traumatologia", "Oftalmología"};
         for (String nombre : nombresEspecialidades) {
             listaEspecialidades.add(new Especialidades(nombre));
         }
-
+        
         // Inicializar Médicos
         Medico medico1 = new Medico(listaEspecialidades.get(0), 12345, "9:00-17:00", "Dr. Juan Pérez", "Pérez", 12345678, 40);
         Medico medico2 = new Medico(listaEspecialidades.get(1), 67890, "9:00-17:00", "Dra. Maria Sanchez", "Sanchez", 87654321, 35);
@@ -166,10 +166,5 @@ public class CentroDeSalud {
 
     public static void setListaObraSocial(ArrayList<ObraSocial> listaObraSocial) {
         CentroDeSalud.listaObraSocial = listaObraSocial;
-    }
-
-    //Metodos
-    public void recibirPersonas() {
-        //Agregar este metodo a el UML
     }
 }
