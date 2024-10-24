@@ -56,68 +56,10 @@ public class CentroDeSalud {
             listaObraSocial.add(new ObraSocial(nombre));
         }
 
-        /*listaMedicos.clear();//Limpia la lista de medico antes de ejecutar el metodo para no tener medicos repetidos
-        int cont = 0;
-        Random random = new Random();
-        
-        // Inicializar especialidades
-        try {
-            //cargo los nombres de las Especialidades en un array y despues uso un for each para recorrerlo y agregarlos a la lista
-            String[] nombresEspecialidades = {"Cardiología", "Pediatría", "Dermatología", "Traumatología", "Oftalmologia"}; 
-            for (String nombre : nombresEspecialidades) {
-                listaEspecialidades.add(new Especialidades(nombre));
-            }
-        } catch (Exception e) {
-            System.out.println("Error al agregar Especialidades: " + e.getMessage());
-        }
-        
-        // Cargamos un arreglo con nombres de medicos 
-        String[] nombresMedicos = {"Dr. Juan Pérez", "Dra. Maria Sanchez", "Dra. Monica Marquez", "Dra. Carlos Arias", "Dr. Alfredo Pucci", "Dr. Alberto Perez", "Dra. Federica Gomez", "Dr. Matias Gonzalez", "Dr. Jose Alarcon", "Dra. Martina Romero", "Dra. Ana Beltrán", "Dra. Laura Mendoza", "Dr. Emiliano Pérez"};
-        
-        // Inicializar Medicos
-        Iterator<Especialidades> itesp = listaEspecialidades.iterator();
-        Especialidades auxEsp = itesp.next();
-        int contadorMedicosPorEspecialidad = 0;
-        try {
-            for (String nombreMed : nombresMedicos) {
-                if (cont == nombresMedicos.length) {
-                    break; // Asegurarse de no exceder el número de médicos
-                }
-                String[] apellido = nombreMed.split(" ");
-                if (apellido.length > 2) {
-                    // Verificar que haya al menos tres partes en el nombre
-                    listaMedicos.add(new Medico(auxEsp, random.nextInt(99999 - 12345) + 12345, "9:00-17:00", nombreMed, apellido[2], Math.abs(random.nextLong()) % (99999999 - 10000000) + 10000000, random.nextInt(60 - 30) + 30));
-                    contadorMedicosPorEspecialidad++;
-                } else {
-                    System.out.println("El nombre '" + nombreMed + "' no tiene suficiente información para extraer el apellido.");
-                }
-
-                if (contadorMedicosPorEspecialidad == 3) {
-                    contadorMedicosPorEspecialidad = 0; // Reiniciar el contador
-                    if (itesp.hasNext()) {
-                        auxEsp = itesp.next(); // Cambiar a la siguiente especialidad
-                    }
-                }
-                cont++;
-            }
-        } catch (NullPointerException e) {
-            System.out.println("Error: Una especialidad es nula. Asegúrate de que la lista de especialidades no esté vacía.");
-        } catch (Exception e) {
-            System.out.println("Error inesperado: " + e.getMessage());
-        }
-
-        // Inicializar Obra Social
-        try {
-            String[] nombresObrasSociales = {"OSDE", "OSEP", "DAMSU", "Prevencion Salud", "Particular"};
-            for (String nombre : nombresObrasSociales) {
-                listaObraSocial.add(new ObraSocial(nombre));
-            }
-        } catch (Exception e) {
-            System.out.println("Error al agregar obras sociales: " + e.getMessage());
-        }
-    }*/
     }
-//Metodos
+    
+    
+    //Metodos
 
     public ArrayList<Medico> obtenerMedicos() {
         return listaMedicos;

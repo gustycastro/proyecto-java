@@ -41,12 +41,4 @@ public class Medico extends Empleado {
     public String toString() {
         return nombre; // Esto permitirá que el ComboBox muestre el nombre de los medicos
     }
-    
-    
-
-    
-    
-
-    
-    
 }

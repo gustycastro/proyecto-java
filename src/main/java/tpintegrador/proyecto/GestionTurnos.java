@@ -6,9 +6,6 @@ package tpintegrador.proyecto;
 
 import java.sql.*;
 import java.time.LocalDate;
-import javafx.collections.ObservableList;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
 
 /**
  *
@@ -188,7 +185,7 @@ public class GestionTurnos {
         }
         return ultimoId;
     }
-
+    
     public void eliminarTurno(int dniPaciente) {
         Connection c = null;
         PreparedStatement pstmt = null;
@@ -217,41 +214,31 @@ public class GestionTurnos {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
-
-    public void agregarTurno(Paciente paciente) {
-
-    }
-
+    
     public void modificarFechaTurno(int dniPaciente, LocalDate nuevaFecha) {
         Connection c = null;
         PreparedStatement pstmt = null;
-
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
             c.setAutoCommit(false);
             System.out.println("Base de datos abierta exitosamente");
-
             // Convertir LocalDate a java.sql.Date
             Date sqlDate = Date.valueOf(nuevaFecha);
-
             // Consulta de actualización con parámetros
             String sql = "UPDATE TablaPacientes SET fecha = ? WHERE DNI = ?;";
             pstmt = c.prepareStatement(sql);
             pstmt.setDate(1, sqlDate);
             pstmt.setInt(2, dniPaciente);
             int rowsAffected = pstmt.executeUpdate();
-
             if (rowsAffected > 0) {
                 c.commit();
                 System.out.println("Fecha del turno modificada con éxito para el paciente con DNI: " + dniPaciente);
             } else {
                 System.out.println("No se encontró un paciente con ese DNI: " + dniPaciente);
             }
-
             // Mostrar los registros restantes después de modificar el turno
             mostrarRegistros();
-
         } catch (Exception e) {
             System.out.println("No se pudo modificar la fecha del turno");
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -279,106 +266,5 @@ public class GestionTurnos {
                 }
             }
         }
-    }
-    public void modificarTurno(int id, String nuevoNombre, String nuevoApellido, LocalDate nuevaFecha, int nuevaEdad, String nuevoDoctor) {
-    Connection c = null;
-    PreparedStatement pstmt = null;
-
-    try {
-        // Cargar el driver de SQLite
-        Class.forName("org.sqlite.JDBC");
-        // Establecer conexión con la base de datos
-        c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
-        c.setAutoCommit(false);
-        System.out.println("Opened database successfully");
-
-        // Crear la consulta SQL con parámetros
-        String sql = "UPDATE tablaPacientes SET nombre = ?, apellido = ?, fecha = ?, edad = ?, doctor = ? WHERE id = ?";
-        pstmt = c.prepareStatement(sql);
-
-        // Asignar valores a los parámetros
-        pstmt.setString(1, nuevoNombre);   
-        pstmt.setString(2, nuevoApellido); 
-        pstmt.setInt(3, nuevaEdad);   
-        pstmt.setString(4, nuevaFecha.toString());    
-        pstmt.setString(5, nuevoDoctor);   
-        pstmt.setInt(6, id);               
-        // Ejecutar la actualización
-        int affectedRows = pstmt.executeUpdate();
-        if (affectedRows > 0) {
-            System.out.println("Turno actualizado correctamente.");
-        } else {
-            System.out.println("No se encontró ningún turno con ese ID.");
-        }
-
-        c.commit();
-        pstmt.close();
-        c.close();
-    } catch (Exception e) {
-        System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        try {
-            if (c != null) {
-                c.rollback();  // Revertir cambios en caso de error
-            }
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    } finally {
-        try {
-            if (pstmt != null) pstmt.close();
-            if (c != null) c.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-    System.out.println("Operation done successfully");
-    }
-    public Paciente obtenerPacientePorDni(int dni, ListView<Medico> listaMedicos) throws SQLException {
-    Connection c = null;
-    PreparedStatement pstmt = null;
-    Paciente paciente = null;
-
-    try {
-        // Establecer la conexión con la base de datos
-        c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
-
-        // Consulta SQL para obtener los datos del paciente
-        String sql = "SELECT nombre, apellido, edad, fecha, doctor FROM tablaPacientes WHERE DNI = ?";
-        pstmt = c.prepareStatement(sql);
-        pstmt.setInt(1, dni);
-
-        // Ejecutar la consulta
-        ResultSet rs = pstmt.executeQuery();
-
-        // Si hay resultados, crear un objeto Paciente con los datos obtenidos
-        if (rs.next()) {
-            String nombre = rs.getString("nombre");
-            String apellido = rs.getString("apellido");
-            int edad = rs.getInt("edad");
-            LocalDate fecha = LocalDate.parse(rs.getString("fecha"));
-            String doctor = rs.getString("doctor");
-            Medico medico = buscarMedicoPorNombre(doctor, listaMedicos);
-            paciente = new Paciente(nombre, apellido, edad, dni, fecha.toString(), medico);
-        }
-
-        rs.close();
-        pstmt.close();
-    } finally {
-        if (c != null) c.close();
-    }
-
-    return paciente;
-}
-public Medico buscarMedicoPorNombre(String nombreMedico, ListView<Medico> listaMedicos) {
-    // Obtener la lista de médicos del ListView
-    ObservableList<Medico> medicos = listaMedicos.getItems();
-
-    // Iterar sobre la lista para buscar el médico por su nombre
-    for (Medico medico : medicos) {
-        if (medico.getNombre().equalsIgnoreCase(nombreMedico)) { // Comparación ignorando mayúsculas
-            return medico;
-        }
-    }
-    return null; // Si no se encuentra el médico
-}
+     }
 }
