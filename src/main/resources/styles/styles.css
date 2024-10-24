@@ -17,25 +17,25 @@
 }
 
 /* Botones específicos */
-#btnAgendarTurno {
+#btnAgendarTurno, #confirmarButton, #btnTurnoModificado {
     -fx-background-color: green; /* Fondo verde */
 }
 
 #btnCancelarTurno {
     -fx-background-color: #cd5c5c; /* Fondo rojo */
 }
-#btnAgendarTurno:hover, #btnCancelarTurno:hover {
+#btnAgendarTurno:hover, #btnCancelarTurno:hover, #confirmarButton:hover, #btnTurnoModificado:hover {
     -fx-text-fill: white; /* Texto azul al pasar el mouse */
     -fx-cursor: hand; /* Cursor de manito */
 }
-#btnAgendarTurno:hover {
+#btnAgendarTurno:hover, #confirmarButton:hover, #btnTurnoModificado:hover {
     -fx-background-color: #32cd32; /* Fondo verde */
 }
 
 #btnCancelarTurno:hover {
     -fx-background-color: red; /* Fondo rojo */
 }
-#btnAgendarTurno:pressed {
+#btnAgendarTurno:pressed, #confirmarButton:pressed, #btnTurnoModificado:pressed {
     -fx-background-color: darkgreen; /* Fondo verde */
 }
 

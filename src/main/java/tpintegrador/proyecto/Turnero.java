@@ -60,6 +60,8 @@ public class Turnero {
     @FXML
     private Button btnModificarTurno; // Botón para modificar el turno
     @FXML
+    private Button btnTurnoModificado; // Botón para modificar el turno
+    @FXML
     private ImageView logoImage;
     @FXML
     private AnchorPane paginaPrincipal;
@@ -105,7 +107,7 @@ public class Turnero {
         // Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
 
-        turneroController.btnModificarTurno.setOnAction(event -> turneroController.modificarTurno());
+        turneroController.btnTurnoModificado.setOnAction(event -> turneroController.modificarTurno());
     }
 
     //Ir a la página de Agregar Turno
@@ -154,7 +156,7 @@ public class Turnero {
                 }
             }
         } else {
-            showAlert("Error", "Por favor, seleccione una especialidad.");
+            showAlertE("Por favor, seleccione una especialidad.");
         }
     }
 
@@ -171,7 +173,7 @@ public class Turnero {
 
         // Validación de los campos
         if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null) {
-            showAlert("Error", "Por favor, complete todos los campos.");
+            showAlertE("Por favor, complete todos los campos.");
             return;
         }
         try {
@@ -183,11 +185,7 @@ public class Turnero {
             String fecha = selectedDate.toString();
 
             // Agendar el turno si todo es válido
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Turno Agendado");
-            alert.setHeaderText(null);
-            alert.setContentText("Turno agendado para " + nombre + " " + apellido + " el " + fecha + " con " + medicoSeleccionado.getNombre());
-            alert.showAndWait();
+            showAlertC("Turno agendado correctamente");
 
             // Llamar al método para insertar en la base de datos
             int nuevoId = bdTurnos.obtenerUltimoId() + 1;
@@ -196,7 +194,7 @@ public class Turnero {
 
             limpiarCampos();
         } catch (NumberFormatException e) {
-            showAlert("Error", "Por favor, ingrese un número válido para el DNI y la edad.");
+            showAlertE("Por favor, ingrese un número válido para el DNI y la edad.");
         }
     }
 
@@ -230,8 +228,8 @@ public class Turnero {
         dniField.setPromptText("Ingrese DNI del paciente");
         vbox.getChildren().add(dniField);
 
-        Button confirmButton = new Button("Eliminar");
-        confirmButton.setId("eliminarButton"); // Añadir ID al botón
+        Button confirmButton = new Button("Confirmar");
+        confirmButton.setId("confirmarButton"); // Añadir ID al botón
         confirmButton.setOnAction(e -> {
             try {
                 // Obtener el texto del campo y convertirlo a int
@@ -262,7 +260,7 @@ public class Turnero {
 
         // Verificar si el campo está vacío
         if (dniStr == null || dniStr.isEmpty()) {
-            showAlert("Error", "Debe ingresar un DNI válido.");
+            showAlertE("Debe ingresar un DNI válido.");
             return;
         }
 
@@ -274,7 +272,7 @@ public class Turnero {
             String datosPaciente = bdTurnos.buscarTurnoPorDni(dni);
 
             if (datosPaciente.contains("No se encontró un registro")) {
-                showAlert("Error", "No se encontró un paciente con el DNI especificado.");
+                showAlertE("No se encontró un paciente con el DNI especificado.");
             } else {
                 // Mostrar los datos del paciente en el área de texto
                 datosArea.setText(datosPaciente);
@@ -282,7 +280,7 @@ public class Turnero {
 
         } catch (NumberFormatException ex) {
             // Si el DNI no es un número válido, mostrar un mensaje de error
-            showAlert("Error", "El DNI debe ser un número entero válido.");
+            showAlertE("El DNI debe ser un número entero válido.");
         }
     }
 
@@ -293,7 +291,7 @@ public class Turnero {
         LocalDate nuevaFecha = fechaId.getValue();
 
         if (dniStr.isEmpty() || nuevaFecha == null) {
-            showAlert("Error", "Por favor, complete todos los campos.");
+            showAlertE("Por favor, complete todos los campos.");
             return;
         }
 
@@ -306,7 +304,7 @@ public class Turnero {
 
             if (datosPaciente.contains("No se encontró un registro")) {
                 // No se encontró un paciente con ese DNI
-                showAlert("Error", "No se encontró un paciente con el DNI especificado.");
+                showAlertE("No se encontró un paciente con el DNI especificado.");
             } else {
 
                 // Mostrar los datos actuales del paciente en consola (opcional)
@@ -315,36 +313,36 @@ public class Turnero {
 
                 // Verificar si la actualización fue exitosa
                 if (exito) {
-                    // Mostrar mensaje de éxito en consola (opcional)
-                    
                     // Volver a buscar para verificar los datos actualizados (opcional)
                     String datosActualizados = bdTurnos.buscarTurnoPorDni(dni);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Turno modificado correctamente.");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Datos actualizados del paciente:\n" + datosActualizados);
-                    alert.showAndWait();
-                    
+                    showAlertC("Turno modificado correctamente");
                 } else {
                     // No se pudo modificar la fecha
-                    showAlert("Error", "No se pudo modificar el turno.");
+                    showAlertE("No se pudo modificar el turno.");
                 }
             }
-
+            
         } catch (NumberFormatException ex) {
-            showAlert("Error", "El DNI debe ser un número entero válido.");
+            showAlertE("El DNI debe ser un número entero válido.");
         } catch (Exception ex) {
-            showAlert("Error", "Ocurrió un error al intentar modificar el turno.");
+            showAlertE("Ocurrió un error al intentar modificar el turno.");
         }
     }
 
     // Método para mostrar alertas
-    private void showAlert(String title, String message) {
+    private void showAlertE(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
+    
+    private void showAlertC(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
 
 }
