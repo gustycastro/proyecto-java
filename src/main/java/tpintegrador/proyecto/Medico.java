@@ -15,7 +15,7 @@ public class Medico extends Empleado {
     private int matricula;// Fer: cambie String de matricula por int
     
     //Constructor
-    public Medico(Especialidades especialidad, int matricula, String horarioAtencion, String nombre, String apellido, long dni, int edad) { // Fer: cambie int de dni por long y String de matricula por int
+    public Medico(Especialidades especialidad, int matricula, String horarioAtencion, String nombre, String apellido, int dni, int edad) { // Fer: cambie int de dni por long y String de matricula por int
         super(horarioAtencion, nombre, apellido, dni, edad);
         this.especialidad = especialidad;
         this.matricula = matricula;

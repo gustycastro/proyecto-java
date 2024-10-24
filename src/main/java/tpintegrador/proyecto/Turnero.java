@@ -4,6 +4,7 @@
  */
 package tpintegrador.proyecto;
 
+import java.sql.Date;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert;
@@ -54,6 +55,8 @@ public class Turnero {
     @FXML
     private Button btnCancelarTurno; // Botón para cancelar el turno
     @FXML
+    private Button btnModificarTurno; // Botón para modificar el turno
+    @FXML
     private ImageView logoImage;
     @FXML
     private AnchorPane paginaPrincipal;
@@ -95,26 +98,31 @@ public class Turnero {
         // Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
 
+        turneroController.btnModificarTurno.setOnAction(event -> turneroController.modificarTurno());
+
     }
-    
+
     //Ir a la página de Agregar Turno
     @FXML
     private void irAgregarTurno() {
         paginaPrincipal.setVisible(false);
         paginaAgregarTurno.setVisible(true);
     }
+
     //Ir a la página de Modificar Turno
     @FXML
     private void irModificarTurno() {
         paginaPrincipal.setVisible(false);
         paginaModificarTurno.setVisible(true);
     }
+
     //Ir a la página de Mostrar Turno
     @FXML
     private void irMostrarTurno() {
         paginaPrincipal.setVisible(false);
         paginaMostrarTurno.setVisible(true);
     }
+
     //Volver a la página principal
     @FXML
     private void volverPaginaPrincipal() {
@@ -199,7 +207,7 @@ public class Turnero {
         listViewMedicos.getItems().clear();
         datePicker.setValue(null);
     }
-    
+
     //Metodo para cancelar turno
     @FXML
     private void cancelarTurno() {
@@ -241,6 +249,43 @@ public class Turnero {
         cancelarStage.setScene(scene);
         cancelarStage.setTitle("Cancelar Turno");
         cancelarStage.show();
+    }
+
+    @FXML
+    private void modificarTurno() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null); // Eliminar encabezado por defecto
+        // Obtener el texto de los campos
+        String dniStr = dniId.getText();
+        LocalDate selectedDate = datePicker.getValue();
+        if (dniStr.isEmpty() || selectedDate == null) {
+            showAlert("Error", "Por favor, complete todos los campos.");
+            return;
+        }
+        try {
+
+            System.out.println("DNI ingresado: " + dniStr);
+            System.out.println("Fecha seleccionada: " + selectedDate);
+
+            // Convertir el DNI a int
+            int dni = Integer.parseInt(dniStr);
+            // Lógica para modificar la fecha
+            GestionTurnos gestion = new GestionTurnos();
+            gestion.modificarFechaTurno(dni, selectedDate); // Método que actualiza la fecha
+
+            alert.setTitle("Éxito");
+            alert.setContentText("Fecha modificada exitosamente.");
+            alert.showAndWait();
+
+        } catch (NumberFormatException ex) {
+            alert.setTitle("Error");
+            alert.setContentText("El DNI ingresado no es válido.");
+            alert.showAndWait();
+        } catch (Exception e) {
+            alert.setTitle("Error");
+            alert.setContentText("Error al modificar la fecha: " + e.getMessage());
+            alert.showAndWait();
+        }
     }
 
     // Método para mostrar alertas

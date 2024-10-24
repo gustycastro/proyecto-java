@@ -13,12 +13,12 @@ public abstract class Persona {
     //Atributos 
     protected String nombre;
     protected String apellido;
-    protected long dni;// Fer: cambie int de dni por long
+    protected int dni;// Fer: cambie int de dni por long
     protected int edad;
     
     //Constructor
 
-    public Persona(String nombre, String apellido, long dni, int edad) {// Fer: cambie int de dni por long
+    public Persona(String nombre, String apellido, int dni, int edad) {// Fer: cambie int de dni por long
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -43,11 +43,11 @@ public abstract class Persona {
         this.apellido = apellido;
     }
 
-    public long getDni() {// Fer: cambie int de dni por long
+    public int getDni() {// Fer: cambie int de dni por long
         return dni;
     }
 
-    public void setDni(long dni) {// Fer: cambie int de dni por long
+    public void setDni(int dni) {// Fer: cambie int de dni por long
         this.dni = dni;
     }
 

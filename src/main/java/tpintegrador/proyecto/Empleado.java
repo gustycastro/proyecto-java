@@ -14,7 +14,7 @@ public class Empleado extends Persona {
     private String horarioAtencion;
     
     //Constructor
-    public Empleado(String horarioAtencion, String nombre, String apellido, long dni, int edad) { // Fer: cambie int de dni por long
+    public Empleado(String horarioAtencion, String nombre, String apellido, int dni, int edad) { // Fer: cambie int de dni por long
         super(nombre, apellido, dni, edad);
         this.horarioAtencion = horarioAtencion;
     }

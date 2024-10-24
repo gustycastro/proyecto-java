@@ -15,7 +15,7 @@ public class Paciente extends Persona{ //Herencia de persona
     
     ///Constructor
 
-    public Paciente(String nombre, String apellido, long dni,int edad,boolean coberturaMedica) { // Fer: cambie int de dni por long
+    public Paciente(String nombre, String apellido, int dni,int edad,boolean coberturaMedica) { // Fer: cambie int de dni por long
         super(nombre,apellido,dni,edad);
         this.coberturaMedica = coberturaMedica;
     }
