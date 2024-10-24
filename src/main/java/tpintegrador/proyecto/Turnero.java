@@ -4,12 +4,18 @@
  */
 package tpintegrador.proyecto;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Alert;
 import java.time.LocalDate;
 import java.util.Iterator;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,12 +38,15 @@ import javafx.scene.layout.AnchorPane;
 public class Turnero {
 
     //Atributos
+    GestionTurnos bdTurnos = new GestionTurnos();
     @FXML
     private TextField nombreId; // Campo para el nombre del paciente
     @FXML
     private TextField apellidoId; // Campo para el apellido del paciente
     @FXML
     private TextField dniId; // Campo para el DNI del paciente
+    @FXML
+    private TextField dniId2;
     @FXML
     private TextField edadId; // Campo para la edad del paciente
     @FXML
@@ -56,6 +65,8 @@ public class Turnero {
     private Button btnCancelarTurno; // Botón para cancelar el turno
     @FXML
     private Button btnModificarTurno; // Botón para modificar el turno
+    @FXML
+    private Button btnCargarDatos;
     @FXML
     private ImageView logoImage;
     @FXML
@@ -100,6 +111,7 @@ public class Turnero {
 
         turneroController.btnModificarTurno.setOnAction(event -> turneroController.modificarTurno());
 
+        turneroController.btnCargarDatos.setOnAction(event -> turneroController.cargarDatosPaciente());
     }
 
     //Ir a la página de Agregar Turno
@@ -178,16 +190,15 @@ public class Turnero {
 
             // Agendar el turno si todo es válido
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            GestionTurnos dbTurnos = new GestionTurnos();
             alert.setTitle("Turno Agendado");
             alert.setHeaderText(null);
             alert.setContentText("Turno agendado para " + nombre + " " + apellido + " el " + fecha + " con " + medicoSeleccionado.getNombre());
             alert.showAndWait();
 
             // Llamar al método para insertar en la base de datos
-            int nuevoId = dbTurnos.obtenerUltimoId() + 1;
-            dbTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni, medicoSeleccionado.getNombre());
-            dbTurnos.mostrarRegistros();
+            int nuevoId = bdTurnos.obtenerUltimoId() + 1;
+            bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni, medicoSeleccionado.getNombre());
+            bdTurnos.mostrarRegistros();
 
             limpiarCampos();
         } catch (NumberFormatException e) {
@@ -255,35 +266,47 @@ public class Turnero {
     private void modificarTurno() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null); // Eliminar encabezado por defecto
+        Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
         // Obtener el texto de los campos
-        String dniStr = dniId.getText();
-        LocalDate selectedDate = datePicker.getValue();
-        if (dniStr.isEmpty() || selectedDate == null) {
+        String dniStr = dniId.getText(); // DNI del paciente
+        String nombre = nombreId.getText(); // Nombre del paciente
+        String apellido = apellidoId.getText(); // Apellido del paciente
+        String edadStr = edadId.getText(); // Edad del paciente
+        LocalDate selectedDate = datePicker.getValue(); // Fecha del turno
+        String doctor = medicoSeleccionado.getNombre(); // Doctor asignado al turno
+
+        // Verificar que los campos no estén vacíos
+        if (dniStr.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || edadStr.isEmpty() || selectedDate == null || doctor == null) {
             showAlert("Error", "Por favor, complete todos los campos.");
             return;
         }
+
         try {
-
             System.out.println("DNI ingresado: " + dniStr);
+            System.out.println("Nombre ingresado: " + nombre);
+            System.out.println("Apellido ingresado: " + apellido);
+            System.out.println("Edad ingresada: " + edadStr);
             System.out.println("Fecha seleccionada: " + selectedDate);
+            System.out.println("Doctor seleccionado: " + doctor);
 
-            // Convertir el DNI a int
+            // Convertir el DNI a int y la edad a int
             int dni = Integer.parseInt(dniStr);
-            // Lógica para modificar la fecha
-            GestionTurnos gestion = new GestionTurnos();
-            gestion.modificarFechaTurno(dni, selectedDate); // Método que actualiza la fecha
+            int edad = Integer.parseInt(edadStr);
+
+            // Lógica para modificar los datos del turno
+            bdTurnos.modificarTurno(dni, nombre, apellido, selectedDate, edad, doctor); // Método que actualiza los datos
 
             alert.setTitle("Éxito");
-            alert.setContentText("Fecha modificada exitosamente.");
+            alert.setContentText("Turno modificado exitosamente.");
             alert.showAndWait();
 
         } catch (NumberFormatException ex) {
             alert.setTitle("Error");
-            alert.setContentText("El DNI ingresado no es válido.");
+            alert.setContentText("El DNI o la edad ingresados no son válidos.");
             alert.showAndWait();
         } catch (Exception e) {
             alert.setTitle("Error");
-            alert.setContentText("Error al modificar la fecha: " + e.getMessage());
+            alert.setContentText("Error al modificar el turno: " + e.getMessage());
             alert.showAndWait();
         }
     }
@@ -296,4 +319,35 @@ public class Turnero {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    private void cargarDatosPaciente() {
+        String dniStr = dniId2.getText();
+        if (dniStr.isEmpty()) {
+            showAlert("Error", "Por favor, ingrese un DNI.");
+            return;
+        }
+
+        try {
+            int dni = Integer.parseInt(dniStr);
+            // Obtener los datos del paciente desde la base de datos
+            Paciente paciente = bdTurnos.obtenerPacientePorDni(dni, listViewMedicos);
+
+            if (paciente != null) {
+                // Rellenar los campos con los datos del paciente
+                nombreId.setText(paciente.getNombre());
+                apellidoId.setText(paciente.getApellido());
+                edadId.setText(String.valueOf(paciente.getEdad()));
+                listViewMedicos.getSelectionModel().select(paciente.getDoctor()); // Seleccionar el doctor en la lista
+            } else {
+                showAlert("Error", "No se encontró ningún paciente con ese DNI.");
+            }
+
+        } catch (NumberFormatException ex) {
+            showAlert("Error", "El DNI ingresado no es válido.");
+        } catch (Exception e) {
+            showAlert("Error", "Error al cargar los datos: " + e.getMessage());
+        }
+    }
+
 }

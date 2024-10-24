@@ -43,22 +43,40 @@
         </children>
     </AnchorPane>
     
-    <!-- Página Modificar Turnos -->
-    <AnchorPane fx:id="paginaModificarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
-        <children>
-            <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
-            <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
-                
-               
-                <Text text="Ingrese el DNI del paciente:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <TextField fx:id="dniId" promptText="Ingrese DNI" />
-                <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                <Button fx:id="btnModificarTurno" text="Modificar" onAction="#modificarTurno"/>
-  
-                <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
-            </VBox>
-        </children>
-    </AnchorPane>
+   <!-- Página Modificar Turnos -->
+<AnchorPane fx:id="paginaModificarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+    <children>
+        <ImageView styleClass="logo-svg" fx:id="logoImage" fitHeight="100" fitWidth="100" preserveRatio="true" />
+        <VBox alignment="CENTER" spacing="5" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+            
+            <!-- Campo para DNI -->
+            <Text text="Ingrese el DNI del paciente:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="dniId2" promptText="Ingrese DNI" />
+            <Button fx:id="btnCargarDatos" text="Cargar Datos" onAction="#cargarDatosPaciente" />
+
+            <!-- Campos para los datos del paciente -->
+            <Text text="Nombre:" />
+            <TextField fx:id="nombreId" promptText="Nombre" />
+            
+            <Text text="Apellido:" />
+            <TextField fx:id="apellidoId" promptText="Apellido" />
+            
+            <Text text="Edad:" />
+            <TextField fx:id="edadId" promptText="Edad" />
+
+            <Text text="Fecha del Turno:" />
+            <DatePicker fx:id="datePicker" />
+
+            <!-- Lista de médicos disponibles -->
+            <Text text="Seleccione un Médico:" />
+            <ListView fx:id="listViewMedicos" prefHeight="100.0" prefWidth="150.0" />
+
+            <!-- Botones -->
+            <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#modificarTurno"/>
+            <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" />
+        </VBox>
+    </children>
+</AnchorPane>
     
     <!-- Formulario de Turno (Página de Agregar Turno) -->
     <AnchorPane fx:id="paginaAgregarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
