@@ -5,8 +5,7 @@
 package tpintegrador.proyecto;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.Collections;
 
 /**
  *
@@ -20,15 +19,47 @@ public class CentroDeSalud {
     private static ArrayList<Especialidades> listaEspecialidades = new ArrayList<>();
     private static ArrayList<Medico> listaMedicos = new ArrayList<>();
     private static ArrayList<ObraSocial> listaObraSocial = new ArrayList<>();
+    private boolean listasCargadas = false;
 
     //Constructor
-    public CentroDeSalud(String ubicacion, int contacto){
+    public CentroDeSalud(String ubicacion, int contacto) {
         this.ubicación = ubicación;
         this.contacto = contacto;
     }
 
     public void cargarListas() {
-        listaMedicos.clear();//Limpia la lista de medico antes de ejecutar el metodo para no tener medicos repetidos
+        if (!listasCargadas) {
+            listaMedicos.clear();        // Limpiar antes de agregar
+
+            // Inicializar Especialidades usando un array y un bucle
+            String[] nombresEspecialidades = {"Cardiología", "Pediatría", "Dermatología", "Traumatologia", "Oftalmología"};
+            for (String nombre : nombresEspecialidades) {
+                listaEspecialidades.add(new Especialidades(nombre));
+            }
+
+            // Inicializar Médicos
+            Medico medico1 = new Medico(listaEspecialidades.get(0), 12345, "9:00-17:00", "Dr. Juan Pérez", "Pérez", 12345678, 40);
+            Medico medico2 = new Medico(listaEspecialidades.get(1), 67890, "9:00-17:00", "Dra. Maria Sanchez", "Sanchez", 87654321, 35);
+            Medico medico3 = new Medico(listaEspecialidades.get(2), 67890, "9:00-17:00", "Dra. Monica Marquez", "Gómez", 87654321, 31);
+            Medico medico4 = new Medico(listaEspecialidades.get(3), 67890, "9:00-17:00", "Dr. Carlos Arias", "Gómez", 87654321, 31);
+            Medico medico5 = new Medico(listaEspecialidades.get(0), 12345, "9:00-17:00", "Dr. Alfredo Pucci", "Pérez", 12345678, 40);
+            Medico medico6 = new Medico(listaEspecialidades.get(1), 67890, "9:00-17:00", "Dr. Alberto Perez", "Sanchez", 87654321, 35);
+            Medico medico7 = new Medico(listaEspecialidades.get(2), 67890, "9:00-17:00", "Dra. Federica Gomez", "Gómez", 87654321, 31);
+            Medico medico8 = new Medico(listaEspecialidades.get(3), 67890, "9:00-17:00", "Dr. Matias Gonzalez", "Gómez", 87654321, 31);
+            Medico medico9 = new Medico(listaEspecialidades.get(4), 67898, "9:00-17:00", "Dr. Matias Riquelme", "Riquelme", 879654123, 25);
+
+            // Añadir todos los médicos de una vez
+            Collections.addAll(listaMedicos, medico1, medico2, medico3, medico4, medico5, medico6, medico7, medico8, medico9);
+
+            // Inicializar Obras Sociales usando un array y un bucle
+            String[] nombresObrasSociales = {"OSDE", "OSEP", "DAMSU", "Prevencion Salud", "Particular"};
+            for (String nombre : nombresObrasSociales) {
+                listaObraSocial.add(new ObraSocial(nombre));
+            }
+
+            listasCargadas = true; // Marcar que las listas han sido cargadas
+        }
+        /*listaMedicos.clear();//Limpia la lista de medico antes de ejecutar el metodo para no tener medicos repetidos
         int cont = 0;
         Random random = new Random();
         
@@ -87,54 +118,10 @@ public class CentroDeSalud {
         } catch (Exception e) {
             System.out.println("Error al agregar obras sociales: " + e.getMessage());
         }
+    }*/
     }
+//Metodos
 
-    //dejo comentado como estaba antes
-    /* Especialidades cardiologia = new Especialidades("Cardiología");
-        Especialidades pediatria = new Especialidades("Pediatría");
-        Especialidades dermatologia = new Especialidades("Dermatología");
-        Especialidades traumatologia = new Especialidades("Traumatologia");
-        
-        listaEspecialidades.add(cardiologia);
-        listaEspecialidades.add(pediatria);
-        listaEspecialidades.add(dermatologia);
-        listaEspecialidades.add(traumatologia);
-        
-        
-        // Inicializar Medicos
-        Medico medico1 = new Medico(cardiologia, "12345", "9:00-17:00", "Dr. Juan Pérez", "Pérez", 12345678, 40);
-        Medico medico2 = new Medico(dermatologia, "67890", "9:00-17:00", "Dra. Maria Sanchez", "Sanchez", 87654321, 35); 
-        Medico medico3 = new Medico(pediatria, "67890", "9:00-17:00", "Dra. Monica Marquez", "Gómez", 87654321, 31);
-        Medico medico4 = new Medico(traumatologia, "67890", "9:00-17:00", "Dra. Carlos Arias", "Gómez", 87654321, 31);
-        Medico medico5 = new Medico(cardiologia, "12345", "9:00-17:00", "Dr. Alfredo Pucci", "Pérez", 12345678, 40);
-        Medico medico6 = new Medico(dermatologia, "67890", "9:00-17:00", "Dr. Alberto Perez", "Sanchez", 87654321, 35); 
-        Medico medico7 = new Medico(pediatria, "67890", "9:00-17:00", "Dra. Federica Gomez", "Gómez", 87654321, 31);
-        Medico medico8 = new Medico(traumatologia, "67890", "9:00-17:00", "Dr. Matias Gonzalez", "Gómez", 87654321, 31);
-        
-        listaMedicos.add(medico1);
-        listaMedicos.add(medico2);
-        listaMedicos.add(medico3);
-        listaMedicos.add(medico4);
-        listaMedicos.add(medico5);
-        listaMedicos.add(medico6);
-        listaMedicos.add(medico7);
-        listaMedicos.add(medico8);
-        
-        
-        //Inicializar Obras Sociales
-        ObraSocial osde = new ObraSocial("OSDE");
-        ObraSocial osep = new ObraSocial("OSEP");
-        ObraSocial damsu = new ObraSocial("DAMSU");
-        ObraSocial psalud = new ObraSocial("Prevencion Salud");
-        ObraSocial particular = new ObraSocial("Particular");
-        
-        listaObraSocial.add(osde);
-        listaObraSocial.add(osep);
-        listaObraSocial.add(damsu);
-        listaObraSocial.add(psalud);
-        listaObraSocial.add(particular);*/
-    
-    //Metodos
     public ArrayList<Medico> obtenerMedicos() {
         return listaMedicos;
     }
