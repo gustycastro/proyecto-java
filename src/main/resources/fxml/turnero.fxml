@@ -8,10 +8,10 @@
 <StackPane xmlns:fx="http://javafx.com/javafx" xmlns="http://javafx.com/fxml" fx:controller="tpintegrador.proyecto.Turnero" styleClass="fondo" >
 
     <!-- Página Principal -->
-    <AnchorPane fx:id="paginaPrincipal" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+    <AnchorPane fx:id="paginaPrincipal" styleClass="contenedor">
         <children>
-            <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
-                <Text text="Sistema de Turnos" styleClass="titulo-principal"/>
+            <VBox styleClass="vbox" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+                <Text text="Sistema de Turnos" styleClass="titulo_principal"/>
                 <Button fx:id="btnAgregarTurno" text="Agregar Turno" onAction="#irAgregarTurno"/>
                 <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#irModificarTurno"/>
                 <Button fx:id="btnMostrarTurno" text="Mostrar Turno" onAction="#irMostrarTurno"/>
@@ -21,88 +21,73 @@
     </AnchorPane>
     
     <!-- Página Mostrar Turnos -->
-    <AnchorPane fx:id="paginaMostrarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+    <AnchorPane fx:id="paginaMostrarTurno" visible="false" styleClass="contenedor">
         <children>
-            <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+            <VBox styleClass="vbox" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
                 <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
             </VBox>
         </children>
     </AnchorPane>
     
     <!-- Página Modificar Turnos -->
-    <AnchorPane fx:id="paginaModificarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+    <AnchorPane fx:id="paginaModificarTurno" visible="false" styleClass="contenedor">
         <children>
             <!-- VBox para alinear los elementos verticalmente -->
-            <VBox alignment="CENTER" spacing="10" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-            
+            <VBox styleClass="vbox" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                 <!-- Etiqueta para el DNI -->
                 <Text text="Ingrese el DNI del paciente:" />
-            
                 <!-- Campo de texto para el DNI -->
                 <TextField fx:id="dniIdModificar"/>
-            
                 <!-- Botón para buscar el paciente -->
                 <Button fx:id="btnBuscarPaciente" text="Buscar Paciente" onAction="#handleBuscarPaciente"/>
-            
                 <!-- Etiqueta para mostrar los datos del paciente -->
                 <Text text="Datos del Paciente:" />
-            
                 <!-- Área de texto no editable para mostrar los datos del paciente -->
                 <TextArea fx:id="datosArea" prefHeight="100" prefWidth="200" editable="false"/>
-            
                 <!-- Etiqueta para la nueva fecha -->
                 <Text text="Nueva Fecha:" />
-            
                 <!-- Selector de fecha -->
                 <DatePicker fx:id="fechaId"/>
-            
                 <!-- Botón para modificar el turno -->
                 <Button fx:id="btnTurnoModificado" text="Confirmar" onAction="#modificarTurno"/>
-            
                 <!-- Botón para volver a la página principal -->
                 <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal"/>
-            
             </VBox>
         </children>
     </AnchorPane>
     
     <!-- Formulario de Turno (Página de Agregar Turno) -->
-    <AnchorPane fx:id="paginaAgregarTurno" visible="false" maxWidth="550" maxHeight="600" style="-fx-background-color: white; -fx-padding: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+    <AnchorPane fx:id="paginaAgregarTurno" visible="false" styleClass="contenedor">
         <children>
-            <VBox alignment="CENTER" spacing="20" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+            <VBox styleClass="vbox" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
                 <!-- Datos del Paciente -->
                 <GridPane hgap="14" vgap="14">
-                    <Text text="Datos del Paciente:" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
-
+                    <Text text="Datos del Paciente:" styleClass="titulo_dato_paciente"/>
+                    <!-- Ingresa el Nombre -->
                     <Text text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                     <TextField fx:id="nombreId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
+                    <!-- Ingresa el Apellido -->
                     <Text text="Apellido:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <TextField fx:id="apellidoId" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
+                    <!-- Ingresa el DNI -->
                     <Text text="DNI:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                     <TextField fx:id="dniId" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
+                    <!-- Ingresa la Edad -->
                     <Text text="Edad:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                     <TextField fx:id="edadId" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-
+                    <!-- Selección de Obra Social -->
                     <Text text="Obra Social:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                     <ComboBox styleClass="obrasSociales" fx:id="comboObrasSociales" GridPane.columnIndex="1" GridPane.rowIndex="6" promptText="Seleccionar Obra Social" />
-                        
                     <!-- Selección de Especialidad -->
                     <Text text="Seleccione una especialidad:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
                     <ComboBox styleClass="especialidades" fx:id="comboEspecialidades" promptText="Seleccionar Especialidad"  GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-                        
                     <!-- Botón Mostrar Médicos -->
                     <Button fx:id="btnMostrarMedicos" text="Médicos Disponibles" onAction="#mostrarMedicos" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-                        
                     <!-- Médicos Disponibles -->
                     <ListView fx:id="listViewMedicos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                        
                     <!-- Selección de Fecha -->
                     <Text text="Seleccione una fecha para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
                     <DatePicker fx:id="datePicker"  GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                        
                     <!-- Botón Agendar Turno -->
                     <Button fx:id="btnAgendarTurno" text="Confirmar" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
                     <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>

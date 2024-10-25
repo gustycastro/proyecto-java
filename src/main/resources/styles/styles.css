@@ -1,9 +1,40 @@
-/* Fondo */
+/* Imagen de Fondo */
 .fondo{
     -fx-background-image: url("imagenes/imagen.jpg");
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+    -fx-fit-width: 100%;     /* Ajusta el ancho al 100% */
+    -fx-fit-height: 100%;    /* Ajusta la altura al 100% */
+    -fx-preserve-ratio: true; /* Mantiene la relación de aspecto */
+    
+}
+/* Estilos del contenedor */
+.contenedor{
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0, 0, 2);
+    -fx-max-width: 550; /* Esto no funcionará directamente, pero se puede usar como sugerencia */
+    -fx-max-height: 650; /* Igual que arriba */
+    -fx-background-radius: 15;
+}
+/* Estilos del VBOX */
+.vbox{
+    -fx-alignment: CENTER; /* Alineación central */
+    -fx-spacing: 20; /* Espaciado entre los elementos */
+    
+}
+/* Estilos del titulo principal */
+.titulo_principal {
+    -fx-font-size: 30px; 
+    -fx-font-weight: bold;   
+    -fx-underline: true;
+    
+}
+
+.titulo_dato_paciente{
+    -fx-font-weight: bold;   
+    -fx-font-size: 15px; 
 }
 
 /* Estilos de los botones */
@@ -11,6 +42,7 @@
     -fx-background-color: #000000; /* Fondo negro */
     -fx-text-fill: white; /* Texto blanco */
     -fx-font-size: 16px;
+    
 }
 
 .button:hover {
@@ -43,19 +75,6 @@
 
 #btnCancelarTurno:pressed {
     -fx-background-color: #8b0000; /* Fondo rojo */
-}
-
-
-#eliminarButton {
-    -fx-background-color: #000000; /* Fondo negro */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-font-size: 16px;
-    -fx-padding: 10px 20px; /* Relleno interno */
-}
-
-#eliminarButton:hover {
-    -fx-text-fill: grey; /* Texto azul al pasar el mouse */
-    -fx-cursor: hand;
 }
 
 /* Estilo de los ComboBox */
@@ -91,7 +110,7 @@
     -fx-text-fill: white; /* Texto blanco */
 }
 
-/* Estilos del formulario */
+/* Estilos del formulario cuando cancelamos un turno */
 #dniTextField {
     -fx-background-color: #ffffff; /* Fondo blanco */
     -fx-border-color: #000000; /* Borde negro */
@@ -99,7 +118,6 @@
     -fx-padding: 5px; /* Relleno interno */
     -fx-font-size: 14px;
 }
-
 #cancelarTurnoVBox {
     -fx-background-color: #FFFFFF;
     -fx-padding: 20px; /* Relleno alrededor del contenido */
