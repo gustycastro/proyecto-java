@@ -4,18 +4,14 @@
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-fit-width: 100%;     /* Ajusta el ancho al 100% */
-    -fx-fit-height: 100%;    /* Ajusta la altura al 100% */
-    -fx-preserve-ratio: true; /* Mantiene la relación de aspecto */
-    
 }
 /* Estilos del contenedor */
 .contenedor{
     -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-padding: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0, 0, 2);
-    -fx-max-width: 550; /* Esto no funcionará directamente, pero se puede usar como sugerencia */
-    -fx-max-height: 650; /* Igual que arriba */
+    -fx-max-width: 550; 
+    -fx-max-height: 650; 
     -fx-background-radius: 15;
 }
 /* Estilos del VBOX */
