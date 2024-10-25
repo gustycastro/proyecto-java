@@ -35,15 +35,19 @@
 
 /* Estilos de los botones */
 .button {
-    -fx-background-color: #000000; /* Fondo negro */
     -fx-text-fill: white; /* Texto blanco */
     -fx-font-size: 16px;
     
 }
-
 .button:hover {
-    -fx-text-fill: grey; /* Texto azul al pasar el mouse */
     -fx-cursor: hand; /* Cursor de manito */
+}
+
+#btnMostrarTurno, #btnMostrarMedicos,#btnVolver,#btnModificarTurno,#btnBuscarPaciente,#btnAgregarTurno {
+    -fx-background-color: #535353;
+}
+#btnMostrarTurno:hover,#btnMostrarMedicos:hover,#btnVolver:hover,#btnModificarTurno:hover,#btnBuscarPaciente:hover,#btnAgregarTurno:hover{
+    -fx-background-color: #0a0a0a;
 }
 
 /* Botones específicos */
@@ -54,23 +58,13 @@
 #btnCancelarTurno {
     -fx-background-color: #cd5c5c; /* Fondo rojo */
 }
-#btnAgendarTurno:hover, #btnCancelarTurno:hover, #confirmarButton:hover, #btnTurnoModificado:hover {
-    -fx-text-fill: white; /* Texto azul al pasar el mouse */
-    -fx-cursor: hand; /* Cursor de manito */
-}
+
 #btnAgendarTurno:hover, #confirmarButton:hover, #btnTurnoModificado:hover {
     -fx-background-color: #32cd32; /* Fondo verde */
 }
 
 #btnCancelarTurno:hover {
     -fx-background-color: red; /* Fondo rojo */
-}
-#btnAgendarTurno:pressed, #confirmarButton:pressed, #btnTurnoModificado:pressed {
-    -fx-background-color: darkgreen; /* Fondo verde */
-}
-
-#btnCancelarTurno:pressed {
-    -fx-background-color: #8b0000; /* Fondo rojo */
 }
 
 /* Estilo de los ComboBox */
@@ -87,7 +81,7 @@
     -fx-fill: white; /* Texto azul al pasar el mouse */
 }
 .combo-box:hover .text {
-    -fx-fill: grey; /* Texto azul al pasar el mouse */
+    -fx-fill: #d1d1d1; /* Texto azul al pasar el mouse */
     -fx-cursor: hand;
 }
 
@@ -98,7 +92,7 @@
 }
 
 .combo-box .list-view .list-cell:hover {
-    -fx-text-fill: grey; /* Texto azul al pasar el mouse */
+    -fx-text-fill: white; /* Texto azul al pasar el mouse */
 }
 
 .combo-box .list-view .list-cell:selected {
