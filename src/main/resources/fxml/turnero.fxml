@@ -13,8 +13,8 @@
             <VBox styleClass="vbox" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
                 <Text text="Sistema de Turnos" styleClass="titulo_principal"/>
                 <Button fx:id="btnAgregarTurno" text="Agregar Turno" onAction="#irAgregarTurno"/>
-                <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#irModificarTurno"/>
                 <Button fx:id="btnMostrarTurno" text="Mostrar Turno" onAction="#irMostrarTurno"/>
+                <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#irModificarTurno"/>
                 <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno"/>
             </VBox>
         </children>
