@@ -72,7 +72,10 @@ public class Turnero {
     private TextArea datosArea;
     @FXML
     private Button btnBuscarPaciente;
-
+    @FXML
+    private Button btnBuscarTurno;
+    
+    
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
         CentroDeSalud cs = new CentroDeSalud("sadasd", 0);
@@ -250,82 +253,35 @@ public class Turnero {
         cancelarStage.setTitle("Cancelar Turno");
         cancelarStage.show();
     }
-
     @FXML
-    private void handleBuscarPaciente() {
-        String dniStr = dniIdModificar.getText().trim(); // Obtener el DNI del campo de texto
-
-        // Verificar si el campo está vacío
-        if (dniStr == null || dniStr.isEmpty()) {
-            showAlertE("Debe ingresar un DNI válido.");
+    private ListView<Turno> listTurnos; // ListView para mostrar médicos
+    @FXML
+    public void buscarTurno() {
+        
+        int dni;
+    
+        try {
+            // Intentar convertir el texto a entero
+            dni = Integer.parseInt(dniIdModificar.getText().trim());
+        } catch (NumberFormatException e) {
+            // Mostrar un mensaje de error si el DNI no es válido
+            showAlertE("Por favor, introduce un número de DNI válido.");
             return;
         }
-
-        try {
-            // Intentar convertir el DNI a un número entero
-            int dni = Integer.parseInt(dniStr);
-
-            // Llamar al método que busca el turno del paciente por DNI
-            String datosPaciente = bdTurnos.buscarTurnoPorDni(dni);
-
-            if (datosPaciente.contains("No se encontró un registro")) {
-                showAlertE("No se encontró un paciente con el DNI especificado.");
-            } else {
-                // Mostrar los datos del paciente en el área de texto
-                datosArea.setText(datosPaciente);
-            }
-
-        } catch (NumberFormatException ex) {
-            // Si el DNI no es un número válido, mostrar un mensaje de error
-            showAlertE("El DNI debe ser un número entero válido.");
-        }
+        bdTurnos.buscarTurnos(dni, listTurnos);
+        
     }
+    
 
     // Método que maneja la lógica para buscar y modificar el turno de un paciente
-    @FXML
-    public void modificarTurno() {
-        String dniStr = dniIdModificar.getText();
+    public void modificarTurno(){
         LocalDate nuevaFecha = fechaId.getValue();
-
-        if (dniStr.isEmpty() || nuevaFecha == null) {
-            showAlertE("Por favor, complete todos los campos.");
-            return;
-        }
-
-        try {
-            // Convertir el DNI a entero
-            int dni = Integer.parseInt(dniStr);
-
-            // 1. Buscar el turno del paciente por DNI
-            String datosPaciente = bdTurnos.buscarTurnoPorDni(dni);
-
-            if (datosPaciente.contains("No se encontró un registro")) {
-                // No se encontró un paciente con ese DNI
-                showAlertE("No se encontró un paciente con el DNI especificado.");
-            } else {
-
-                // Mostrar los datos actuales del paciente en consola (opcional)
-                // 2. Modificar la fecha del turno del paciente
-                boolean exito = bdTurnos.modificarFechaTurno(dni, nuevaFecha.toString());
-
-                // Verificar si la actualización fue exitosa
-                if (exito) {
-                    // Volver a buscar para verificar los datos actualizados (opcional)
-                    String datosActualizados = bdTurnos.buscarTurnoPorDni(dni);
-                    showAlertC("Turno modificado correctamente");
-                } else {
-                    // No se pudo modificar la fecha
-                    showAlertE("No se pudo modificar el turno.");
-                }
-            }
-            
-        } catch (NumberFormatException ex) {
-            showAlertE("El DNI debe ser un número entero válido.");
-        } catch (Exception ex) {
-            showAlertE("Ocurrió un error al intentar modificar el turno.");
-        }
+        Turno turno = listTurnos.getSelectionModel().getSelectedItem();
+        turno.setFecha(nuevaFecha);
+        bdTurnos.modificarFechaTurno(turno, nuevaFecha.toString());
     }
-
+    
+    
     // Método para mostrar alertas
     private void showAlertE(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

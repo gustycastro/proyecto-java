@@ -39,11 +39,11 @@
                 <!-- Campo de texto para el DNI -->
                 <TextField fx:id="dniIdModificar"/>
                 <!-- Botón para buscar el paciente -->
-                <Button fx:id="btnBuscarPaciente" text="Buscar Paciente" onAction="#handleBuscarPaciente"/>
-                <!-- Etiqueta para mostrar los datos del paciente -->
-                <Text text="Datos del Paciente:" />
-                <!-- Área de texto no editable para mostrar los datos del paciente -->
-                <TextArea fx:id="datosArea" prefHeight="100" prefWidth="200" editable="false"/>
+                <Button fx:id="btnBuscarTurnos" text="Buscar Turno" onAction="#buscarTurno"/>
+                <Text text="Turnos del paciente:" />
+                <ListView fx:id="listTurnos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+                
                 <!-- Etiqueta para la nueva fecha -->
                 <Text text="Nueva Fecha:" />
                 <!-- Selector de fecha -->

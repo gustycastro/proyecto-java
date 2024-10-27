@@ -4,6 +4,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template*/
 package tpintegrador.proyecto;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  *
  *
@@ -11,32 +14,29 @@ package tpintegrador.proyecto;
  */
 public class Turno extends Paciente {
 
-    //Atributos
-    private int fecha;
-    private int hora;
-
-    ///Constructor 
-    public Turno(int fecha, int hora,String nombre, String apellido, int dni, int edad) {    
+    // Atributos
+    private LocalDate fecha;
+    public String medico;
+    // Constructor
+    public Turno(LocalDate fecha, String nombre, String apellido, int dni, int edad, String medico) {    
         super(nombre, apellido, dni, edad);
         this.fecha = fecha;
-        this.hora = hora;
+        this.medico = medico;
     }
 
-    //Metodos gets y sets
-    public int getFecha() {
+    // Métodos getters y setters
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(int fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public int getHora() {
-        return hora;
+    @Override
+    public String toString() {
+        return String.format("Nombre: %s %s, Fecha: %s, Edad: %d", 
+                getNombre(), getApellido(), fecha.toString(), getEdad());
     }
-
-    public void setHora(int hora) {
-        this.hora = hora;
-    }
-
 }
+

@@ -6,6 +6,8 @@ package tpintegrador.proyecto;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import javafx.scene.control.ListView;
 
 /**
  *
@@ -160,7 +162,48 @@ public class GestionTurnos {
         }
         System.out.println("Operación realizada con éxito");
     }
+   public void buscarTurnos(int DNI, ListView<Turno> listTurnos) {
+    Connection c = null;
+    Statement stmt = null;
+    try {
+        // Establecer la conexión
+        Class.forName("org.sqlite.JDBC");
+        c = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite");
+        c.setAutoCommit(false);
+        System.out.println("Base de datos abierta exitosamente");
 
+        // Crear la consulta SQL para buscar los turnos con el DNI dado
+        String sql = "SELECT * FROM TablaPacientes WHERE DNI = " + DNI;
+        stmt = c.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        // Limpiar la lista antes de mostrar nuevos resultados
+        listTurnos.getItems().clear();
+
+        // Recorrer los resultados y añadirlos a la ListView
+        while (rs.next()) {
+            String nombre = rs.getString("nombre");
+            String apellido = rs.getString("apellido");
+            String medico = rs.getString("doctor");
+            LocalDate fecha = LocalDate.parse(rs.getString("fecha"));  // Asumiendo formato YYYY-MM-DD
+            int edad = rs.getInt("edad");
+
+            // Crear un objeto Turno y agregarlo a la lista
+            Turno turno = new Turno(fecha, nombre, apellido, DNI, edad, medico);
+            listTurnos.getItems().add(turno);
+        }
+
+        // Cerrar ResultSet y Statement
+        rs.close();
+        stmt.close();
+        c.close();
+
+    } catch (Exception e) {
+        System.out.println("Error al mostrar los datos");
+        System.err.println(e.getClass().getName() + ": " + e.getMessage());
+    }
+    System.out.println("Operación realizada con éxito");
+}
     public int obtenerUltimoId() {
         Connection c = null;
         Statement stmt = null;
@@ -246,15 +289,15 @@ public class GestionTurnos {
     }
 
     // Método para modificar la fecha de un paciente por DNI
-    public boolean modificarFechaTurno(int dni, String nuevaFecha) {
-        String sql = "UPDATE TablaPacientes SET fecha = ? WHERE dni = ?";
+    public boolean modificarFechaTurno(Turno turno, String nuevaFecha) {
+        String sql = "UPDATE TablaPacientes SET fecha = ? WHERE doctor = ?";
         boolean exito = false;
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); // Conectar a la base de datos
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevaFecha);  // Setear nueva fecha
-            pstmt.setInt(2, dni);            // Setear dni
+            pstmt.setString(2, turno.medico);            // Setear dni
 
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
