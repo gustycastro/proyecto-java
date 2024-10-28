@@ -43,10 +43,10 @@
     -fx-cursor: hand; /* Cursor de manito */
 }
 
-#btnMostrarTurno, #btnMostrarMedicos,#btnVolver,#btnModificarTurno,#btnBuscarPaciente,#btnAgregarTurno {
+#btnMostrarTurno, #btnMostrarMedicos,#btnVolver,#btnModificarTurno,#btnBuscarTurnos,#btnAgregarTurno {
     -fx-background-color: #535353;
 }
-#btnMostrarTurno:hover,#btnMostrarMedicos:hover,#btnVolver:hover,#btnModificarTurno:hover,#btnBuscarPaciente:hover,#btnAgregarTurno:hover{
+#btnMostrarTurno:hover,#btnMostrarMedicos:hover,#btnVolver:hover,#btnModificarTurno:hover,#btnBuscarTurnos:hover,#btnAgregarTurno:hover{
     -fx-background-color: #0a0a0a;
 }
 
