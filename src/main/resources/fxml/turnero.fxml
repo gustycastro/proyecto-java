@@ -59,9 +59,9 @@
     <!-- Formulario de Turno (Página de Agregar Turno) -->
     <AnchorPane fx:id="paginaAgregarTurno" visible="false" styleClass="contenedor">
         <children>
-            <VBox styleClass="vbox" AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+            <VBox styleClass="vbox" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
                 <!-- Datos del Paciente -->
-                <GridPane hgap="14" vgap="14">
+                <GridPane hgap="10" vgap="10">
                     <Text text="Datos del Paciente:" styleClass="titulo_dato_paciente"/>
                     <!-- Ingresa el Nombre -->
                     <Text text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
@@ -85,12 +85,14 @@
                     <Button fx:id="btnMostrarMedicos" text="Médicos Disponibles" onAction="#mostrarMedicos" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
                     <!-- Médicos Disponibles -->
                     <ListView fx:id="listViewMedicos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-                    <!-- Selección de Fecha -->
+                    <!-- Selección de Fecha y hora -->
                     <Text text="Seleccione una fecha para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
                     <DatePicker fx:id="datePicker"  GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+                    <Text text="Seleccione una hora para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                    <TextField fx:id="horaId" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                     <!-- Botón Agendar Turno -->
-                    <Button fx:id="btnAgendarTurno" text="Confirmar" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
-                    <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
+                    <Button fx:id="btnAgendarTurno" text="Confirmar" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.columnSpan="3" alignment="CENTER"/>
+                    <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.columnSpan="3" alignment="CENTER"/>
                 </GridPane>
             </VBox>
         </children>
