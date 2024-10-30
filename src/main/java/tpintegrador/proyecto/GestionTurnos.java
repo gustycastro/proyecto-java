@@ -52,16 +52,16 @@ public class GestionTurnos {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            String sql = "CREATE TABLE TablaPacientes "
-                    + "(ID INT PRIMARY KEY NOT NULL, "
-                    + "nombre   TEXT NOT NULL, "
-                    + "apellido TEXT NOT NULL, "
-                    + "edad     INTEGER NOT NULL, "
-                    + "fecha    TEXT NOT NULL, "
-                    + "DNI      INTEGER NOT NULL, "
-                    + "doctor   TEXT NOT NULL "
-                    + "hora     TEXT NOT NULL, "
-                    + ");";
+            String sql = "CREATE TABLE IF NOT EXISTS TablaPacientes (" +
+             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+             "nombre TEXT NOT NULL, " +
+             "apellido TEXT NOT NULL, " +
+             "edad INTEGER NOT NULL, " +
+             "fecha TEXT NOT NULL, " +
+             "\"hora\" TEXT NOT NULL, " +  // Usar comillas dobles para evitar conflictos
+             "dni INTEGER NOT NULL, " +
+             "medico TEXT NOT NULL" +
+             ");";
             stmt.executeUpdate(sql);
             stmt.close();
             System.out.println("Tabla creada correctamente");
