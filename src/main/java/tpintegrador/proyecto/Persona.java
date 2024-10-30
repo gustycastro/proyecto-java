@@ -17,7 +17,7 @@ public abstract class Persona {
     protected int edad;
     
     //Constructor
-
+    
     public Persona(String nombre, String apellido, int dni, int edad) {// Fer: cambie int de dni por long
         this.nombre = nombre;
         this.apellido = apellido;

@@ -52,15 +52,15 @@ public class GestionTurnos {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            String sql = "CREATE TABLE  TablaPacientes "
+            String sql = "CREATE TABLE TablaPacientes "
                     + "(ID INT PRIMARY KEY NOT NULL, "
                     + "nombre   TEXT NOT NULL, "
                     + "apellido TEXT NOT NULL, "
                     + "edad     INTEGER NOT NULL, "
-                    + "hora     TEXT NOT NULL, "
                     + "fecha    TEXT NOT NULL, "
                     + "DNI      INTEGER NOT NULL, "
                     + "doctor   TEXT NOT NULL "
+                    + "hora     TEXT NOT NULL, "
                     + ");";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -146,7 +146,7 @@ public class GestionTurnos {
                 int dni = rs.getInt("DNI");
                 String doctor = rs.getString("doctor");
 
-                System.out.println("ID = " + id);
+                
                 System.out.println("Nombre = " + nombre);
                 System.out.println("Apellido = " + apellido);
                 System.out.println("Edad = " + edad);

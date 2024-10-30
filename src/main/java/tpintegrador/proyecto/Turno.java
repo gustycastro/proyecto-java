@@ -4,26 +4,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template*/
 package tpintegrador.proyecto;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 
-/**
- *
- *
- * @author laure
- */
-public class Turno extends Paciente {
+
+
+import java.time.LocalDate;
+
+
+public class Turno extends Persona {
 
     // Atributos
     private LocalDate fecha;
     public int hora;
     public String medico;
+
     // Constructor
-    public Turno(LocalDate fecha, int hora, String nombre, String apellido,int edad, int dni, String medico) {    
+   
+    public Turno(LocalDate fecha, int hora, String nombre, String apellido, int edad, int dni, String medico) {
         super(nombre, apellido, dni, edad);
         this.fecha = fecha;
         this.medico = medico;
-        this.hora=hora;
+        this.hora = hora;
     }
 
     // Métodos getters y setters
@@ -34,7 +34,7 @@ public class Turno extends Paciente {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
-    
+
     public String getMedico() {
         return medico;
     }
@@ -44,10 +44,8 @@ public class Turno extends Paciente {
     }
     @Override
     public String toString() {
-        return String.format("Nombre: %s %s, Fecha: %s, Medico: %s ", 
+        return String.format("Nombre: %s %s, Fecha: %s, Medico: %s ",
                 getNombre(), getApellido(), fecha.toString(), getMedico());
     }
 
-    
 }
-

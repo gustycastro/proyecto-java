@@ -4,6 +4,7 @@
  */
 package tpintegrador.proyecto;
 
+import java.time.DayOfWeek;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class Turnero {
 
     //Atributos
     GestionTurnos bdTurnos = new GestionTurnos();
+
     @FXML
     private TextField nombreId; // Campo para el nombre del paciente
     @FXML
@@ -76,8 +78,7 @@ public class Turnero {
     private Button btnBuscarPaciente;
     @FXML
     private Button btnBuscarTurno;
-    
-    
+
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
         CentroDeSalud cs = new CentroDeSalud("sadasd", 0);
@@ -165,49 +166,88 @@ public class Turnero {
     // Método para agendar un turno
     @FXML
     private void agendarTurno() {
-    // Obtener los valores de los campos
-    String nombre = nombreId.getText();
-    String apellido = apellidoId.getText();
-    String dniStr = dniId.getText();
-    String edadStr = edadId.getText();
-    LocalDate selectedDate = datePicker.getValue();
-    String hora = horaId.getText(); // Asegúrate de tener un campo para la hora en la interfaz
-    Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
+        // Obtener los valores de los campos
+        String nombre = nombreId.getText();
+        String apellido = apellidoId.getText();
+        String dniStr = dniId.getText();
+        String edadStr = edadId.getText();
+        LocalDate selectedDate = datePicker.getValue();
+        String hora = horaId.getText(); // Asegúrate de tener un campo para la hora en la interfaz
+        Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
 
-    // Validación de los campos
-    if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || hora.isEmpty()) {
-        showAlertE("Por favor, complete todos los campos.");
-        return;
+        // Validación de los campos
+        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || hora.isEmpty()) {
+            showAlertE("Por favor, complete todos los campos.");
+            return;
+        }
+
+        // Validación de la fecha seleccionada (debe ser día hábil y posterior a hoy)
+        LocalDate today = LocalDate.now();
+        if (selectedDate.isBefore(today) || selectedDate.equals(today)) {
+            showAlertE("La fecha debe ser posterior a hoy.");
+            return;
+        }
+        if (selectedDate.getDayOfWeek() == DayOfWeek.SATURDAY || selectedDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            showAlertE("Seleccione un día hábil (lunes a viernes).");
+            return;
+        }
+
+        try {
+            // Validar que el DNI y la edad sean números
+            int dni = Integer.parseInt(dniStr);
+            int edad = Integer.parseInt(edadStr);
+
+            // Convertir la fecha a un formato adecuado
+            String fecha = selectedDate.toString();
+
+            // Agendar el turno si todo es válido
+            showAlertC("Turno agendado correctamente");
+
+            // Llamar al método para insertar en la base de datos
+            int nuevoId = bdTurnos.obtenerUltimoId() + 1;
+            bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, hora, dni, medicoSeleccionado.getNombre());
+            bdTurnos.mostrarRegistros();
+
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            showAlertE("Por favor, ingrese un número válido para el DNI y la edad.");
+        }
     }
-    try {
-        // Validar que el DNI y la edad sean números
-        int dni = Integer.parseInt(dniStr);
-        int edad = Integer.parseInt(edadStr);
 
-        // Convertir la fecha a un formato adecuado
-        String fecha = selectedDate.toString();
-
-        // Agendar el turno si todo es válido
-        showAlertC("Turno agendado correctamente");
-
-        // Llamar al método para insertar en la base de datos
-        int nuevoId = bdTurnos.obtenerUltimoId() + 1;
-        bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, hora, dni, medicoSeleccionado.getNombre());
-        bdTurnos.mostrarRegistros();
-
-        limpiarCampos();
-    } catch (NumberFormatException e) {
-        showAlertE("Por favor, ingrese un número válido para el DNI y la edad.");
-    }
-}
-
-    
-    public void modificarTurno(){    // Método que maneja la lógica para buscar y modificar el turno de un paciente
+    @FXML
+    public void modificarTurno() {    // Método que maneja la lógica para buscar y modificar el turno de un paciente
         LocalDate nuevaFecha = fechaId.getValue();
+        LocalDate today = LocalDate.now();
+        // Obtener el turno seleccionado
         Turno turno = listTurnos.getSelectionModel().getSelectedItem();
+
+        // Verificar que el turno esté seleccionado antes de continuar
+        if (turno == null) {
+            showAlertE("Seleccione un turno para modificar.");
+            return;
+        }
+        if (nuevaFecha.isBefore(today) || nuevaFecha.equals(today)) {
+            showAlertE("La fecha debe ser posterior a hoy.");
+            return;
+        }
+
+        // Validación: la fecha debe ser un día hábil (lunes a viernes)
+        if (nuevaFecha.getDayOfWeek() == DayOfWeek.SATURDAY || nuevaFecha.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            showAlertE("Seleccione un día hábil (lunes a viernes).");
+            return;
+        }
+
+        // Validación: la nueva fecha no debe ser anterior a la fecha actual del turno
+        if (nuevaFecha.isBefore(turno.getFecha()) || nuevaFecha.equals(turno.getFecha())) {
+            showAlertE("La nueva fecha debe ser posterior a la fecha actual del turno.");
+            return;
+        }
+
         turno.setFecha(nuevaFecha);
         bdTurnos.modificarFechaTurno(turno, nuevaFecha.toString());
+        showAlertC("Turno modificado correctamente");
     }
+
     @FXML
     private void cancelarTurno() {
         Stage cancelarStage = new Stage();
@@ -249,6 +289,7 @@ public class Turnero {
     }//Metodo para cancelar turno
     @FXML
     private ListView<Turno> listTurnos; // ListView para mostrar médicos
+
     @FXML
     public void buscarTurno() {
         int dni;
@@ -260,20 +301,22 @@ public class Turnero {
         }
         bdTurnos.buscarTurnos(dni, listTurnos);
     }
-    
+
     private void showAlertE(String message) {    // Método para mostrar alertas
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-    private void showAlertC(String message){
+
+    private void showAlertC(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-     // Método para limpiar los campos
+    // Método para limpiar los campos
+
     private void limpiarCampos() {
         // Limpia todos los campos de entrada
         nombreId.clear();
