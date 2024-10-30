@@ -190,7 +190,7 @@ public class GestionTurnos {
                 String medico = rs.getString("doctor");
                 LocalDate fecha = LocalDate.parse(rs.getString("fecha"));  // Asumiendo formato YYYY-MM-DD
                 int edad = rs.getInt("edad");
-                String hora = rs.getString("hora");
+                int hora = rs.getInt("hora");
 
                 // Crear un objeto Turno y agregarlo a la lista
                 Turno turno = new Turno(fecha, hora, nombre, apellido, DNI, edad, medico);
