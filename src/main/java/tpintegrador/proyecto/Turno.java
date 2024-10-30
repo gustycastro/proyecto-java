@@ -10,7 +10,7 @@ package tpintegrador.proyecto;
 import java.time.LocalDate;
 
 
-public class Turno extends Paciente {
+public class Turno extends Persona {
 
     // Atributos
     private LocalDate fecha;

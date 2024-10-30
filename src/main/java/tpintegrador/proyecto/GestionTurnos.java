@@ -51,16 +51,17 @@ public class GestionTurnos {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-            String sql = "CREATE TABLE IF NOT EXISTS TablaPacientes (" +
-             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-             "nombre TEXT NOT NULL, " +
-             "apellido TEXT NOT NULL, " +
-             "edad INTEGER NOT NULL, " +
-             "fecha TEXT NOT NULL, " +
-             "hora TEXT NOT NULL, " +  // Usar comillas dobles para evitar conflictos
-             "dni INTEGER NOT NULL, " +
-             "medico TEXT NOT NULL" +
-             ");";
+            String sql = "CREATE TABLE IF NOT EXISTS TablaPacientes ("
+                    + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "nombre TEXT NOT NULL, "
+                    + "apellido TEXT NOT NULL, "
+                    + "edad INTEGER NOT NULL, "
+                    + "fecha TEXT NOT NULL, "
+                    + "hora TEXT NOT NULL, "
+                    + // Usar comillas dobles para evitar conflictos
+                    "dni INTEGER NOT NULL, "
+                    + "medico TEXT NOT NULL"
+                    + ");";
             stmt.executeUpdate(sql);
             stmt.close();
             System.out.println("Tabla creada correctamente");
@@ -144,7 +145,6 @@ public class GestionTurnos {
                 int dni = rs.getInt("DNI");
                 String doctor = rs.getString("doctor");
 
-                
                 System.out.println("Nombre = " + nombre);
                 System.out.println("Apellido = " + apellido);
                 System.out.println("Edad = " + edad);
@@ -165,9 +165,9 @@ public class GestionTurnos {
         System.out.println("Operación realizada con éxito");
     }
 
-    public void buscarTurnos(int DNI, ListView<Turno> listTurnos) {
+    public boolean buscarTurnos(int DNI, ListView<Turno> listTurnos) {
         Connection c = null;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         try {
             // Establecer la conexión
             Class.forName("org.sqlite.JDBC");
@@ -175,10 +175,24 @@ public class GestionTurnos {
             c.setAutoCommit(false);
             System.out.println("Base de datos abierta exitosamente");
 
-            // Crear la consulta SQL para buscar los turnos con el DNI dado
-            String sql = "SELECT * FROM TablaPacientes WHERE DNI = " + DNI;
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            // Verificar si el DNI existe en la base de datos
+            String checkSql = "SELECT COUNT(*) FROM TablaPacientes WHERE DNI = ?";
+            stmt = c.prepareStatement(checkSql);
+            stmt.setInt(1, DNI);
+            ResultSet checkRs = stmt.executeQuery();
+
+            if (checkRs.next() && checkRs.getInt(1) == 0) {
+                checkRs.close();
+                stmt.close();
+                c.close();
+                return false;  // Retornar false si el DNI no existe
+            }
+
+            // Si el DNI existe, proceder con la búsqueda de turnos
+            String sql = "SELECT * FROM TablaPacientes WHERE DNI = ?";
+            stmt = c.prepareStatement(sql);
+            stmt.setInt(1, DNI);
+            ResultSet rs = stmt.executeQuery();
 
             // Limpiar la lista antes de mostrar nuevos resultados
             listTurnos.getItems().clear();
@@ -207,6 +221,7 @@ public class GestionTurnos {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
         System.out.println("Operación realizada con éxito");
+        return true;  // Retornar true si el DNI existe y la operación se realiza correctamente
     }
 
     public int obtenerUltimoId() {

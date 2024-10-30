@@ -11,8 +11,7 @@ public class App extends Application {
     public void start(Stage interfaz)throws Exception{
         Turnero turnero = new Turnero();
         turnero.interfazGrafica(interfaz);
-        GestionTurnos dbTurnos = new GestionTurnos();
-        dbTurnos.mostrarRegistros();
+       
     }
 
     public static void main(String[] args) {

@@ -102,7 +102,7 @@ public class Turnero {
 
         // Llenar el ComboBox de especialidades
         turneroController.comboEspecialidades.getItems().addAll(cs.getListaEspecialidades());
-        
+
         // Llenar el ComboBox de obra sociales
         turneroController.comboObrasSociales.getItems().addAll(cs.getListaObraSocial());
 
@@ -248,7 +248,7 @@ public class Turnero {
         bdTurnos.modificarFechaTurno(turno, nuevaFecha.toString());
         showAlertC("Turno modificado correctamente");
     }
-    
+
     //Metodo para cancelar turno
     @FXML
     private void cancelarTurno() {
@@ -289,8 +289,7 @@ public class Turnero {
         cancelarStage.setTitle("Cancelar Turno");
         cancelarStage.show();
     }
-    
-  
+
     @FXML
     public void buscarTurno() {
         int dni;
@@ -300,7 +299,12 @@ public class Turnero {
             showAlertE("Por favor, introduce un número de DNI válido.");   // Mostrar un mensaje de error si el DNI no es válido
             return;
         }
-        bdTurnos.buscarTurnos(dni, listTurnos);
+        // Llama a buscarTurnos y verifica si el DNI existe
+        boolean existe = bdTurnos.buscarTurnos(dni, listTurnos);
+        if (!existe) {
+            showAlertE("El DNI ingresado no existe en la base de datos.");  // Mostrar mensaje de error
+        }
+
     }
 
     private void showAlertE(String message) {    // Método para mostrar alertas

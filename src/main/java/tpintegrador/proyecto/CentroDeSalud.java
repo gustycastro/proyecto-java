@@ -19,7 +19,7 @@ public class CentroDeSalud {
     private static ArrayList<Especialidades> listaEspecialidades = new ArrayList<>();
     private static ArrayList<Medico> listaMedicos = new ArrayList<>();
     private static ArrayList<ObraSocial> listaObraSocial = new ArrayList<>();
-    private static ArrayList<Empleado> listaHoras = new ArrayList<>();
+    private static ArrayList<String> listaHoras = new ArrayList<>();
 
     //Constructor
     public CentroDeSalud(String ubicacion, int contacto) {
@@ -59,7 +59,7 @@ public class CentroDeSalud {
         
         String[] horarios = {"8hs", "9hs", "10hs", "11hs", "12hs", "13hs", "14hs", "15hs", "16hs", "17hs", "18hs"};
         for (String hora : horarios){
-            //Revisar
+            listaHoras.add(hora);
         }
     }
     
