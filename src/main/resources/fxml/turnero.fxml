@@ -88,8 +88,8 @@
                     <!-- Selección de Fecha y hora -->
                     <Text text="Seleccione una fecha para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="9"/>
                     <DatePicker fx:id="datePicker"  GridPane.columnIndex="1" GridPane.rowIndex="9"/>
-                    <Text text="Seleccione una hora para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
-                    <TextField fx:id="horaId" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                    <Text text="Seleccione un horario para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                    <ComboBox styleClass="especialidades" fx:id="horaId" promptText="Seleccionar Horarios"  GridPane.columnIndex="1" GridPane.rowIndex="10"/>
                     <!-- Botón Agendar Turno -->
                     <Button fx:id="btnAgendarTurno" text="Confirmar" onAction="#agendarTurno" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.columnSpan="3" alignment="CENTER"/>
                     <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.columnSpan="3" alignment="CENTER"/>

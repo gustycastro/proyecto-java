@@ -43,7 +43,7 @@ public class Turnero {
     @FXML
     private TextField edadId; // Campo para la edad del paciente
     @FXML
-    private TextField horaId;
+    private ComboBox<Turno> horaId;
     @FXML
     private DatePicker fechaId;
     @FXML
@@ -78,6 +78,8 @@ public class Turnero {
     private Button btnBuscarPaciente;
     @FXML
     private Button btnBuscarTurno;
+    @FXML
+    private ListView<Turno> listTurnos; // ListView para mostrar turnos
 
     // Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
@@ -100,7 +102,7 @@ public class Turnero {
 
         // Llenar el ComboBox de especialidades
         turneroController.comboEspecialidades.getItems().addAll(cs.getListaEspecialidades());
-
+        
         // Llenar el ComboBox de obra sociales
         turneroController.comboObrasSociales.getItems().addAll(cs.getListaObraSocial());
 
@@ -172,11 +174,10 @@ public class Turnero {
         String dniStr = dniId.getText();
         String edadStr = edadId.getText();
         LocalDate selectedDate = datePicker.getValue();
-        String hora = horaId.getText(); // Asegúrate de tener un campo para la hora en la interfaz
         Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
 
         // Validación de los campos
-        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || hora.isEmpty()) {
+        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null) {
             showAlertE("Por favor, complete todos los campos.");
             return;
         }
@@ -205,7 +206,7 @@ public class Turnero {
 
             // Llamar al método para insertar en la base de datos
             int nuevoId = bdTurnos.obtenerUltimoId() + 1;
-            bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, hora, dni, medicoSeleccionado.getNombre());
+            bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni, medicoSeleccionado.getNombre());
             bdTurnos.mostrarRegistros();
 
             limpiarCampos();
@@ -247,7 +248,8 @@ public class Turnero {
         bdTurnos.modificarFechaTurno(turno, nuevaFecha.toString());
         showAlertC("Turno modificado correctamente");
     }
-
+    
+    //Metodo para cancelar turno
     @FXML
     private void cancelarTurno() {
         Stage cancelarStage = new Stage();
@@ -286,10 +288,9 @@ public class Turnero {
         cancelarStage.setScene(scene);
         cancelarStage.setTitle("Cancelar Turno");
         cancelarStage.show();
-    }//Metodo para cancelar turno
-    @FXML
-    private ListView<Turno> listTurnos; // ListView para mostrar médicos
-
+    }
+    
+  
     @FXML
     public void buscarTurno() {
         int dni;

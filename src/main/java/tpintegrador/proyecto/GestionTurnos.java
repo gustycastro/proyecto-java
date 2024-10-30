@@ -6,7 +6,6 @@ package tpintegrador.proyecto;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import javafx.scene.control.ListView;
 
 /**
@@ -58,7 +57,7 @@ public class GestionTurnos {
              "apellido TEXT NOT NULL, " +
              "edad INTEGER NOT NULL, " +
              "fecha TEXT NOT NULL, " +
-             "\"hora\" TEXT NOT NULL, " +  // Usar comillas dobles para evitar conflictos
+             "hora TEXT NOT NULL, " +  // Usar comillas dobles para evitar conflictos
              "dni INTEGER NOT NULL, " +
              "medico TEXT NOT NULL" +
              ");";
@@ -71,7 +70,7 @@ public class GestionTurnos {
         }
     }
 
-    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, String hora, int DNI, String doctor) {
+    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String hora, int DNI, String doctor) {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -91,7 +90,6 @@ public class GestionTurnos {
             pstmt.setString(2, nombre);
             pstmt.setString(3, apellido);
             pstmt.setInt(4, edad);
-            pstmt.setString(5, fecha);
             pstmt.setString(6, hora); // Se agrega "hora" como parámetro
             pstmt.setInt(7, DNI);
             pstmt.setString(8, doctor);
@@ -192,7 +190,7 @@ public class GestionTurnos {
                 String medico = rs.getString("doctor");
                 LocalDate fecha = LocalDate.parse(rs.getString("fecha"));  // Asumiendo formato YYYY-MM-DD
                 int edad = rs.getInt("edad");
-                int hora = rs.getInt("hora");
+                String hora = rs.getString("hora");
 
                 // Crear un objeto Turno y agregarlo a la lista
                 Turno turno = new Turno(fecha, hora, nombre, apellido, DNI, edad, medico);
@@ -304,7 +302,7 @@ public class GestionTurnos {
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevaFecha);  // Setear nueva fecha
-            pstmt.setString(2, turno.medico);            // Setear dni
+            pstmt.setString(2, turno.getMedico());            // Setear dni
 
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
