@@ -51,6 +51,8 @@ public class Turnero {
     @FXML
     private ComboBox<ObraSocial> comboObrasSociales; //ComboBox para seleccionar especialidad
     @FXML
+    private ComboBox<String> comboHora;
+    @FXML
     private Button btnMostrarMedicos; //Botón para mostrar médicos
     @FXML
     private Button btnAgendarTurno; //Botón para agendar el turno
@@ -105,7 +107,10 @@ public class Turnero {
 
         //Llenar el ComboBox de obra sociales
         turneroController.comboObrasSociales.getItems().addAll(cs.getListaObraSocial());
-
+        
+        
+        turneroController.comboHora.getItems().addAll(cs.getListaHoras());
+        
         //Manejar el evento de selección de especialidad
         turneroController.btnMostrarMedicos.setOnAction(event -> turneroController.mostrarMedicos());
 
@@ -184,9 +189,9 @@ public class Turnero {
         String edadStr = edadId.getText();
         LocalDate selectedDate = datePicker.getValue();
         Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
-
+        String horaStr = comboHora.getValue();
         //Validación de los campos
-        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null) {
+        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || horaStr == null) {
             showAlertE("Por favor, complete todos los campos.");
             return;
         }
@@ -215,7 +220,7 @@ public class Turnero {
 
             //Llamar al método para insertar en la base de datos
             int nuevoId = bdTurnos.obtenerUltimoId() + 1;
-            bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni, medicoSeleccionado.getNombre());
+            bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni, medicoSeleccionado.getNombre(), horaStr);
             bdTurnos.mostrarRegistros();
 
             limpiarCampos();

@@ -57,7 +57,7 @@ public class CentroDeSalud {
             listaObraSocial.add(new ObraSocial(nombre));
         }
         //REVISAR
-        String[] horarios = {"8hs", "9hs", "10hs", "11hs", "12hs", "13hs", "14hs", "15hs", "16hs", "17hs", "18hs"};
+        String[] horarios = {"9:00hs", "10:00hs", "11:00hs", "12:00hs", "13:00hs", "14:00hs", "15:00hs", "16:00hs", "17:00hs"};
         for (String hora : horarios){
             listaHoras.add(hora);
         }
@@ -72,6 +72,15 @@ public class CentroDeSalud {
     public ArrayList<Especialidades> obtenerEspecialidades() {
         return listaEspecialidades;
     }
+    
+    public static ArrayList<String> getListaHoras() {
+        return listaHoras;
+    }
+
+    public static void setListaHoras(ArrayList<String> listaHoras) {
+        CentroDeSalud.listaHoras = listaHoras;
+    }
+    
 
     //Metodos gets y sets
     public String getUbicación() {

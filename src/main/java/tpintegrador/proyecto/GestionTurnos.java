@@ -58,7 +58,8 @@ public class GestionTurnos {
                     + "edad INTEGER NOT NULL, "
                     + "fecha TEXT NOT NULL, "
                     + "dni INTEGER NOT NULL, "
-                    + "medico TEXT NOT NULL"
+                    + "doctor TEXT "
+                    + "hora TEXT "
                     + ");";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -69,7 +70,7 @@ public class GestionTurnos {
         }
     }
 
-    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI, String doctor) {
+    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI, String doctor, String hora) {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -83,7 +84,7 @@ public class GestionTurnos {
             System.out.println("Base de datos abierta exitosamente");
 
             //Preparar la consulta de inserción con el campo "hora"
-            String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI, doctor) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI, doctor, hora) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, ID);
             pstmt.setString(2, nombre);
@@ -92,6 +93,7 @@ public class GestionTurnos {
             pstmt.setString(5, fecha);
             pstmt.setInt(6, DNI);
             pstmt.setString(7, doctor);
+            pstmt.setString(8, hora);
 
             //Ejecutar la actualización
             pstmt.executeUpdate();
@@ -141,13 +143,15 @@ public class GestionTurnos {
                 String fecha = rs.getString("fecha");
                 int dni = rs.getInt("DNI");
                 String doctor = rs.getString("doctor");
-
+                String hora = rs.getString("hora");
+                
                 System.out.println("Nombre = " + nombre);
                 System.out.println("Apellido = " + apellido);
                 System.out.println("Edad = " + edad);
                 System.out.println("Fecha = " + fecha);
                 System.out.println("DNI = " + dni);
                 System.out.println("Doctor/ra = " + doctor);
+                System.out.println("Hora = " + hora);
                 System.out.println();
             }
             //Cerrar ResultSet, Statement y Connection
