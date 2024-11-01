@@ -261,15 +261,24 @@ public class Turnero {
     private void cancelarTurno() {
         int dni;
         try {
-            // Obtener el texto del campo y convertirlo a int
             dni = Integer.parseInt(dniIdModificar.getText().trim());
-            // Lógica para cancelar el turno
-            bdTurnos.eliminarTurno(dni); // Pasar el DNI al método eliminarTurno
-        } catch (NumberFormatException ex) {
-            // Manejar el caso donde el DNI no es válido
-            System.out.println("El DNI ingresado no es válido.");
-        }
 
+            // Obtener el turno seleccionado del ListView
+            Turno turnoSeleccionado = listTurnos.getSelectionModel().getSelectedItem();
+            if (turnoSeleccionado == null) {
+                showAlertE("No se ha seleccionado ningún turno para cancelar.");
+                return;
+            }
+
+            // Extraer la fecha desde el texto del turno seleccionado (suponiendo que el formato es "YYYY-MM-DD - HH:MM AM/PM")
+            String fechaTurno = turnoSeleccionado.getFecha().toString(); // Obtiene solo la fecha
+
+            // Lógica para cancelar el turno
+            bdTurnos.eliminarTurno(dni, fechaTurno);
+            showAlertC("Turno cancelado correctamente.");
+        } catch (NumberFormatException ex) {
+            showAlertE("El DNI ingresado no es válido.");
+        }
     }
 
     @FXML

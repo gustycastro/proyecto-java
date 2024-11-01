@@ -244,7 +244,7 @@ public class GestionTurnos {
         return ultimoId;
     }
 
-    public void eliminarTurno(int dniPaciente) {
+    public void eliminarTurno(int dniPaciente, String fechaTurno) {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -254,17 +254,17 @@ public class GestionTurnos {
             c.setAutoCommit(false);
             System.out.println("Base de datos abierta exitosamente");
 
-            // Consulta de eliminación con parámetro
-            String sql = "DELETE FROM TablaPacientes WHERE DNI = ?;";
+            // Consulta de eliminación usando DNI y FechaTurno
+            String sql = "DELETE FROM TablaPacientes WHERE DNI = ? AND fecha = ?;";
             pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, dniPaciente);
+            pstmt.setString(2, fechaTurno);
             pstmt.executeUpdate();
             c.commit();
 
-            System.out.println("Turno eliminado con éxito para el paciente con DNI: " + dniPaciente);
+            System.out.println("Turno eliminado con éxito para el paciente con DNI: " + dniPaciente + " y Fecha de Turno: " + fechaTurno);
 
-            // Mostrar los registros restantes después de eliminar el turno
-            mostrarRegistros();
+            mostrarRegistros(); // Mostrar registros después de la eliminación
             pstmt.close();
             c.close();
         } catch (Exception e) {
@@ -272,7 +272,6 @@ public class GestionTurnos {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
-
 
     // Método para modificar la fecha de un paciente por DNI
     public boolean modificarFechaTurno(Turno turno, String nuevaFecha) {
