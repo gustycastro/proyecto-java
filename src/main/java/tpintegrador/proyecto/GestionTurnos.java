@@ -280,16 +280,16 @@ public class GestionTurnos {
     }
 
     //Método para modificar la fecha de un paciente por DNI
-    public boolean modificarFechaTurno(Turno turno, String nuevaFecha, String nuevaHora) {
-        String sql = "UPDATE TablaPacientes SET fecha = ? SET hora = ? WHERE doctor = ?";
+    public boolean modificarFechaTurno(int dni, String nuevaFecha, String nuevaHora) {
+        String sql = "UPDATE TablaPacientes SET fecha = ?, hora = ? WHERE DNI = ?;"; // set actualiza, where busca
         boolean exito = false;
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); //Conectar a la base de datos
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, nuevaFecha);  //Setear nueva fecha
-            pstmt.setString(2, nuevaHora);            //Setear dni
-            pstmt.setString(3, turno.getMedico());
+            pstmt.setString(1, nuevaFecha); //Setear nueva fecha
+            pstmt.setString(2, nuevaHora);  //Setear nueva hora         
+            pstmt.setInt(3, dni); //Filtra por dni
 
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
@@ -305,4 +305,22 @@ public class GestionTurnos {
 
         return exito;
     }
+
+    public boolean existeTurno(String nombreMedico, String fecha, String hora) {
+        String sql = "SELECT COUNT(*) FROM TablaPacientes WHERE doctor = ? AND fecha = ? AND hora = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, nombreMedico);
+            pstmt.setString(2, fecha);
+            pstmt.setString(3, hora);
+
+            ResultSet rs = pstmt.executeQuery();
+            return rs.getInt(1) > 0; // Retorna true si existe al menos un turno
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }

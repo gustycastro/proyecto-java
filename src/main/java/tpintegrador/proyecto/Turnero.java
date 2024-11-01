@@ -14,10 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.StageStyle;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -83,8 +79,6 @@ public class Turnero {
     @FXML
     private AnchorPane paginaCancelarTurno;
     @FXML
-    private TextArea datosArea;
-    @FXML
     private ListView<Medico> listViewMedicos; //ListView para mostrar médicos
     @FXML
     private ListView<Turno> listTurnosCancelar; //ListView para mostrar turnos
@@ -121,7 +115,7 @@ public class Turnero {
         turneroController.comboObrasSociales.getItems().addAll(cs.getListaObraSocial());
 
         turneroController.comboHora.getItems().addAll(cs.getListaHoras());
-        
+
         turneroController.comboHoraModificar.getItems().addAll(cs.getListaHoras());
 
         //Manejar el evento de selección de especialidad
@@ -209,13 +203,14 @@ public class Turnero {
         LocalDate selectedDate = datePicker.getValue();
         Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
         String horaStr = comboHora.getValue();
-        //Validación de los campos
+
+        // Validación de los campos
         if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || horaStr == null) {
             showAlertE("Por favor, complete todos los campos.");
             return;
         }
 
-        //Validación de la fecha seleccionada (debe ser día hábil y posterior a hoy)
+        // Validación de la fecha seleccionada (debe ser día hábil y posterior a hoy)
         LocalDate today = LocalDate.now();
         if (selectedDate.isBefore(today) || selectedDate.equals(today)) {
             showAlertE("La fecha debe ser posterior a hoy.");
@@ -227,19 +222,23 @@ public class Turnero {
         }
 
         try {
-            //Validar que el DNI y la edad sean números
+            // Validar que el DNI y la edad sean números
             int dni = Integer.parseInt(dniStr);
             int edad = Integer.parseInt(edadStr);
 
-            //Convertir la fecha a un formato adecuado
+            // Convertir la fecha a un formato adecuado
             String fecha = selectedDate.toString();
 
-            //Agendar el turno si todo es válido
-            showAlertC("Turno agendado correctamente");
+            // Validar que no haya un turno existente para el médico en esa fecha y hora
+            String nombreMedico = medicoSeleccionado.getNombre(); // Obtener el nombre del médico como String
+            if (bdTurnos.existeTurno(nombreMedico, fecha, horaStr)) {
+                showAlertE("Ya existe un turno agendado para este médico a esa hora.");
+                return;
+            }
 
-            //Llamar al método para insertar en la base de datos
-            int nuevoId = bdTurnos.obtenerUltimoId() + 1;
-            bdTurnos.insertarPacientes(nuevoId, nombre, apellido, edad, fecha, dni, medicoSeleccionado.getNombre(), horaStr);
+            // Agendar el turno si todo es válido
+            bdTurnos.insertarPacientes(bdTurnos.obtenerUltimoId() + 1, nombre, apellido, edad, fecha, dni, nombreMedico, horaStr);
+            showAlertC("Turno agendado correctamente");
             bdTurnos.mostrarRegistros();
 
             limpiarCampos();
@@ -279,7 +278,7 @@ public class Turnero {
         }
 
         turno.setFecha(nuevaFecha);
-        bdTurnos.modificarFechaTurno(turno, nuevaFecha.toString(), nuevaHora);
+        bdTurnos.modificarFechaTurno(Integer.parseInt(dniIdBuscarModificar.getText()), nuevaFecha.toString(), nuevaHora);
         showAlertC("Turno modificado correctamente");
     }
 
@@ -298,7 +297,7 @@ public class Turnero {
             //Extraer la fecha desde el texto del turno seleccionado (suponiendo que el formato es "YYYY-MM-DD - HH:MM AM/PM")
             String fechaTurno = turnoSeleccionado.getFecha().toString(); // Obtiene solo la fecha
             String horaTurno = turnoSeleccionado.getHora();
-            int dni = turnoSeleccionado.getDni();
+            int dni = Integer.parseInt(dniIdBuscarCancelar.getText());
 
             //Lógica para cancelar el turno
             bdTurnos.eliminarTurno(dni, fechaTurno, horaTurno);
@@ -318,7 +317,7 @@ public class Turnero {
         if (pantallaActiva.equals("modificar")) {
 
             dniTexto = dniIdBuscarModificar.getText().trim();
-            System.out.println("dniModificar" + dniTexto);
+
             try {
                 dni = Integer.parseInt(dniTexto);
             } catch (NumberFormatException e) {
@@ -331,7 +330,7 @@ public class Turnero {
         } else if (pantallaActiva.equals("cancelar")) {
 
             dniTexto = dniIdBuscarCancelar.getText().trim();
-            System.out.println("dniCancelar" + dniTexto);
+
             try {
                 dni = Integer.parseInt(dniTexto);
             } catch (NumberFormatException e) {
@@ -344,7 +343,7 @@ public class Turnero {
         } else if (pantallaActiva.equals("mostrar")) {
 
             dniTexto = dniIdBuscarMostrar.getText().trim();
-            System.out.println("dniMostrar" + dniTexto);
+
             try {
                 dni = Integer.parseInt(dniTexto);
             } catch (NumberFormatException e) {
@@ -387,6 +386,7 @@ public class Turnero {
         apellidoId.clear();
         dniId.clear();
         edadId.clear();
+        comboHora.getSelectionModel().clearSelection();
         comboObrasSociales.getSelectionModel().clearSelection();
         comboEspecialidades.getSelectionModel().clearSelection();
         listViewMedicos.getItems().clear();
