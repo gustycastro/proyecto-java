@@ -30,9 +30,4 @@ public class ObraSocial {
     public String toString() {
         return nombre; // Esto permitirá que el ComboBox muestre el nombre de las obras sociales
     }
-    
-    //Metodos
-    public void aplicarDescuento() {
-        System.out.println("testeo");
-    }
 }

@@ -8,17 +8,16 @@ package tpintegrador.proyecto;
  *
  * @author HP
  */
-public abstract class Persona {
+public abstract class Persona {//Primer nivel de la triple herencia
     
     //Atributos 
     protected String nombre;
     protected String apellido;
-    protected int dni;// Fer: cambie int de dni por long
+    protected int dni;
     protected int edad;
     
     //Constructor
-    
-    public Persona(String nombre, String apellido, int dni, int edad) {// Fer: cambie int de dni por long
+    public Persona(String nombre, String apellido, int dni, int edad) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -26,38 +25,28 @@ public abstract class Persona {
     }
 
     //Metodos
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getApellido() {
         return apellido;
     }
-
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-
-    public int getDni() {// Fer: cambie int de dni por long
+    public int getDni() {
         return dni;
     }
-
-    public void setDni(int dni) {// Fer: cambie int de dni por long
+    public void setDni(int dni) {
         this.dni = dni;
     }
-
     public int getEdad() {
         return edad;
     }
-
     public void setEdad(int edad) {
         this.edad = edad;
     }
-    
-    
 }

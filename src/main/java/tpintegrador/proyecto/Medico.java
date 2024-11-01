@@ -8,14 +8,14 @@ package tpintegrador.proyecto;
  *
  * @author laure
  */
-public class Medico extends Empleado {
+public class Medico extends Empleado {//Tercer nivel de la triple herencia
     
     //Atributos
     private Especialidades especialidad;
-    private int matricula;// Fer: cambie String de matricula por int
+    private int matricula;
     
     //Constructor
-    public Medico(Especialidades especialidad, int matricula, String horarioAtencion, String nombre, String apellido, int dni, int edad) { // Fer: cambie int de dni por long y String de matricula por int
+    public Medico(Especialidades especialidad, int matricula, String horarioAtencion, String nombre, String apellido, int dni, int edad) {
         super(horarioAtencion, nombre, apellido, dni, edad);
         this.especialidad = especialidad;
         this.matricula = matricula;

@@ -8,13 +8,13 @@ package tpintegrador.proyecto;
  *
  * @author vale
  */
-public class Empleado extends Persona {
+public class Empleado extends Persona {//Segundo nivel de la triple herencia
     
     //Atributos
     private String horarioAtencion;
     
     //Constructor
-    public Empleado(String horarioAtencion, String nombre, String apellido, int dni, int edad) { // Fer: cambie int de dni por long
+    public Empleado(String horarioAtencion, String nombre, String apellido, int dni, int edad) {
         super(nombre, apellido, dni, edad);
         this.horarioAtencion = horarioAtencion;
     }
@@ -33,10 +33,5 @@ public class Empleado extends Persona {
     }
     public void setNombre(String nombre) {    
         this.nombre = nombre;
-    }
-
-    //Metodos
-    public void asistirTrabajo() {
-        System.out.println("Asiste al trabajo");
     }
 }

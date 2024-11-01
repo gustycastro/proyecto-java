@@ -29,7 +29,5 @@ public class Especialidades {
     public String toString() {
         return nombre; // Esto permitirá que el ComboBox muestre el nombre de la especialidad
     }
-    
-    
 }
 
