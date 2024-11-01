@@ -14,16 +14,14 @@ public class Turno extends Persona {
 
     // Atributos
     private LocalDate fecha;
-    private int hora;
     private String medico;
 
     // Constructor
    
-    public Turno(LocalDate fecha, int hora, String nombre, String apellido, int edad, int dni, String medico) {
+    public Turno(LocalDate fecha,String nombre, String apellido, int edad, int dni, String medico) {
         super(nombre, apellido, dni, edad);
         this.fecha = fecha;
         this.medico = medico;
-        this.hora = hora;
     }
 
     // Métodos getters y setters
@@ -34,14 +32,6 @@ public class Turno extends Persona {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
-    }
-
-    public int getHora() {
-        return hora;
-    }
-
-    public void setHora(int hora) {
-        this.hora = hora;
     }
 
     public String getMedico() {

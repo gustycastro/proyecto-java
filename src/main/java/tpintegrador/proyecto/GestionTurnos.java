@@ -57,9 +57,7 @@ public class GestionTurnos {
                     + "apellido TEXT NOT NULL, "
                     + "edad INTEGER NOT NULL, "
                     + "fecha TEXT NOT NULL, "
-                    + "hora TEXT NOT NULL, "
-                    + // Usar comillas dobles para evitar conflictos
-                    "dni INTEGER NOT NULL, "
+                    + "dni INTEGER NOT NULL, "
                     + "medico TEXT NOT NULL"
                     + ");";
             stmt.executeUpdate(sql);
@@ -71,7 +69,7 @@ public class GestionTurnos {
         }
     }
 
-    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String hora, int DNI, String doctor) {
+    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI, String doctor) {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -85,15 +83,15 @@ public class GestionTurnos {
             System.out.println("Base de datos abierta exitosamente");
 
             // Preparar la consulta de inserción con el campo "hora"
-            String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, hora, DNI, doctor) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI, doctor) VALUES (?, ?, ?, ?, ?, ?, ?);";
             pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, ID);
             pstmt.setString(2, nombre);
             pstmt.setString(3, apellido);
             pstmt.setInt(4, edad);
-            pstmt.setString(6, hora); // Se agrega "hora" como parámetro
-            pstmt.setInt(7, DNI);
-            pstmt.setString(8, doctor);
+            pstmt.setString(5, fecha);
+            pstmt.setInt(6, DNI);
+            pstmt.setString(7, doctor);
 
             // Ejecutar la actualización
             pstmt.executeUpdate();
@@ -141,7 +139,6 @@ public class GestionTurnos {
                 String apellido = rs.getString("apellido");
                 int edad = rs.getInt("edad");
                 String fecha = rs.getString("fecha");
-                String hora = rs.getString("hora"); // Cambiado a String para formato HH:MM
                 int dni = rs.getInt("DNI");
                 String doctor = rs.getString("doctor");
 
@@ -149,7 +146,6 @@ public class GestionTurnos {
                 System.out.println("Apellido = " + apellido);
                 System.out.println("Edad = " + edad);
                 System.out.println("Fecha = " + fecha);
-                System.out.println("Hora = " + hora);
                 System.out.println("DNI = " + dni);
                 System.out.println("Doctor/ra = " + doctor);
                 System.out.println();
@@ -204,10 +200,9 @@ public class GestionTurnos {
                 String medico = rs.getString("doctor");
                 LocalDate fecha = LocalDate.parse(rs.getString("fecha"));  // Asumiendo formato YYYY-MM-DD
                 int edad = rs.getInt("edad");
-                int hora = rs.getInt("hora");
 
                 // Crear un objeto Turno y agregarlo a la lista
-                Turno turno = new Turno(fecha, hora, nombre, apellido, DNI, edad, medico);
+                Turno turno = new Turno(fecha, nombre, apellido, DNI, edad, medico);
                 listTurnos.getItems().add(turno);
             }
 
@@ -278,35 +273,6 @@ public class GestionTurnos {
         }
     }
 
-    // Método para buscar un turno por DNI
-    public String buscarTurnoPorDni(int dni) {
-        String sql = "SELECT id, nombre, apellido, edad, fecha, dni, doctor FROM TablaPacientes WHERE dni = ?";
-        StringBuilder resultado = new StringBuilder();
-
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite")) {
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, dni); // Setear el parámetro dni
-
-            ResultSet rs = pstmt.executeQuery();
-
-            // Si encuentra un resultado
-            if (rs.next()) {
-                resultado.append("Nombre: ").append(rs.getString("nombre")).append("\n")
-                        .append("Apellido: ").append(rs.getString("apellido")).append("\n")
-                        .append("Edad: ").append(rs.getInt("edad")).append("\n")
-                        .append("Fecha: ").append(rs.getString("fecha")).append("\n")
-                        .append("DNI: ").append(rs.getInt("dni")).append("\n")
-                        .append("Doctor: ").append(rs.getString("doctor")).append("\n");
-            } else {
-                resultado.append("No se encontró un registro con el DNI especificado.");
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            resultado.append("Error al realizar la consulta.");
-        }
-        return resultado.toString();
-    }
 
     // Método para modificar la fecha de un paciente por DNI
     public boolean modificarFechaTurno(Turno turno, String nuevaFecha) {

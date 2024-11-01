@@ -43,8 +43,6 @@ public class Turnero {
     @FXML
     private TextField edadId; // Campo para la edad del paciente
     @FXML
-    private ComboBox<Turno> horaId;
-    @FXML
     private DatePicker fechaId;
     @FXML
     private ComboBox<Especialidades> comboEspecialidades; // ComboBox para seleccionar especialidad
@@ -72,6 +70,8 @@ public class Turnero {
     private AnchorPane paginaMostrarTurno;
     @FXML
     private AnchorPane paginaModificarTurno;
+    @FXML
+    private AnchorPane paginaCancelarTurno;
     @FXML
     private TextArea datosArea;
     @FXML
@@ -136,12 +136,19 @@ public class Turnero {
         paginaMostrarTurno.setVisible(true);
     }
 
+    @FXML
+    private void irCancelarTurno() {
+        paginaPrincipal.setVisible(false);
+        paginaCancelarTurno.setVisible(true);
+    }
+
     //Volver a la página principal
     @FXML
     private void volverPaginaPrincipal() {
         paginaAgregarTurno.setVisible(false);
         paginaMostrarTurno.setVisible(false);
         paginaModificarTurno.setVisible(false);
+        paginaCancelarTurno.setVisible(false);
         paginaPrincipal.setVisible(true);
     }
 
@@ -252,42 +259,17 @@ public class Turnero {
     //Metodo para cancelar turno
     @FXML
     private void cancelarTurno() {
-        Stage cancelarStage = new Stage();
-        cancelarStage.initStyle(StageStyle.UTILITY);
-        cancelarStage.initModality(Modality.APPLICATION_MODAL);
-        GestionTurnos gestion = new GestionTurnos();
+        int dni;
+        try {
+            // Obtener el texto del campo y convertirlo a int
+            dni = Integer.parseInt(dniIdModificar.getText().trim());
+            // Lógica para cancelar el turno
+            bdTurnos.eliminarTurno(dni); // Pasar el DNI al método eliminarTurno
+        } catch (NumberFormatException ex) {
+            // Manejar el caso donde el DNI no es válido
+            System.out.println("El DNI ingresado no es válido.");
+        }
 
-        VBox vbox = new VBox(10);
-        vbox.setId("cancelarTurnoVBox"); // Añadir ID al VBox
-        vbox.getChildren().add(new Text("Ingrese el DNI para cancelar el turno:"));
-
-        TextField dniField = new TextField();
-        dniField.setId("dniTextField"); // Añadir ID al TextField
-        dniField.setPromptText("Ingrese DNI del paciente");
-        vbox.getChildren().add(dniField);
-
-        Button confirmButton = new Button("Confirmar");
-        confirmButton.setId("confirmarButton"); // Añadir ID al botón
-        confirmButton.setOnAction(e -> {
-            try {
-                // Obtener el texto del campo y convertirlo a int
-                String dniString = dniField.getText();
-                int dni = Integer.parseInt(dniString);
-
-                // Lógica para cancelar el turno
-                gestion.eliminarTurno(dni); // Pasar el DNI al método eliminarTurno
-                cancelarStage.close();
-            } catch (NumberFormatException ex) {
-                // Manejar el caso donde el DNI no es válido
-                System.out.println("El DNI ingresado no es válido.");
-            }
-        });
-        vbox.getChildren().add(confirmButton);
-        Scene scene = new Scene(vbox, 300, 200);
-        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm()); // Añadir la hoja de estilos
-        cancelarStage.setScene(scene);
-        cancelarStage.setTitle("Cancelar Turno");
-        cancelarStage.show();
     }
 
     @FXML

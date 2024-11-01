@@ -15,7 +15,7 @@
                 <Button fx:id="btnAgregarTurno" text="Agregar Turno" onAction="#irAgregarTurno"/>
                 <Button fx:id="btnMostrarTurno" text="Mostrar Turno" onAction="#irMostrarTurno"/>
                 <Button fx:id="btnModificarTurno" text="Modificar Turno" onAction="#irModificarTurno"/>
-                <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#cancelarTurno"/>
+                <Button fx:id="btnCancelarTurno" text="Cancelar Turno" onAction="#irCancelarTurno"/>
             </VBox>
         </children>
     </AnchorPane>
@@ -42,14 +42,31 @@
                 <Button fx:id="btnBuscarTurnos" text="Buscar Turno" onAction="#buscarTurno"/>
                 <Text text="Turnos del paciente:" />
                 <ListView fx:id="listTurnos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-
-                
                 <!-- Etiqueta para la nueva fecha -->
                 <Text text="Nueva Fecha:" />
                 <!-- Selector de fecha -->
                 <DatePicker fx:id="fechaId"/>
                 <!-- Botón para modificar el turno -->
                 <Button fx:id="btnTurnoModificado" text="Confirmar" onAction="#modificarTurno"/>
+                <!-- Botón para volver a la página principal -->
+                <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal"/>
+            </VBox>
+        </children>
+    </AnchorPane>
+    
+    <AnchorPane fx:id="paginaCancelarTurno" visible="false" styleClass="contenedor">
+        <children>
+            <!-- VBox para alinear los elementos verticalmente -->
+            <VBox styleClass="vbox" AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                <!-- Etiqueta para el DNI -->
+                <Text text="Ingrese el DNI del paciente:" />
+                <!-- Campo de texto para el DNI -->
+                <TextField fx:id="dniIdModificar"/>
+                <!-- Botón para buscar el paciente -->
+                <Button fx:id="btnBuscarTurnos" text="Buscar Turno" onAction="#buscarTurno"/>
+                <Text text="Turnos del paciente:" />
+                <ListView fx:id="listTurnos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                <Button fx:id="btnCancelarTurno" text="Cancelar" onAction="#cancelarTurno"/>
                 <!-- Botón para volver a la página principal -->
                 <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal"/>
             </VBox>

@@ -51,7 +51,7 @@
 }
 
 /* Botones específicos */
-#btnAgendarTurno, #confirmarButton, #btnTurnoModificado {
+#btnAgendarTurno, #confirmarButton, #btnTurnoModificado{
     -fx-background-color: green; /* Fondo verde */
 }
 
