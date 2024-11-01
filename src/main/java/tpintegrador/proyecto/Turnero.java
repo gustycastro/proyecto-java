@@ -94,7 +94,7 @@ public class Turnero {
         //Obtener el controlador
         Turnero turneroController = loader.getController();
 
-        Scene scene = new Scene(root, 1000, 800);
+        Scene scene = new Scene(root, 900, 700);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
         //Configurar la escena
