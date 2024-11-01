@@ -15,12 +15,13 @@ public class Turno extends Persona {
     // Atributos
     private LocalDate fecha;
     private String medico;
-
+    private String hora;
     // Constructor
-    public Turno(LocalDate fecha,String nombre, String apellido, int edad, int dni, String medico) {
+    public Turno(LocalDate fecha,String nombre, String apellido, int edad, int dni, String medico, String hora) {
         super(nombre, apellido, dni, edad);
         this.fecha = fecha;
         this.medico = medico;
+        this.hora = hora;
     }
 
     // Métodos getters y setters
@@ -36,10 +37,19 @@ public class Turno extends Persona {
     public void setMedico(String medico) {
         this.medico = medico;
     }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
     
     @Override
     public String toString() {
-        return String.format("Paciente: %s %s, Fecha: %s, Medico: %s ",
-                getNombre(), getApellido(), fecha.toString(), getMedico());
+        return String.format("Paciente: %s %s, Fecha: %s, Hora: %s, Medico: %s ",
+                getNombre(), getApellido(), fecha.toString(), getHora(), getMedico());
     }
 }

@@ -39,7 +39,11 @@ public class Turnero {
     @FXML
     private TextField dniId; //Campo para el DNI del paciente
     @FXML
-    private TextField dniIdModificar;
+    private TextField dniIdBuscarCancelar;
+    @FXML
+    private TextField dniIdBuscarModificar;
+    @FXML
+    private TextField dniIdBuscarMostrar;
     @FXML
     private TextField edadId; //Campo para la edad del paciente
     @FXML
@@ -53,6 +57,8 @@ public class Turnero {
     @FXML
     private ComboBox<String> comboHora;
     @FXML
+    private ComboBox<String> comboHoraModificar;
+    @FXML
     private Button btnMostrarMedicos; //Botón para mostrar médicos
     @FXML
     private Button btnAgendarTurno; //Botón para agendar el turno
@@ -65,7 +71,7 @@ public class Turnero {
     @FXML
     private Button btnBuscarPaciente; //Botón para buscar paciente  
     @FXML
-    private Button btnBuscarTurno; //Botón para buscar turno
+    private Button btnBuscarTurnos; //Botón para buscar turno
     @FXML
     private AnchorPane paginaPrincipal;
     @FXML
@@ -81,7 +87,13 @@ public class Turnero {
     @FXML
     private ListView<Medico> listViewMedicos; //ListView para mostrar médicos
     @FXML
-    private ListView<Turno> listTurnos; //ListView para mostrar turnos
+    private ListView<Turno> listTurnosCancelar; //ListView para mostrar turnos
+    @FXML
+    private ListView<Turno> listTurnosMostrar; //ListView para mostrar turnos
+    @FXML
+    private ListView<Turno> listTurnosModificar; //ListView para mostrar turnos
+
+    private String pantallaActiva = "modificar";
 
     //Método para cargar y mostrar la interfaz gráfica
     public void interfazGrafica(Stage interfaz) throws Exception {
@@ -107,18 +119,22 @@ public class Turnero {
 
         //Llenar el ComboBox de obra sociales
         turneroController.comboObrasSociales.getItems().addAll(cs.getListaObraSocial());
-        
-        
+
         turneroController.comboHora.getItems().addAll(cs.getListaHoras());
         
+        turneroController.comboHoraModificar.getItems().addAll(cs.getListaHoras());
+
         //Manejar el evento de selección de especialidad
         turneroController.btnMostrarMedicos.setOnAction(event -> turneroController.mostrarMedicos());
 
         //Manejar el evento de agendar turno
         turneroController.btnAgendarTurno.setOnAction(event -> turneroController.agendarTurno());
-        
+
         //Manejar el evento de modificar turno
         turneroController.btnTurnoModificado.setOnAction(event -> turneroController.modificarTurno());
+
+        turneroController.btnBuscarTurnos.setOnAction(event -> turneroController.buscarTurno());
+
     }
 
     //Ir a la página de Agregar Turno
@@ -133,6 +149,7 @@ public class Turnero {
     private void irModificarTurno() {
         paginaPrincipal.setVisible(false);
         paginaModificarTurno.setVisible(true);
+        pantallaActiva = "modificar";
     }
 
     //Ir a la página de Mostrar Turno
@@ -140,13 +157,15 @@ public class Turnero {
     private void irMostrarTurno() {
         paginaPrincipal.setVisible(false);
         paginaMostrarTurno.setVisible(true);
+        pantallaActiva = "mostrar";
     }
-    
+
     //Ir a la página Cancelar Turno
     @FXML
     private void irCancelarTurno() {
         paginaPrincipal.setVisible(false);
         paginaCancelarTurno.setVisible(true);
+        pantallaActiva = "cancelar";
     }
 
     //Volver a la página principal
@@ -232,9 +251,10 @@ public class Turnero {
     @FXML
     public void modificarTurno() {    // Método que maneja la lógica para buscar y modificar el turno de un paciente
         LocalDate nuevaFecha = fechaId.getValue();
+        String nuevaHora = comboHoraModificar.getValue();
         LocalDate today = LocalDate.now();
         //Obtener el turno seleccionado
-        Turno turno = listTurnos.getSelectionModel().getSelectedItem();
+        Turno turno = listTurnosModificar.getSelectionModel().getSelectedItem();
 
         //Verificar que el turno esté seleccionado antes de continuar
         if (turno == null) {
@@ -259,19 +279,17 @@ public class Turnero {
         }
 
         turno.setFecha(nuevaFecha);
-        bdTurnos.modificarFechaTurno(turno, nuevaFecha.toString());
+        bdTurnos.modificarFechaTurno(turno, nuevaFecha.toString(), nuevaHora);
         showAlertC("Turno modificado correctamente");
     }
 
     //Metodo para cancelar turno
     @FXML
     private void cancelarTurno() {
-        int dni;
-        try {
-            dni = Integer.parseInt(dniIdModificar.getText().trim());
 
+        try {
             //Obtener el turno seleccionado del ListView
-            Turno turnoSeleccionado = listTurnos.getSelectionModel().getSelectedItem();
+            Turno turnoSeleccionado = listTurnosCancelar.getSelectionModel().getSelectedItem();
             if (turnoSeleccionado == null) {
                 showAlertE("No se ha seleccionado ningún turno para cancelar.");
                 return;
@@ -279,9 +297,11 @@ public class Turnero {
 
             //Extraer la fecha desde el texto del turno seleccionado (suponiendo que el formato es "YYYY-MM-DD - HH:MM AM/PM")
             String fechaTurno = turnoSeleccionado.getFecha().toString(); // Obtiene solo la fecha
+            String horaTurno = turnoSeleccionado.getHora();
+            int dni = turnoSeleccionado.getDni();
 
             //Lógica para cancelar el turno
-            bdTurnos.eliminarTurno(dni, fechaTurno);
+            bdTurnos.eliminarTurno(dni, fechaTurno, horaTurno);
             showAlertC("Turno cancelado correctamente.");
         } catch (NumberFormatException ex) {
             showAlertE("El DNI ingresado no es válido.");
@@ -291,18 +311,57 @@ public class Turnero {
     @FXML
     public void buscarTurno() {
         int dni;
-        try {
-            dni = Integer.parseInt(dniIdModificar.getText().trim());   //Intentar convertir el texto a entero
-        } catch (NumberFormatException e) {
-            showAlertE("Por favor, introduce un número de DNI válido.");   //Mostrar un mensaje de error si el DNI no es válido
+        String dniTexto = "";
+        boolean existe;
+
+        // Verifica cuál campo de texto está visible
+        if (pantallaActiva.equals("modificar")) {
+
+            dniTexto = dniIdBuscarModificar.getText().trim();
+            System.out.println("dniModificar" + dniTexto);
+            try {
+                dni = Integer.parseInt(dniTexto);
+            } catch (NumberFormatException e) {
+                showAlertE("Por favor, introduce un número de DNI válido.");
+                return;
+            }
+
+            existe = bdTurnos.buscarTurnos(dni, listTurnosModificar);
+
+        } else if (pantallaActiva.equals("cancelar")) {
+
+            dniTexto = dniIdBuscarCancelar.getText().trim();
+            System.out.println("dniCancelar" + dniTexto);
+            try {
+                dni = Integer.parseInt(dniTexto);
+            } catch (NumberFormatException e) {
+                showAlertE("Por favor, introduce un número de DNI válido.");
+                return;
+            }
+
+            existe = bdTurnos.buscarTurnos(dni, listTurnosCancelar);
+
+        } else if (pantallaActiva.equals("mostrar")) {
+
+            dniTexto = dniIdBuscarMostrar.getText().trim();
+            System.out.println("dniMostrar" + dniTexto);
+            try {
+                dni = Integer.parseInt(dniTexto);
+            } catch (NumberFormatException e) {
+                showAlertE("Por favor, introduce un número de DNI válido.");
+                return;
+            }
+
+            existe = bdTurnos.buscarTurnos(dni, listTurnosMostrar);
+
+        } else {
+            showAlertE("No se ha definido una pantalla activa.");
             return;
         }
-        //Llama a buscarTurnos y verifica si el DNI existe
-        boolean existe = bdTurnos.buscarTurnos(dni, listTurnos);
+        // Llama a buscarTurnos y verifica si el DNI existe
         if (!existe) {
-            showAlertE("El DNI ingresado no existe en la base de datos.");  //Mostrar mensaje de error
+            showAlertE("El DNI ingresado no existe en la base de datos.");
         }
-
     }
 
     //Método para mostrar alertas de error
@@ -312,7 +371,7 @@ public class Turnero {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
+
     //Método para mostrar alertas de confirmación
     private void showAlertC(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -320,7 +379,7 @@ public class Turnero {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    
+
     //Método para limpiar los campos
     private void limpiarCampos() {
         // Limpia todos los campos de entrada

@@ -24,6 +24,14 @@
     <AnchorPane fx:id="paginaMostrarTurno" visible="false" styleClass="contenedor">
         <children>
             <VBox styleClass="vbox" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50">
+               
+                <Text text="Ingrese el DNI del paciente:" />
+                <!-- Campo de texto para el DNI -->
+                <TextField fx:id="dniIdBuscarMostrar"/>
+                <!-- Botón para buscar el paciente -->
+                <Button fx:id="btnBuscarTurnos" text="Buscar Turno" onAction="#buscarTurno"/>
+                <Text text="Turnos del paciente:" />
+                <ListView fx:id="listTurnosMostrar" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/> 
                 <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="10" GridPane.columnSpan="3" alignment="CENTER"/>
             </VBox>
         </children>
@@ -37,15 +45,17 @@
                 <!-- Etiqueta para el DNI -->
                 <Text text="Ingrese el DNI del paciente:" />
                 <!-- Campo de texto para el DNI -->
-                <TextField fx:id="dniIdModificar"/>
+                <TextField fx:id="dniIdBuscarModificar"/>
                 <!-- Botón para buscar el paciente -->
                 <Button fx:id="btnBuscarTurnos" text="Buscar Turno" onAction="#buscarTurno"/>
                 <Text text="Turnos del paciente:" />
-                <ListView fx:id="listTurnos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                <ListView fx:id="listTurnosModificar" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                 <!-- Etiqueta para la nueva fecha -->
                 <Text text="Nueva Fecha:" />
                 <!-- Selector de fecha -->
                 <DatePicker fx:id="fechaId"/>
+                <Text text="Seleccione un horario para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                <ComboBox styleClass="especialidades" fx:id="comboHoraModificar" promptText="Seleccionar Horarios"  GridPane.columnIndex="1" GridPane.rowIndex="10"/>
                 <!-- Botón para modificar el turno -->
                 <Button fx:id="btnTurnoModificado" text="Confirmar" onAction="#modificarTurno"/>
                 <!-- Botón para volver a la página principal -->
@@ -61,11 +71,11 @@
                 <!-- Etiqueta para el DNI -->
                 <Text text="Ingrese el DNI del paciente:" />
                 <!-- Campo de texto para el DNI -->
-                <TextField fx:id="dniIdModificar"/>
+                <TextField fx:id="dniIdBuscarCancelar"/>
                 <!-- Botón para buscar el paciente -->
                 <Button fx:id="btnBuscarTurnos" text="Buscar Turno" onAction="#buscarTurno"/>
                 <Text text="Turnos del paciente:" />
-                <ListView fx:id="listTurnos" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+                <ListView fx:id="listTurnosCancelar" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
                 <Button fx:id="btnCancelarTurno" text="Cancelar" onAction="#cancelarTurno"/>
                 <!-- Botón para volver a la página principal -->
                 <Button fx:id="btnVolver" text="Volver" onAction="#volverPaginaPrincipal"/>

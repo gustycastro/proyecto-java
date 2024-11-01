@@ -144,7 +144,7 @@ public class GestionTurnos {
                 int dni = rs.getInt("DNI");
                 String doctor = rs.getString("doctor");
                 String hora = rs.getString("hora");
-                
+
                 System.out.println("Nombre = " + nombre);
                 System.out.println("Apellido = " + apellido);
                 System.out.println("Edad = " + edad);
@@ -204,9 +204,10 @@ public class GestionTurnos {
                 String medico = rs.getString("doctor");
                 LocalDate fecha = LocalDate.parse(rs.getString("fecha"));  //Asumiendo formato AAAA-MM-DD
                 int edad = rs.getInt("edad");
+                String hora = rs.getString("hora");
 
                 //Crear un objeto Turno y agregarlo a la lista
-                Turno turno = new Turno(fecha, nombre, apellido, DNI, edad, medico);
+                Turno turno = new Turno(fecha, nombre, apellido, DNI, edad, medico, hora);
                 listTurnos.getItems().add(turno);
             }
 
@@ -248,7 +249,7 @@ public class GestionTurnos {
         return ultimoId;
     }
 
-    public void eliminarTurno(int dniPaciente, String fechaTurno) {
+    public void eliminarTurno(int dniPaciente, String fechaTurno, String horaTurno) {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -258,17 +259,18 @@ public class GestionTurnos {
             c.setAutoCommit(false);
             System.out.println("Base de datos abierta exitosamente");
 
-            //Consulta de eliminación usando DNI y FechaTurno
-            String sql = "DELETE FROM TablaPacientes WHERE DNI = ? AND fecha = ?;";
+            // Consulta de eliminación usando DNI, fecha y hora
+            String sql = "DELETE FROM TablaPacientes WHERE DNI = ? AND fecha = ? AND hora = ?;";
             pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, dniPaciente);
             pstmt.setString(2, fechaTurno);
+            pstmt.setString(3, horaTurno);
             pstmt.executeUpdate();
             c.commit();
 
-            System.out.println("Turno eliminado con éxito para el paciente con DNI: " + dniPaciente + " y Fecha de Turno: " + fechaTurno);
+            System.out.println("Turno eliminado con éxito para el paciente con DNI: " + dniPaciente + ", Fecha: " + fechaTurno + ", Hora: " + horaTurno);
 
-            mostrarRegistros(); //Mostrar registros después de la eliminación
+            mostrarRegistros(); // Mostrar registros después de la eliminación
             pstmt.close();
             c.close();
         } catch (Exception e) {
@@ -278,15 +280,16 @@ public class GestionTurnos {
     }
 
     //Método para modificar la fecha de un paciente por DNI
-    public boolean modificarFechaTurno(Turno turno, String nuevaFecha) {
-        String sql = "UPDATE TablaPacientes SET fecha = ? WHERE doctor = ?";
+    public boolean modificarFechaTurno(Turno turno, String nuevaFecha, String nuevaHora) {
+        String sql = "UPDATE TablaPacientes SET fecha = ? SET hora = ? WHERE doctor = ?";
         boolean exito = false;
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); //Conectar a la base de datos
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevaFecha);  //Setear nueva fecha
-            pstmt.setString(2, turno.getMedico());            //Setear dni
+            pstmt.setString(2, nuevaHora);            //Setear dni
+            pstmt.setString(3, turno.getMedico());
 
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
