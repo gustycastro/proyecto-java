@@ -69,12 +69,13 @@
 
 /* Estilo de los ComboBox */
 .combo-box {
-    -fx-background-color: #000000; /* Fondo negro */
+    -fx-background-color: #535353; /* Fondo negro */
     -fx-text-fill: white; /* Texto blanco */
     -fx-font-size: 16px;
     -fx-prompt-text-fill: white; /* Texto del prompt blanco */
 }
 .combo-box:hover {
+    -fx-background-color: #000000; /* Fondo negro */
     -fx-cursor: hand;
 }
 .combo-box .text {
@@ -92,6 +93,7 @@
 }
 
 .combo-box .list-view .list-cell:hover {
+    -fx-background-color: #000000; /* Fondo negro */
     -fx-text-fill: white; /* Texto azul al pasar el mouse */
 }
 
@@ -100,16 +102,3 @@
     -fx-text-fill: white; /* Texto blanco */
 }
 
-/* Estilos del formulario cuando cancelamos un turno */
-#dniTextField {
-    -fx-background-color: #ffffff; /* Fondo blanco */
-    -fx-border-color: #000000; /* Borde negro */
-    -fx-border-width: 2px;
-    -fx-padding: 5px; /* Relleno interno */
-    -fx-font-size: 14px;
-}
-#cancelarTurnoVBox {
-    -fx-background-color: #FFFFFF;
-    -fx-padding: 20px; /* Relleno alrededor del contenido */
-    -fx-spacing: 10px; /* Espaciado entre elementos */
-}

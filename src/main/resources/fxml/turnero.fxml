@@ -54,7 +54,7 @@
                 <Text text="Nueva Fecha:" />
                 <!-- Selector de fecha -->
                 <DatePicker fx:id="fechaId"/>
-                <Text text="Seleccione un horario para agendar el turno:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                <Text text="Seleccione un nuevo horario" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
                 <ComboBox styleClass="especialidades" fx:id="comboHoraModificar" promptText="Seleccionar Horarios"  GridPane.columnIndex="1" GridPane.rowIndex="10"/>
                 <!-- Botón para modificar el turno -->
                 <Button fx:id="btnTurnoModificado" text="Confirmar" onAction="#modificarTurno"/>

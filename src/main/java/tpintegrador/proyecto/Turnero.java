@@ -277,9 +277,19 @@ public class Turnero {
             return;
         }
 
-        turno.setFecha(nuevaFecha);
-        bdTurnos.modificarFechaTurno(Integer.parseInt(dniIdBuscarModificar.getText()), nuevaFecha.toString(), nuevaHora);
-        showAlertC("Turno modificado correctamente");
+        if (bdTurnos.existeTurno(turno.getMedico(), nuevaFecha.toString(), nuevaHora)) {
+            showAlertE("Turno existente, elija otra fecha u hora");
+        } else {
+            boolean actualizado = bdTurnos.modificarTurnos(Integer.parseInt(dniIdBuscarModificar.getText()), turno.getFecha().toString(), turno.getHora(), nuevaFecha.toString(), nuevaHora);
+            if (actualizado) {
+                turno.setFecha(nuevaFecha);
+                turno.setHora(nuevaHora);
+                showAlertC("Turno modificado correctamente");
+            } else {
+                showAlertE("No se pudo modificar el turno. Verifique los datos e intente de nuevo.");
+            }
+        }
+
     }
 
     //Metodo para cancelar turno

@@ -280,23 +280,32 @@ public class GestionTurnos {
     }
 
     //Método para modificar la fecha de un paciente por DNI
-    public boolean modificarFechaTurno(int dni, String nuevaFecha, String nuevaHora) {
-        String sql = "UPDATE TablaPacientes SET fecha = ?, hora = ? WHERE DNI = ?;"; // set actualiza, where busca
+    public boolean modificarTurnos(int dni, String fechaActual, String horaActual, String nuevaFecha, String nuevaHora) {
+        String sql = "UPDATE TablaPacientes SET fecha = ?, hora = ? WHERE DNI = ? AND fecha = ? AND hora = ?;";
         boolean exito = false;
 
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); //Conectar a la base de datos
-                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, nuevaFecha); //Setear nueva fecha
-            pstmt.setString(2, nuevaHora);  //Setear nueva hora         
-            pstmt.setInt(3, dni); //Filtra por dni
+            // Imprimir valores para verificar
+            System.out.println("Valores enviados a la consulta:");
+            System.out.println("DNI: " + dni);
+            System.out.println("Fecha Actual: " + fechaActual);
+            System.out.println("Hora Actual: " + horaActual);
+            System.out.println("Nueva Fecha: " + nuevaFecha);
+            System.out.println("Nueva Hora: " + nuevaHora);
+            
+            pstmt.setString(1, nuevaFecha); // Setear nueva fecha
+            pstmt.setString(2, nuevaHora);  // Setear nueva hora
+            pstmt.setInt(3, dni);           // Filtra por DNI
+            pstmt.setString(4, fechaActual); // Filtra por la fecha actual del turno
+            pstmt.setString(5, horaActual);  // Filtra por la hora actual del turno
 
             int filasActualizadas = pstmt.executeUpdate();
             if (filasActualizadas > 0) {
                 exito = true;
-                System.out.println("Fecha actualizada correctamente.");
+                System.out.println("Fecha y hora actualizadas correctamente.");
             } else {
-                System.out.println("No se encontró el registro con el DNI especificado.");
+                System.out.println("No se encontró el registro con los datos especificados.");
             }
 
         } catch (SQLException e) {
