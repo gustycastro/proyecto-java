@@ -203,7 +203,7 @@ public class Turnero {
         LocalDate selectedDate = datePicker.getValue();
         Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
         String horaStr = comboHora.getValue();
-
+        double monto;
         // Validación de los campos
         if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || horaStr == null) {
             showAlertE("Por favor, complete todos los campos.");
@@ -228,7 +228,7 @@ public class Turnero {
 
             // Convertir la fecha a un formato adecuado
             String fecha = selectedDate.toString();
-
+            
             // Validar que no haya un turno existente para el médico en esa fecha y hora
             String nombreMedico = medicoSeleccionado.getNombre(); // Obtener el nombre del médico como String
             if (bdTurnos.existeTurno(nombreMedico, fecha, horaStr)) {
@@ -238,7 +238,12 @@ public class Turnero {
 
             // Agendar el turno si todo es válido
             bdTurnos.insertarPacientes(bdTurnos.obtenerUltimoId() + 1, nombre, apellido, edad, fecha, dni, nombreMedico, horaStr);
-            showAlertC("Turno agendado correctamente");
+            //double monto =comboObrasSociales.getValue(); REVISAR GATO
+            if (monto == 0) {
+                showAlertC("No necesita abonar, su cobertura cubre el total del monto.");
+            } else {
+                showAlertC("Debe abonar un monto de $" + monto);
+            }
             bdTurnos.mostrarRegistros();
 
             limpiarCampos();
