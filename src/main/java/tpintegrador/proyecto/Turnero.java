@@ -234,7 +234,7 @@ public class Turnero {
                 return;
             }
             // Agendar el turno si todo es válido
-            bdTurnos.insertarPacientes(bdTurnos.obtenerUltimoId() + 1, nombre, apellido, edad, fecha, dni, nombreMedico, horaStr);
+            bdTurnos.insertarPacientes(bdTurnos.obtenerUltimoId() + 1, nombre, apellido, edad, fecha, dni, nombreMedico, horaStr, monto);
             
             //double monto =comboObrasSociales.getValue(); REVISAR GATO
             if (monto == 0) {

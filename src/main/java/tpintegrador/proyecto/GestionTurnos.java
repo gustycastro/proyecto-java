@@ -60,6 +60,7 @@ public class GestionTurnos {
                     + "dni INTEGER NOT NULL, "
                     + "doctor TEXT "
                     + "hora TEXT "
+                    + "cobertura INT"
                     + ");";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -70,7 +71,7 @@ public class GestionTurnos {
         }
     }
 
-    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI, String doctor, String hora) {
+    public void insertarPacientes(int ID, String nombre, String apellido, int edad, String fecha, int DNI, String doctor, String hora, int cobertura) {
         Connection c = null;
         PreparedStatement pstmt = null;
 
@@ -84,7 +85,7 @@ public class GestionTurnos {
             System.out.println("Base de datos abierta exitosamente");
 
             //Preparar la consulta de inserción con el campo "hora"
-            String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI, doctor, hora) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO TablaPacientes (ID, nombre, apellido, edad, fecha, DNI, doctor, hora, cobertura) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
             pstmt = c.prepareStatement(sql);
             pstmt.setInt(1, ID);
             pstmt.setString(2, nombre);
@@ -94,6 +95,8 @@ public class GestionTurnos {
             pstmt.setInt(6, DNI);
             pstmt.setString(7, doctor);
             pstmt.setString(8, hora);
+            pstmt.setInt(9, cobertura);
+            
 
             //Ejecutar la actualización
             pstmt.executeUpdate();
@@ -144,7 +147,8 @@ public class GestionTurnos {
                 int dni = rs.getInt("DNI");
                 String doctor = rs.getString("doctor");
                 String hora = rs.getString("hora");
-
+                int cobertura = rs.getInt("cobertura");
+                
                 System.out.println("Nombre = " + nombre);
                 System.out.println("Apellido = " + apellido);
                 System.out.println("Edad = " + edad);
@@ -152,6 +156,7 @@ public class GestionTurnos {
                 System.out.println("DNI = " + dni);
                 System.out.println("Doctor/ra = " + doctor);
                 System.out.println("Hora = " + hora);
+                System.out.println("Cobertura = " + cobertura);
                 System.out.println();
             }
             //Cerrar ResultSet, Statement y Connection
@@ -205,9 +210,9 @@ public class GestionTurnos {
                 LocalDate fecha = LocalDate.parse(rs.getString("fecha"));  //Asumiendo formato AAAA-MM-DD
                 int edad = rs.getInt("edad");
                 String hora = rs.getString("hora");
-
+                int cobertura = rs.getInt("cobertura");
                 //Crear un objeto Turno y agregarlo a la lista
-                Turno turno = new Turno(fecha, nombre, apellido, DNI, edad, medico, hora);
+                Turno turno = new Turno(fecha, nombre, apellido, DNI, edad, medico, hora, cobertura);
                 listTurnos.getItems().add(turno);
             }
 
@@ -286,14 +291,6 @@ public class GestionTurnos {
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:turnos.sqlite"); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Imprimir valores para verificar
-            System.out.println("Valores enviados a la consulta:");
-            System.out.println("DNI: " + dni);
-            System.out.println("Fecha Actual: " + fechaActual);
-            System.out.println("Hora Actual: " + horaActual);
-            System.out.println("Nueva Fecha: " + nuevaFecha);
-            System.out.println("Nueva Hora: " + nuevaHora);
-            
             pstmt.setString(1, nuevaFecha); // Setear nueva fecha
             pstmt.setString(2, nuevaHora);  // Setear nueva hora
             pstmt.setInt(3, dni);           // Filtra por DNI
