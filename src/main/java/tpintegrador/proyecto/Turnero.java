@@ -193,6 +193,63 @@ public class Turnero {
     }
 
     //Método para agendar un turno
+    @FXML
+    private void agendarTurno() {
+        // Obtener los valores de los campos
+        String nombre = nombreId.getText();
+        String apellido = apellidoId.getText();
+        String dniStr = dniId.getText();
+        String edadStr = edadId.getText();
+        LocalDate selectedDate = datePicker.getValue();
+        Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
+        String horaStr = comboHora.getValue();
+        ObraSocial os = new ObraSocial(comboObrasSociales.getValue().toString());
+        
+        // Validación de los campos
+        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || horaStr == null) {
+            showAlertE("Por favor, complete todos los campos.");
+            return;
+        }
+        // Validación de la fecha seleccionada (debe ser día hábil y posterior a hoy)
+        LocalDate today = LocalDate.now();
+        if (selectedDate.isBefore(today) || selectedDate.equals(today)) {
+            showAlertE("La fecha debe ser posterior a hoy.");
+            return;
+        }
+        if (selectedDate.getDayOfWeek() == DayOfWeek.SATURDAY || selectedDate.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            showAlertE("Seleccione un día hábil (lunes a viernes).");
+            return;
+        }
+        try {
+            // Validar que el DNI y la edad sean números
+            int dni = Integer.parseInt(dniStr);
+            int edad = Integer.parseInt(edadStr);
+            // Convertir la fecha a un formato adecuado
+            String fecha = selectedDate.toString();
+            int monto = os.montoAbonar(os.getNombre());
+            // Validar que no haya un turno existente para el médico en esa fecha y hora
+            String nombreMedico = medicoSeleccionado.getNombre(); // Obtener el nombre del médico como String
+            if (bdTurnos.existeTurno(nombreMedico, fecha, horaStr)) {
+                showAlertE("Ya existe un turno agendado para este médico a esa hora.");
+                return;
+            }
+            // Agendar el turno si todo es válido
+            bdTurnos.insertarPacientes(bdTurnos.obtenerUltimoId() + 1, nombre, apellido, edad, fecha, dni, nombreMedico, horaStr);
+            
+            //double monto =comboObrasSociales.getValue(); REVISAR GATO
+            if (monto == 0) {
+                showAlertC("¡Turno agendado Correctamente!\n" 
+                        + "No necesita abonar coseguro.");
+            } else {
+                showAlertC("¡Turno agendado Correctamente!\n"
+                        +"Debe abonar un coseguro de $" + monto);
+            }
+            bdTurnos.mostrarRegistros();
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            showAlertE("Por favor, ingrese un número válido para el DNI y la edad.");
+        }
+    }
     
     @FXML
     public void modificarTurno() {    // Método que maneja la lógica para buscar y modificar el turno de un paciente

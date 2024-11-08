@@ -8,9 +8,9 @@ package tpintegrador.proyecto;
  *
  * @author vale
  */
-public class Particular {
+public interface Particular {
     
     //Atributos
-    public float montoAbonar;
+    public int montoAbonar(String cobertura);
     
 }
