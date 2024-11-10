@@ -17,6 +17,7 @@ public class Turno extends Persona {
     private String medico;
     private String hora;
     private int monto;
+    
     // Constructor
     public Turno(LocalDate fecha,String nombre, String apellido, int edad, int dni, String medico, String hora, int monto) {
         super(nombre, apellido, dni, edad);
@@ -57,6 +58,7 @@ public class Turno extends Persona {
     }
     
 
+    // Cada vez que se busca un paciente en la interfaz, aparece esta estrucutra de mensaje dando los detalles del turno
     @Override
     public String toString() {
         return String.format("Paciente: %s %s, Fecha: %s, Hora: %s, Medico: %s, Cobertura: $%s ",

@@ -24,7 +24,7 @@ public abstract class Persona {//Primer nivel de la triple herencia
         this.edad = edad;
     }
 
-    //Metodos
+    //Metodos getters y setters
     public String getNombre() {
         return nombre;
     }

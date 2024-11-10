@@ -28,11 +28,11 @@ public class Medico extends Empleado {//Tercer nivel de la triple herencia
     public void setEspecialidad(Especialidades especialidad) {
         this.especialidad = especialidad;
     }
-    // Fer: cambie String de matricula por int
+    
     public int getMatricula() {
         return matricula;
     }
-    // Fer: cambie String de matricula por int
+    
     public void setMatricula(int matricula) {
         this.matricula = matricula;
     }
