@@ -219,13 +219,15 @@ public class Turnero {
         LocalDate selectedDate = datePicker.getValue();
         Medico medicoSeleccionado = listViewMedicos.getSelectionModel().getSelectedItem();
         String horaStr = comboHora.getValue();
-        ObraSocial os = new ObraSocial(comboObrasSociales.getValue().toString());
-
+        
         // Validación de los campos
-        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || horaStr == null) {
+        if (nombre.isEmpty() || apellido.isEmpty() || dniStr.isEmpty() || edadStr.isEmpty() || selectedDate == null || medicoSeleccionado == null || horaStr == null || comboObrasSociales.getValue() == null){
             showAlertE("Por favor, complete todos los campos.");
             return;
         }
+        
+        ObraSocial os = new ObraSocial(comboObrasSociales.getValue().toString());
+        
         // Validación de la fecha seleccionada (debe ser día hábil y posterior a hoy)
         LocalDate today = LocalDate.now();
         if (selectedDate.isBefore(today) || selectedDate.equals(today)) {
