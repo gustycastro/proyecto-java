@@ -23,8 +23,9 @@ public class Empleado extends Persona {//Segundo nivel de la triple herencia
     public String getHorarioAtencion(){    
         return horarioAtencion;
     }
+    
     public void setHorarioAtencion(String horarioAtencion) {
-        this.horarioAtencion = horarioAtencion;
+        this.horarioAtencion = horarioAtencion;    
     }
     
     @Override

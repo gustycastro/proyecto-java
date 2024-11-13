@@ -8,7 +8,7 @@ package tpintegrador.proyecto;
  *
  * @author vale
  */
-public interface Particular { // Interfaz
+public interface Cobertura { // Interfaz
     
     //Atributos
     public int montoAbonar(String cobertura);

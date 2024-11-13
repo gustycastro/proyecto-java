@@ -8,7 +8,7 @@ package tpintegrador.proyecto;
  *
  * @author vale
  */
-public class ObraSocial implements Particular {
+public class ObraSocial implements Cobertura {
 
     //Atributos
     private String nombre;
@@ -29,7 +29,7 @@ public class ObraSocial implements Particular {
 
     @Override
     public String toString() {
-        return nombre; // Esto permitirá que el ComboBox muestre el nombre de las obras sociales
+        return nombre; //Esto permitirá que el ComboBox muestre el nombre de las obras sociales
     }
 
     @Override

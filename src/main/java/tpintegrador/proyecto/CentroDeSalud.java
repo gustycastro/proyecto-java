@@ -33,7 +33,7 @@ public class CentroDeSalud {
         //Inicializar Especialidades usando un array y un bucle
         String[] nombresEspecialidades = {"Cardiología", "Pediatría", "Dermatología", "Traumatologia", "Oftalmología"};
         for (String nombre : nombresEspecialidades) {
-            listaEspecialidades.add(new Especialidades(nombre)); // Agrega cada especialidad a la lista.
+            listaEspecialidades.add(new Especialidades(nombre)); //Agrega cada especialidad a la lista.
         }
 
         //Inicializar Médicos
@@ -47,7 +47,7 @@ public class CentroDeSalud {
         Medico medico8 = new Medico(listaEspecialidades.get(3), 67890, "9:00-17:00", "Dr. Matias Gonzalez", "Gómez", 87654321, 31);
         Medico medico9 = new Medico(listaEspecialidades.get(4), 67898, "9:00-17:00", "Dr. Matias Riquelme", "Riquelme", 879654123, 25);
 
-        listaMedicos.clear();// Limpiar antes de agregar
+        listaMedicos.clear();//Limpiar antes de agregar
 
         //Añadir todos los médicos de una vez
         Collections.addAll(listaMedicos, medico1, medico2, medico3, medico4, medico5, medico6, medico7, medico8, medico9);
@@ -57,10 +57,10 @@ public class CentroDeSalud {
         for (String nombre : nombresObrasSociales) {
             listaObraSocial.add(new ObraSocial(nombre)); // Agrega cada obra social a la lista.
         }
-         // Inicializar horarios, estos son fijos y se cargan en la lista de horas.
+         //Inicializar horarios, estos son fijos y se cargan en la lista de horas.
         String[] horarios = {"9:00hs", "10:00hs", "11:00hs", "12:00hs", "13:00hs", "14:00hs", "15:00hs", "16:00hs", "17:00hs"};
         for (String hora : horarios) {
-            listaHoras.add(hora); // Agrega cada hora disponible a la lista de horas.
+            listaHoras.add(hora); //Agrega cada hora disponible a la lista de horas.
         }
     }
 

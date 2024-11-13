@@ -25,6 +25,7 @@ public class Medico extends Empleado {//Tercer nivel de la triple herencia
     public Especialidades getEspecialidad() {
         return especialidad;
     }
+    
     public void setEspecialidad(Especialidades especialidad) {
         this.especialidad = especialidad;
     }
@@ -39,6 +40,6 @@ public class Medico extends Empleado {//Tercer nivel de la triple herencia
 
     @Override
     public String toString() {
-        return nombre; // Esto permitirá que el ComboBox muestre el nombre de los medicos
+        return nombre; //Esto permitirá que el ComboBox muestre el nombre de los medicos
     }
 }

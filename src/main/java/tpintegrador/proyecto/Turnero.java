@@ -341,7 +341,7 @@ public class Turnero {
             }
 
             // Extraer la fecha y hora del turno seleccionado
-            // Suponemos que el formato de la fecha es "YYYY-MM-DD" y la hora es en formato "HH:MM AM/PM"
+            // Suponemos que el formato de la fecha es "AAAA-MM-DD" y la hora es en formato "HH:MM AM/PM"
             String fechaTurno = turnoSeleccionado.getFecha().toString(); // Obtiene solo la fecha del turno
             String horaTurno = turnoSeleccionado.getHora(); // Obtiene la hora del turno
 

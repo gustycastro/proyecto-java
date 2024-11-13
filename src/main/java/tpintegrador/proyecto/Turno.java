@@ -31,12 +31,15 @@ public class Turno extends Persona {
     public LocalDate getFecha() {
         return fecha;
     }
+    
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
+    
     public String getMedico() {
         return medico;
     }
+    
     public void setMedico(String medico) {
         this.medico = medico;
     }
@@ -57,7 +60,6 @@ public class Turno extends Persona {
         this.monto = monto;
     }
     
-
     // Cada vez que se busca un paciente en la interfaz, aparece esta estrucutra de mensaje dando los detalles del turno
     @Override
     public String toString() {
